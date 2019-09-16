@@ -58,4 +58,15 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="clientes.sql" />
+    <Build Include="empleados.sql" />
+    <Build Include="conocimientos.sql" />
+    <Build Include="modulos.sql" />
+    <Build Include="proyectos.sql" />
+    <Build Include="requerimientos.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Administrador_de_proyectos.refactorlog" />
+  </ItemGroup>
 </Project>
