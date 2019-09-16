@@ -13,4 +13,6 @@
     [correo] VARCHAR(MAX) NULL, 
 	[disponibilidad] VARCHAR(50) NOT NULL,  /*agregar el calculo de la condicion*/
 	[codigoProyectoFK] VARCHAR(50) NULL,
+	CONSTRAINT codigoProyectoFK FOREIGN KEY ([codigoProyectoFK])
+	REFERENCES dbo.[proyectos]([codigoPK]) ON DELETE CASCADE,
 )
