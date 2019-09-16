@@ -1,2 +1,12 @@
-# Proyecto_PI
-Proyecto del proyecto integrador de Bases de Datos e Ingeniería de Software
+# Proyecto Integrador Ingenieria-Bases de Datos
+
+## Grupo 01
+| Integrantes |
+| -- | 
+| Leonardo Barrientos | 
+| Johnn Hernandez| 
+| Raymond Ramirez | 
+| Maria Jose Aguilar -Lider|
+ 
+
+
