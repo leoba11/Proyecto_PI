@@ -65,6 +65,7 @@
     <Build Include="modulos.sql" />
     <Build Include="proyectos.sql" />
     <Build Include="requerimientos.sql" />
+    <Build Include="roles.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Administrador_de_proyectos.refactorlog" />

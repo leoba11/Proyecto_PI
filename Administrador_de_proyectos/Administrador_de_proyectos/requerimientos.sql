@@ -8,8 +8,6 @@
     [estado] VARCHAR(50) NOT NULL, 
     [cedulaEmpleadoFK] VARCHAR(50) NOT NULL, 
     CONSTRAINT [PK_requerimientos] PRIMARY KEY ([codigoProyectoFK], [nombreModuloFK], [idPK]), 
-	CONSTRAINT codigoDeProyectoFK FOREIGN KEY ([codigoProyectoFK])
-	REFERENCES dbo.[proyectos]([codigoPK]) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT FK_proyecto_modulo FOREIGN KEY ([codigoProyectoFK], [nombreModuloFK])
 	REFERENCES dbo.[modulos]([codigoProyectoFK], [nombrePK]) ON DELETE CASCADE ON UPDATE CASCADE,
 )
