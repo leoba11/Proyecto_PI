@@ -5,5 +5,5 @@
     [descripcion] VARCHAR(MAX) NOT NULL, 
     CONSTRAINT [PK_modulos] PRIMARY KEY ([codigoProyectoFK], [nombrePK]),
 	CONSTRAINT FK_codigoProyecto FOREIGN KEY ([codigoProyectoFK])
-	REFERENCES dbo.[proyectos]([codigoPK]) ON DELETE CASCADE,
+	REFERENCES dbo.[proyectos]([codigoPK]) ON DELETE CASCADE ON UPDATE CASCADE,
 )
