@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[roles]
 (
 	[rol] VARCHAR(50) NOT NULL DEFAULT 'desarrollador',
-	[cedulaFK] INT NOT NULL,
+	[cedulaFK] VAR(10) NOT NULL,
 	[codigoProyectoFK] VARCHAR(50) NOT NULL,
 
 	CONSTRAINT [PK_rol] PRIMARY KEY ([cedulaFK], [codigoProyectoFK]),

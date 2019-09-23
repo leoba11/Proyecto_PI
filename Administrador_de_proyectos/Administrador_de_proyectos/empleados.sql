@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[empleados]
 (
-	[cedulaPK] INT NOT NULL,
+	[cedulaPK] CHAR(10) NOT NULL,
 	[nombre] VARCHAR(50) NOT NULL,
 	[apellido1] VARCHAR(50) NOT NULL,
 	[apellido2] VARCHAR(50) NOT NULL, 
