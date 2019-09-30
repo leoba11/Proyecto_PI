@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Proy_PI.Models.proyectos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaFinalEstimada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.costoEstimado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.objetivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idEquipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaFinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.costoReal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.clientes.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaFinalEstimada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.costoEstimado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.objetivo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idEquipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaFinal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.costoReal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.clientes.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.codigoPK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.codigoPK }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.codigoPK })
+        </td>
+    </tr>
+}
+
+</table>
