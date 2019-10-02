@@ -1,34 +1,42 @@
 ﻿@model Proy_PI.Models.modulos
 
-@{
-    ViewBag.Title = "Details";
-}
+    @{
+        ViewBag.Title = "Details";
+    }
+    @*Subtitulo *@
+    <h2>Detalles</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Administrador módulos</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.proyectos.nombre)
+            </dt>
 
-<div>
-    <h4>modulos</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.proyectos.nombre)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.nombrePK)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.nombrePK)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.proyectos.nombre)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.descripcion)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.proyectos.nombre)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @*Boton de regresar a la pagina pincipal *@
+        <div>
+            <a href="~/modulos/Index" role="button" class="btn btn-secondary"> Regresar</a>
+        </div>
+    </p>

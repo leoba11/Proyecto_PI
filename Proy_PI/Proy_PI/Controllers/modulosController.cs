@@ -22,13 +22,13 @@ namespace Proy_PI.Controllers
         }
 
         // GET: modulos/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string codProyecto, string nombreMod)
         {
-            if (id == null)
+            if (codProyecto == null || nombreMod == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            modulos modulos = db.modulos.Find(id);
+            modulos modulos = db.modulos.Find(codProyecto, nombreMod);
             if (modulos == null)
             {
                 return HttpNotFound();
@@ -62,18 +62,19 @@ namespace Proy_PI.Controllers
         }
 
         // GET: modulos/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string codProyecto, string nombreMod)
         {
-            if (id == null)
+            if (codProyecto == null || nombreMod == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            modulos modulos = db.modulos.Find(id);
+            modulos modulos = db.modulos.Find(codProyecto, nombreMod);
             if (modulos == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", modulos.codigoProyectoFK);
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "codigo", modulos.codigoProyectoFK);
+            ViewBag.nombrePK = new SelectList(db.modulos, "nombrePK", "nombre", modulos.nombrePK);
             return View(modulos);
         }
 
@@ -90,18 +91,18 @@ namespace Proy_PI.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", modulos.codigoProyectoFK);
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "codigo", modulos.codigoProyectoFK);
             return View(modulos);
         }
 
         // GET: modulos/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string codProyecto, string nombreMod)
         {
-            if (id == null)
+            if (codProyecto == null || nombreMod == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            modulos modulos = db.modulos.Find(id);
+            modulos modulos = db.modulos.Find(codProyecto, nombreMod);
             if (modulos == null)
             {
                 return HttpNotFound();
@@ -112,9 +113,9 @@ namespace Proy_PI.Controllers
         // POST: modulos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string codProyecto, string nombreMod)
         {
-            modulos modulos = db.modulos.Find(id);
+            modulos modulos = db.modulos.Find(codProyecto, nombreMod);
             db.modulos.Remove(modulos);
             db.SaveChanges();
             return RedirectToAction("Index");

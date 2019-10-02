@@ -3,37 +3,53 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<!-- Adición de libirería de íconos -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+@*Título de la ventana*@
+<h2>Módulos</h2>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.descripcion)
+            @Html.DisplayNameFor(model => model.proyectos.codigoPK)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.proyectos.nombre)
+            @Html.DisplayNameFor(model => model.nombrePK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.proyectos.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.proyectos.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombrePK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+
+            <td>
+                @*Aquí se colocan los iconos para cada tupla de la tabla
+                    Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
+                    Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
+                *@
+
+                <a href="@Url.Action("Edit", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="far fa-edit" style="color:orange"></i></a>
+                <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
+                <a href="@Url.Action("Delete", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="far fa-trash-alt" style="color:red"></i></a>
+
+            </td>
+        </tr>
+    }
 
 </table>
+
+@*Botón de crear*@
+<a href="~/modulos/Create" role="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Crear</a>
