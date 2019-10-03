@@ -73,9 +73,14 @@ hr {
   overflow: visible;
 }
 
+.custom {
+    background-color: #69A297;
+    margin-bottom: -5em;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
 }
 
 p {
@@ -6578,7 +6583,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: #343a40 !important;
+   background-color: #69A297 !important;
 }
 
 a.bg-dark:hover, a.bg-dark:focus,

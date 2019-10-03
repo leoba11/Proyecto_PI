@@ -4,12 +4,42 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - App PI</title>
+
+    <!-- Adición de libirería de íconos -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg  bg-dark">
-        <a class="navbar-brand" href="#">ADMINISTRADOR DE PROYECTOS</a>
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">SoftwareExpertSA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav justify-content-center d-flex flex-fill">
+                <li class="nav-item">
+                    <a class="nav-link" href="~/home"><i class="fas fa-home"></i> Inicio </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/proyectos">Proyectos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/modulos">Módulos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/requerimientos">Requerimientos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/empleados">Empleados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/clientes">Clientes</a>
+                </li>
+            </ul>
+        </div>
     </nav>
     <br />
 
@@ -17,10 +47,15 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+
+    <footer class="page-footer font-small custom">
+
+        <div class="footer-copyright text-center py-3">
+            Copyright &copy; 2019 <span>Administrador de Proyectos</span>
+        </div>
+     
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
