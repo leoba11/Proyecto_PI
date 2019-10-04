@@ -3,53 +3,80 @@
 @{
     ViewBag.Title = "Index";
 }
-<!-- Adición de libirería de íconos -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+
+@*Links para que la busqueda filtrada funcione en la tabla*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
 @*Título de la ventana*@
 <h2>Módulos</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.proyectos.codigoPK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nombrePK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th></th>
-    </tr>
+@*Informacion para la busqueda*@
+<p>Escriba algo en el campo de entrada para buscar en la tabla los proyectos, nombres de módulos o la descripción</p>
+<input class="form-control" id="userInput" type="text" placeholder="Buscar..">
+<br />
 
-    @foreach (var item in Model)
-    {
+
+@*Tabla para el despliegue de tuplas*@
+<table class="table table-striped">
+    @*Encabezado de la tabla*@
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.proyectos.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombrePK)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.descripcion)
-            </td>
-
-            <td>
-                @*Aquí se colocan los iconos para cada tupla de la tabla
-                    Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
-                    Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
-                *@
-
-                <a href="@Url.Action("Edit", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="far fa-edit" style="color:orange"></i></a>
-                <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
-                <a href="@Url.Action("Delete", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="far fa-trash-alt" style="color:red"></i></a>
-
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.proyectos.codigoPK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombrePK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th>
+                @*Botón de crear*@
+                <a href="~/modulos/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
+            </th>
         </tr>
-    }
+    </thead>
+    <tbody id="myTableMod">
+        @*For para desplegar las tublas de la tabla*@
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.proyectos.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombrePK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>
+
+                <td>
+                    @*Aquí se colocan los iconos para cada tupla de la tabla
+                        Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
+                        Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
+                    *@
+
+
+                    <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="fas fa-info-circle fa-lg" style="color:cornflowerblue"></i></a>
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
 
-@*Botón de crear*@
-<a href="~/modulos/Create" role="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Crear</a>
+@*Script de Jquery para filtar elementos de la tabla*@
+<script>
+    $(document).ready(function () {
+        $("#userInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTableMod tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
