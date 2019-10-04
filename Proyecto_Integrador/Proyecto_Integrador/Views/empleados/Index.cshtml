@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table table-striped">
     <tr>
         <th>
@@ -65,11 +62,15 @@
             @Html.DisplayFor(modelItem => item.disponibilidad)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.cedulaPK }) |
-            @Html.ActionLink("Details", "Details", new { id = item.cedulaPK }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.cedulaPK })
+            @Html.ActionLink("Editar", "Edit", new { id = item.cedulaPK }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.cedulaPK }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.cedulaPK })
         </td>
     </tr>
 }
 
 </table>
+
+<a href="~/empleados/Create" role="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Crear</a>
+<br />
+<br />
