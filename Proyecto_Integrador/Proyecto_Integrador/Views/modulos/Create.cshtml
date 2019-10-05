@@ -36,17 +36,22 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.descripcion, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
+
             <div class="col-md-10">
-                @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-                @Html.TextBoxFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required" })
+                @*Acá es para hacer que a fuerzas el usuario ingrese un valor*@
+                @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required", @rows = 5 })
                 @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
             </div>
+
         </div>
-        @*Botones de aceptar y cancelar *@
-        <div class="form-actions no-color">
-            <input type="submit" value="Aceptar" class="btn btn-success" /> |
-            <a href="~/modulos/Index" role="button" class="btn btn-danger"> Cancelar</a>
-        </div>
+
+
+    </div>
+    <div style="position:absolute; right:650px; top:600px;">
+        <input type="submit" value="Aceptar" class="btn btn-success btn-sm " />
+    </div>
+    <div style="position:absolute; right:550px; top:600px;">
+        <a href="~/modulos/Index" role="button" class="btn btn-danger btn-sm "> Cancelar</a>
     </div>
 }
 

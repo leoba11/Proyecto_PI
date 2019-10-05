@@ -12,7 +12,7 @@
 @*Título de la ventana*@
 <h2>Módulos</h2>
 @*Informacion para la busqueda*@
-<p>Escriba algo en el campo de entrada para buscar en la tabla los proyectos, nombres de módulos o la descripción</p>
+<p>Escriba algo en la barra para buscar en la tabla por proyecto, nombre de módulos o la descripción</p>
 <input class="form-control" id="userInput" type="text" placeholder="Buscar..">
 <br />
 
@@ -59,7 +59,7 @@
                     *@
 
 
-                    <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="fas fa-info-circle fa-lg" style="color:cornflowerblue"></i></a>
+                    <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
 
 
                 </td>

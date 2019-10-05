@@ -26,6 +26,7 @@ namespace Proyecto_Integrador.Models
         [Key]
         [Display(Name = "Nombre del módulo")]
         public string nombrePK { get; set; }
+        [Display(Name = "Descripción")]
         public string descripcion { get; set; }
     
         public virtual proyectos proyectos { get; set; }

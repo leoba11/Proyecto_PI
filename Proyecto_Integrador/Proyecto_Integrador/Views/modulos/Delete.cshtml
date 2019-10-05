@@ -9,38 +9,47 @@
 <h3>Administrador módulos</h3>
 <div>
     @*Mensaje de confimacion para el usuario*@
-    <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar el módulo?</div>
+    <div class="p-3 mb-2 bg-light text-danger">¿Está seguro que desea eliminar el módulo?</div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.proyectos.nombre)
-        </dt>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.proyectos.nombre)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.proyectos.nombre)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.nombrePK)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.proyectos.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombrePK)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.nombrePK)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.nombrePK)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
-    </dl>
+            <td>
+                @Html.DisplayFor(model => model.descripcion)
+            </td>
+        </tr>
+
+    </table>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         @*Botones de aceptar y regresar(cancelar) *@
-        <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-            <a href="~/modulos/Index" role="button" class="btn btn-secondary"> Regresar</a>
+        <div style="position:absolute; right:850px; top:210px;">
+            <input type="submit" value="Aceptar" class="btn btn-success btn-sm " />
+        </div>
+        <div style="position:absolute; right:750px; top:210px;">
+            <a href="~/modulos/Index" role="button" class="btn btn-danger btn-sm "> Cancelar</a>
         </div>
     }
 </div>

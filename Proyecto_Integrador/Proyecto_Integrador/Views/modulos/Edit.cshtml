@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Edit";
 }
+<!-- Adición de libirería de íconos -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
 @*Título de la vista*@
 <h2>Modificar</h2>
 
@@ -23,15 +26,21 @@
             @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-                @Html.TextBoxFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required" })
+                @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required", @rows = 5 })
                 @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
             </div>
         </div>
         @*Botones de aceptar y cancelar *@
-        <div class="form-actions no-color">
-            <input type="submit" value="Aceptar" class="btn btn-success" /> |
-            <a href="~/modulos/Index" role="button" class="btn btn-danger"> Cancelar</a>
-        </div>
+        @*<div class="form-actions no-color">
+            <input type="submit" value="Aceptar" class="btn btn-success float-md-right" />
+            <a href="~/modulos/Index" role="button" class="btn btn-danger float-righ"> Cancelar</a>
+            @*<a href="@Url.Action("Details", new { nombreMod = Model.nombrePK,codProyecto = Model.codigoProyectoFK  })"class=" btn btn-danger">Cancelar</a>*@
+    </div>
+    <div style="position:absolute; right:650px; top:380px;">
+        <input type="submit" value="Aceptar" class="btn btn-success btn-sm " />
+    </div>
+    <div style="position:absolute; right:550px; top:380px;">
+        <a href="~/modulos/Index" role="button" class="btn btn-danger btn-sm "> Cancelar</a>
     </div>
 }
 @section Scripts {
