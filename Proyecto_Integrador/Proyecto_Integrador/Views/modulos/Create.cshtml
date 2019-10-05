@@ -3,9 +3,7 @@
 @{
     ViewBag.Title = "Create";
 }
-<!-- Adición de libirería de íconos -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+
 <h2>Crear Módulo</h2>
 
 @using (Html.BeginForm())
@@ -36,7 +34,6 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.descripcion, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
-
             <div class="col-md-10">
                 @*Acá es para hacer que a fuerzas el usuario ingrese un valor*@
                 @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required", @rows = 5 })

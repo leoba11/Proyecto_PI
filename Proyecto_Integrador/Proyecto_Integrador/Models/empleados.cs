@@ -11,6 +11,7 @@ namespace Proyecto_Integrador.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
 
@@ -25,27 +26,39 @@ namespace Proyecto_Integrador.Models
     
         [Key]
         [Display(Name = "Cédula")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string cedulaPK { get; set; }
 
         [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string nombre { get; set; }
 
         [Display(Name = "Primer Apellido")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string apellido1 { get; set; }
 
         [Display(Name = "Segundo Apellido")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string apellido2 { get; set; }
 
         [Display(Name = "Edad")]
         public Nullable<int> edad { get; set; }
 
         [Display(Name = "Fecha de Nacimiento")]
+        [Required(ErrorMessage = "Este campo es requerido")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public System.DateTime fechaNacimiento { get; set; }
 
         [Display(Name = "Telefono")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string telefono { get; set; }
+
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string provincia { get; set; }
+
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string canton { get; set; }
+
         public string distrito { get; set; }
 
         [Display(Name = "Correo")]
@@ -61,5 +74,7 @@ namespace Proyecto_Integrador.Models
         public virtual ICollection<conocimientos> conocimientos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<roles> roles { get; set; }
+
     }
+    
 }
