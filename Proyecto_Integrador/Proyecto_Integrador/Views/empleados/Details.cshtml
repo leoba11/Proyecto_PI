@@ -4,10 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles de Empleado</h2>
 
 <div>
-    <h4>empleados</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -109,6 +108,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.cedulaPK }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*Boton de regresar a la pagina pincipal *@
+    <div>
+        <a href="~/empleados/Index" role="button" class="btn btn-secondary"> Regresar</a>
+    </div>
 </p>
