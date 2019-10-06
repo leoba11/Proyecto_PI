@@ -123,5 +123,58 @@ namespace Proyecto_Integrador.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        public List<empleados> GetFreeEmployees()
+        {
+            List<empleados> employeesList = db.empleados.Where(x => x.disponibilidad == true).ToList();
+            return employeesList;
+        }
+
+
+        public empleados GetEmployee(string cedula)
+        {
+            empleados employee = db.empleados.Find(cedula);
+            return employee;
+        }
+
+
+        public List<empleados> GetEmployeeByKnowledge(string conoc)
+        {
+            List<empleados> employees = db.empleados.ToList();
+            List<conocimientos> conocimiento = db.conocimientos.ToList();
+
+            var listaEmp = (from d in db.empleados
+                            join f in db.conocimientos
+                            on d.cedulaPK equals f.cedulaEmpleadoFK
+                            where f.conocimientoPK == conoc
+                            select d).ToList();
+
+
+
+            return listaEmp;
+
+
+        }
+
+
+        public List<empleados> GetEmployeeByProyect(string codigo)
+        {
+            List<empleados> employees = db.empleados.ToList();
+            List<roles> conocimiento = db.roles.ToList();
+
+            var listaEmpPr = (from d in db.empleados
+                              join f in db.roles
+                              on d.cedulaPK equals f.cedulaFK
+                              where f.codigoProyectoFK == codigo
+                              select d).ToList();
+
+
+
+            return listaEmpPr;
+
+
+        }
     }
 }

@@ -1,0 +1,203 @@
+﻿
+@{
+    ViewBag.Title = "Administración de equipos";
+}
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#sortable").sortable({
+            update: function (event, ui) {
+                var itemIds = "";
+                $("sortable").find(".taskSingleInline").each(function () {
+                    var itemId = $(this).attr("data-taskid");
+                    itemIds = itemIds + itemId + ",";
+                });
+                $.ajax({
+                    url: '@Url.Action("UpdateItem", "equipos")',
+                    data: { itemIds: itemIds },
+                    type: 'POST',
+                    success: function (data) {
+
+                    },
+                    error: function (xhr, status, error) {
+
+                    }
+                });
+            }
+
+        });
+    })
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#sortable2").sortable({
+            update: function (event, ui) {
+                var itemIds = "";
+                $("sortable").find(".taskSingleInline").each(function () {
+                    var itemId = $(this).attr("data-taskid");
+                    itemIds = itemIds + itemId + ",";
+                });
+                $.ajax({
+                    url: '@Url.Action("UpdateItem", "equipos")',
+                    data: { itemIds: itemIds },
+                    type: 'POST',
+                    success: function (data) {
+
+                    },
+                    error: function (xhr, status, error) {
+
+                    }
+                });
+            }
+
+        });
+    })
+
+</script>
+
+<!-- Adición de libirería de íconos -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+
+
+
+
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+<style>
+    #sortable tr:hover {
+        background-color: #0094ff;
+        color: #fff;
+    }
+</style>
+
+<style>
+    #sortable2 tr:hover {
+        background-color: #0094ff;
+        color: #fff;
+    }
+</style>
+
+
+<div class="modal-body row">
+    <div class=".col-6 .col-sm-4">
+        <!-- codigo de primer columna-->
+        <p> Desarrolladores disponibles</p>
+
+        <!-- lista desplegable para filtrar por conocimientos-->
+        <td> Seleccionar filtro </td>
+        <td>
+            @if (TempData["conocimientos"] != null)
+            {
+                @Html.DropDownList("conocimientoPK", new SelectList(TempData["conocimientos"] as List<Proyecto_Integrador.Models.conocimientos>, "conocimientoPK", "conocimientoPK"), "----------")
+            }
+        </td>
+
+        <p></p>
+
+
+        <table class="table table-responsive-md">
+
+
+
+
+            <thead class="thead-dark">
+                <tr>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+
+            <tbody id="sortable" style="cursor:pointer;">
+                <!-- listar los desarrolladores disponibles-->
+                @if (TempData["empleados"] != null)
+                {
+                    foreach (var item in TempData["empleados"] as List<Proyecto_Integrador.Models.empleados>)
+                    {
+                        <tr>
+                            <td>
+                                @item.cedulaPK
+
+                            </td>
+                            <td class=" taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                                @item.nombre
+                                <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col">
+
+    </div>
+
+    <div class=".col-6 .col-sm-4">
+        <!-- codigo de segunda colunma-->
+        <p> Empleados en el proyecto</p>
+        <!-- lista desplegable para seleccionar proyecto-->
+        <td> Seleccionar proyecto </td>
+        <td>
+            @if (TempData["proyectos"] != null)
+            {
+                @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<Proyecto_Integrador.Models.proyectos>, "codigoPK", "codigoPK"), "----------")
+            }
+        </td>
+
+
+        <p></p>
+
+        <!-- muestra el nombre del equipo (id)-->
+
+        <table class="table table-responsive-md">
+
+            <thead class="thead-dark">
+                <tr>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <!-- listar los miembros del equipo para el proyecto seleccinado-->
+
+
+
+            <tbody id="sortable" style="cursor:pointer;">
+                <!-- para visualizar un ejemplo-->
+                @if (TempData["empleados"] != null)
+                {
+                    foreach (var item in TempData["empleados"] as List<Proyecto_Integrador.Models.empleados>)
+                    {
+                        <tr>
+                            <td>
+                                @item.cedulaPK
+                            </td>
+                            <td class="taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                                @item.nombre
+                                <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+
+
+
+        </table>
+    </div>
+</div>
+
+
+
