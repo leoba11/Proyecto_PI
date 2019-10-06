@@ -159,7 +159,7 @@ namespace Proyecto_Integrador.Controllers
         }
 
 
-        public List<empleados> GetEmployeeByProyect(string codigo)
+        public List<empleados> GetEmployeeByProyect(int codigo)
         {
             List<empleados> employees = db.empleados.ToList();
             List<roles> conocimiento = db.roles.ToList();
