@@ -1,7 +1,7 @@
 ﻿@model Proyecto_Integrador.Models.proyectos
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
 <h2>Detalles</h2>
@@ -91,13 +91,23 @@
                 @Html.DisplayFor(model => model.clientes.nombre)
             </td>
         </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cedulaClienteFK)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.cedulaClienteFK)
+            </td>
+        </tr>
     </table>
 </div>
+@*Botones de editar y eliminar*@
 <p>
-    <div style="position:absolute; right:455px; top:120px;">
-        <a href="@Url.Action("edit", new { id = Model.codigoPK })"><i class="far fa-edit fa-2x" style="color:orange"></i></a>
+    <div style="position:absolute; right:315px; top:120px;">
+        <a href="@Url.Action("edit", new { id = Model.codigoPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>
     </div>
-    <div style="position:absolute; right:425px; top:120px;">
+    <div style="position:absolute; right:275px; top:120px;">
         <a href="@Url.Action("Delete", new { id = Model.codigoPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
     </div>
 </p>
