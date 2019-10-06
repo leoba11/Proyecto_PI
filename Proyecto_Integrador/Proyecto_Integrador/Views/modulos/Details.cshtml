@@ -4,8 +4,13 @@
     ViewBag.Title = "Details";
 }
 @*Subtitulo *@
-<h2>Detalles</h2>
+<h2>Detalles de módulo</h2>
 
+@*Botones de crear y eliminar modulo especifico en el que se esta *@
+<div class="botones">
+    <a href="@Url.Action("Edit", new { nombreMod = Model.nombrePK,codProyecto = Model.codigoProyectoFK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>&nbsp;
+    <a href="@Url.Action("Delete", new { nombreMod = Model.nombrePK,codProyecto = Model.codigoProyectoFK  })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>&nbsp;
+</div>
 <div>
     <h4>Administrador módulos</h4>
     <hr />
@@ -40,18 +45,9 @@
 
     </table>
 </div>
-<p>
-    @*Boton de regresar a la pagina pincipal *@
-    <div>
-        <a href="~/modulos/Index" role="button" class="btn btn-secondary"> Regresar</a>
-    </div>
-</p>
-<p>
-    @*Botones de crear y eliminar modulo especifico en el que se esta *@
-    <div style="position:absolute; right:470px; top:150px;">
-        <a href="@Url.Action("Edit", new { nombreMod = Model.nombrePK,codProyecto = Model.codigoProyectoFK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>
-    </div>
-    <div style="position:absolute; right:425px; top:150px;">
-        <a href="@Url.Action("Delete", new { nombreMod = Model.nombrePK,codProyecto = Model.codigoProyectoFK  })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
-    </div>
-</p>
+@*Boton de regresar a la pagina pincipal *@
+<div>
+    <a href="~/modulos/Index" role="button" class="btn btn-secondary"> Regresar</a>
+</div>
+
+
