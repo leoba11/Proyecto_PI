@@ -47,6 +47,9 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+.botones{
+    text-align:right;
+}
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
@@ -9898,8 +9901,9 @@ a.text-warning:hover, a.text-warning:focus {
 }
 
 .text-danger {
-  color: #dc3545 !important;
+    color: #dc3545 !important;
 }
+
 
 a.text-danger:hover, a.text-danger:focus {
   color: #a71d2a !important;
