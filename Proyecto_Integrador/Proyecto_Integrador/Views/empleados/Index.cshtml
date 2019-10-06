@@ -4,6 +4,8 @@
     ViewBag.Title = "Index";
 }
 
+
+
 <h2>Empleados</h2>
 
 @*Informacion para la busqueda*@
@@ -34,11 +36,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.disponibilidad)
             </th>
-            <th></th>
+            <th>
+                <a href="~/empleados/Create" role="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Crear</a>
+            </th>
         </tr>
 
     </thead>
-    
+
     <tbody id="myTableEmp">
 
         @foreach (var item in Model)
@@ -71,43 +75,6 @@
         }
     </tbody>
 </table>
-
-@** Modal para desplegar ventana emergente*@
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-danger" role="document">
-        <div class="modal-content">
-            <!--Header-->
-            <div class="modal-header">
-                <h2> Eliminar Empleado </h2>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                </button>
-            </div>
-
-            <!--Body-->
-            <div class="modal-body">
-                <div class="text-center">
-                    <i class="fas fa-trash" style="color:black"></i>
-                    <h5>
-                        Esta seguro que desea seguir con esta accion??
-                    </h5>
-                </div>
-            </div>
-
-            <!--Footer-->
-            <div class="modal-footer justify-content-center">
-                <input type="submit" value="Delete" class="btn btn-danger">
-                <a href="#" type="button" class="btn" data-dismiss="modal">Cancelar</a>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<a href="~/empleados/Create" role="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Crear</a>
 
 <br />
 <br />

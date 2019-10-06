@@ -8,7 +8,7 @@
 
 <div class="botones">
     <a href="@Url.Action("edit", new { cedulaPk = Model.cedulaPK })"><i class="far fa-edit fa-2x" style="color:orange"></i></a>&nbsp;
-    <a href="@Url.Action("Delete", new { cedulaPk = Model.cedulaPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
+    <a @*@Url.Action("", new { cedulaPk = Model.cedulaPK })*@ data-toggle="modal" data-target="#myModal"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
 </div>
 
 <div>
@@ -123,11 +123,53 @@
                 @Html.DisplayFor(model => model.disponibilidad)
             </td>
         </tr>
-    </table>        
+    </table>
 </div>
-<p>
-    @*Boton de regresar a la pagina pincipal *@
-    <div>
-        <a href="~/empleados/Index" role="button" class="btn btn-secondary"> Regresar</a>
+
+@** Modal para desplegar ventana emergente*@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h2> Eliminar Empleado </h2>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="fas fa-trash" style="color:black"></i>
+                    <h5>
+                        Esta seguro que desea seguir con esta accion??
+                    </h5>
+                </div>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" data-id="cedulaPk = Model.cedulaPK" class="btn btn-danger" />
+                    </div>
+                }
+                <a href="#" type="button" class="btn" data-dismiss="modal">Cancelar</a>
+            </div>
+        </div>
     </div>
-</p>
+</div>
+
+@*Boton de regresar a la pagina pincipal *@
+<div>
+    <a href="~/empleados/Index" role="button" class="btn btn-secondary"> Regresar</a>
+</div>
+<br />
+<br />
+
