@@ -21,13 +21,13 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: empleados/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string cedulaPk)
         {
-            if (id == null)
+            if (cedulaPk == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleados empleados = db.empleados.Find(id);
+            empleados empleados = db.empleados.Find(cedulaPk);
             if (empleados == null)
             {
                 return HttpNotFound();
@@ -59,13 +59,13 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: empleados/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string cedulaPk)
         {
-            if (id == null)
+            if (cedulaPk == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleados empleados = db.empleados.Find(id);
+            empleados empleados = db.empleados.Find(cedulaPk);
             if (empleados == null)
             {
                 return HttpNotFound();
@@ -90,13 +90,13 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: empleados/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string cedulaPk)
         {
-            if (id == null)
+            if (cedulaPk == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleados empleados = db.empleados.Find(id);
+            empleados empleados = db.empleados.Find(cedulaPk);
             if (empleados == null)
             {
                 return HttpNotFound();
@@ -107,9 +107,9 @@ namespace Proyecto_Integrador.Controllers
         // POST: empleados/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string cedulaPk)
         {
-            empleados empleados = db.empleados.Find(id);
+            empleados empleados = db.empleados.Find(cedulaPk);
             db.empleados.Remove(empleados);
             db.SaveChanges();
             return RedirectToAction("Index");

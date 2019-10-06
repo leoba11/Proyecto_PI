@@ -4,36 +4,79 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@*Links para que la busqueda filtrada funcione en la tabla*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.proyectos.nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.proyectos.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+@*Título de la ventana*@
+<h2>Módulos</h2>
+@*Informacion para la busqueda*@
+<p>Escriba algo en la barra para buscar en la tabla por proyecto, nombre de módulos o la descripción</p>
+<input class="form-control" id="userInput" type="text" placeholder="Buscar..">
+<br />
+
+
+@*Tabla para el despliegue de tuplas*@
+<table class="table table-striped">
+    @*Encabezado de la tabla*@
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.proyectos.codigoPK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombrePK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th>
+                @*Botón de crear*@
+                <a href="~/modulos/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="myTableMod">
+        @*For para desplegar las tublas de la tabla*@
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.proyectos.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombrePK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>
+
+                <td>
+                    @*Aquí se colocan los iconos para cada tupla de la tabla
+                        Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
+                        Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
+                    *@
+
+
+                    <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
+
+@*Script de Jquery para filtar elementos de la tabla*@
+<script>
+    $(document).ready(function () {
+        $("#userInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTableMod tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

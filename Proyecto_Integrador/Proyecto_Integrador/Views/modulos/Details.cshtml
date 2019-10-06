@@ -3,32 +3,55 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
+@*Subtitulo *@
+<h2>Detalles</h2>
 
 <div>
-    <h4>modulos</h4>
+    <h4>Administrador módulos</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.proyectos.nombre)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.proyectos.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombrePK)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.proyectos.nombre)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.nombrePK)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.proyectos.nombre)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.descripcion)
+            </td>
+        </tr>
 
-    </dl>
+    </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*Boton de regresar a la pagina pincipal *@
+    <div>
+        <a href="~/modulos/Index" role="button" class="btn btn-secondary"> Regresar</a>
+    </div>
+</p>
+<p>
+    @*Botones de crear y eliminar modulo especifico en el que se esta *@
+    <div style="position:absolute; right:470px; top:150px;">
+        <a href="@Url.Action("Edit", new { nombreMod = Model.nombrePK,codProyecto = Model.codigoProyectoFK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>
+    </div>
+    <div style="position:absolute; right:425px; top:150px;">
+        <a href="@Url.Action("Delete", new { nombreMod = Model.nombrePK,codProyecto = Model.codigoProyectoFK  })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
+    </div>
 </p>

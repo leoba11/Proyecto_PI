@@ -3,38 +3,53 @@
 @{
     ViewBag.Title = "Delete";
 }
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+@*Titulo*@
+<h2>Eliminar</h2>
+@*Subtitulo*@
+<h3>Administrador módulos</h3>
 <div>
-    <h4>modulos</h4>
+    @*Mensaje de confimacion para el usuario*@
+    <div class="p-3 mb-2 bg-light text-danger">¿Está seguro que desea eliminar el módulo?</div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.proyectos.nombre)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.proyectos.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombrePK)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.proyectos.nombre)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.nombrePK)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.proyectos.nombre)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.descripcion)
+            </td>
+        </tr>
 
-    </dl>
-
-    @using (Html.BeginForm()) {
+    </table>
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        @*Botones de aceptar y regresar(cancelar) *@
+        <div style="position:absolute; right:850px; top:210px;">
+            <input type="submit" value="Aceptar" class="btn btn-success btn-sm " />
+        </div>
+        <div style="position:absolute; right:750px; top:210px;">
+            <a href="~/modulos/Index" role="button" class="btn btn-danger btn-sm "> Cancelar</a>
         </div>
     }
 </div>

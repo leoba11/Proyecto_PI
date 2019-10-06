@@ -11,7 +11,8 @@ namespace Proyecto_Integrador.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class clientes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,7 @@ namespace Proyecto_Integrador.Models
         }
     
         public string cedulaPK { get; set; }
+        [Display(Name = "Nombre de cliente")]
         public string nombre { get; set; }
         public string apellido1 { get; set; }
         public string apellido2 { get; set; }
