@@ -44,23 +44,12 @@ namespace Proyecto_Integrador.Controllers
             empleados em = new empleadosController().GetEmployee(cedula);
             TempData["empleado"] = em;
             TempData.Keep();
-            //solicitar a controlador de empleados los datos
-            /*if (codProyecto == null || nombreMod == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            modulos modulos = db.modulos.Find(codProyecto, nombreMod);
-            if (modulos == null)
-            {
-                return HttpNotFound();
-            }
-            return View(modulos);*/
             return View();
         }
 
 
 
-        public ActionResult Refresh(string codProyecto)
+        public ActionResult Refresh(int codProyecto)
         {
             TempData.Keep();
 
