@@ -7,8 +7,8 @@
 
 <script>
     $(document).ready(function () {
-        $("#sortable").sortable({
-            connectWith: "#sortable2",
+        $("#sortable2").sortable({
+            connectWith: "#sortable",
             update: function (event, ui) {
                 var itemIds = "";
                 $("sortable").find(".taskSingleInline").each(function () {
@@ -35,8 +35,8 @@
 
 <script>
     $(document).ready(function () {
-        $("#sortable2").sortable({
-            connectWith: "#sortable",
+        $("#sortable").sortable({
+            connectWith: "#sortable2",
             update: function (event, ui) {
                 var itemIds = "";
                 $("sortable").find(".taskSingleInline").each(function () {
@@ -175,7 +175,7 @@
 
 
 
-            <tbody id="sortable" style="cursor:pointer;">
+            <tbody id="sortable2" style="cursor:pointer;">
                 <!-- para visualizar un ejemplo-->
                 @if (TempData["empleados"] != null)
                 {
