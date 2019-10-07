@@ -82,7 +82,9 @@ namespace Proyecto_Integrador.Controllers
 
 
             /*
-             List<roles> rol =  new rolesController().UpdateRol();
+             List<roles> rol =  new rolesController().UddeRol();
+
+            List<roles> rol =  new rolesController().EraseeRol();
              
              */
         }
