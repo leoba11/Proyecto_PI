@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +7,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
 
+    @*Links para que la busqueda filtrada funcione en la tabla*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
     <div class="navbar fixed-top navbar-expand-lg navbar-dark custom">
@@ -20,7 +24,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav justify-content-center d-flex flex-fill">
-                <a class="nav-item nav-link" href="~/"><i class="fas fa-home"></i> Inicio</a>
+                <a class="nav-item nav-link" href="~/Home/About"><i class="fas fa-home"></i> Inicio</a>
                 <a class="nav-item nav-link" href="~/proyectos">Proyectos</a>
                 <a class="nav-item nav-link" href="~/modulos">Módulos</a>
                 <a class="nav-item nav-link" href="~/requerimientos">Requerimientos</a>
@@ -39,7 +43,6 @@
             Copyright &copy; 2019 <span>Administrador de Proyectos</span>
         </div>
     </footer>
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
