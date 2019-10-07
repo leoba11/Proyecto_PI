@@ -11,10 +11,14 @@
     @*Mensaje de confimacion para el usuario*@
     <div class="p-3 mb-2 bg-light text-danger">¿Está seguro que desea eliminar este proyecto?</div>
     @*Botones de aceptar y cancelar *@
-    <div>
-        <input type="submit" value="Aceptar" class="btn btn-success" />
-        <a href="~/proyectos/Index" role="button" class="btn btn-danger"> Cancelar</a>
-    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <input type="submit" value="Aceptar" class="btn btn-success" />
+            <a href="~/proyectos/Index" role="button" class="btn btn-danger"> Cancelar</a>
+        </div>
+    }
     <hr />
     <table class="table table-bordered">
         <tr>

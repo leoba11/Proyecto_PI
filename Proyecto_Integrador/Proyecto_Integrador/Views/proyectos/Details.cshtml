@@ -8,7 +8,11 @@
 
 <div>
     <h4>Administrador de Proyectos</h4>
-
+    @*Botones de editar y eliminar*@
+    <div class="botones">
+        <a href="@Url.Action("edit", new { id = Model.codigoPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>
+        <a href="@Url.Action("Delete", new { id = Model.codigoPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
+    </div>
     <hr />
     <table class="table table-bordered">
         <tr>
@@ -103,18 +107,12 @@
         </tr>
     </table>
 </div>
-@*Botones de editar y eliminar*@
-<p>
-    <div style="position:absolute; right:315px; top:120px;">
-        <a href="@Url.Action("edit", new { id = Model.codigoPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>
-    </div>
-    <div style="position:absolute; right:275px; top:120px;">
-        <a href="@Url.Action("Delete", new { id = Model.codigoPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
-    </div>
-</p>
+
 <p>
     @*Boton de regresar a la pagina pincipal *@
     <div>
         <a href="~/proyectos/Index" role="button" class="btn btn-secondary"> Regresar</a>
     </div>
 </p>
+
+<br />
