@@ -50,6 +50,7 @@ namespace Proyecto_Integrador.Models
         public System.DateTime fechaNacimiento { get; set; }
 
         [Display(Name = "Telefono")]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Este espacio solo debe tener números")]
         [Required(ErrorMessage = "Este campo es requerido")]
         public string telefono { get; set; }
 
