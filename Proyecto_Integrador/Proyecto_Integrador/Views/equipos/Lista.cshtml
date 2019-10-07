@@ -8,6 +8,7 @@
 <script>
     $(document).ready(function () {
         $("#sortable").sortable({
+            connectWith: "#sortable2",
             update: function (event, ui) {
                 var itemIds = "";
                 $("sortable").find(".taskSingleInline").each(function () {
@@ -35,6 +36,7 @@
 <script>
     $(document).ready(function () {
         $("#sortable2").sortable({
+            connectWith: "#sortable",
             update: function (event, ui) {
                 var itemIds = "";
                 $("sortable").find(".taskSingleInline").each(function () {
@@ -199,5 +201,58 @@
     </div>
 </div>
 
+
+
+
+
+
+
+
+@*script para filtrar empleados por conociminento*@
+@*
+    <script>
+            $(document).ready(function () {
+
+                $("#conocimientoPK").change(function () {
+
+
+                    $.get("/equipos/GetEmployees", { codigoPK: $("#conocimientoPK").val() }, function (data) {
+                        $TempData["empleados"].empty;
+                        $.each(data, function (index, row) {
+                            $TempData["empleados"].append("<option value = '" + row.cedulaPK + "'>" + row.nombre + "</option>")
+                        });
+
+                    });
+
+
+                })
+            });
+
+    </script>
+*@
+
+
+@*script para filtrar empleados por proyecto*@
+@*
+<script>
+    $(document).ready(function () {
+
+        $("#codigoPK").change(function () {
+
+
+            $.get("/equipos/GetEmployees2", { conocimientoPK: $("#codigoPK").val() }, function (data) {
+                $TempData["empleados2"].empty;
+                $.each(data, function (index, row) {
+                    $TempData["empleados"].append("<option value = '" + row.cedulaPK + "'>" + row.nombre + "</option>")
+                });
+
+            });
+
+
+        })
+    });
+
+</script>
+*@
 
 
