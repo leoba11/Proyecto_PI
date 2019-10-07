@@ -360,6 +360,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\equipos\Lista.cshtml" />
     <Content Include="Views\equipos\Details.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
