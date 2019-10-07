@@ -10,80 +10,91 @@
 <div>
     <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este cliente?</div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
+    <table class="table table-bordered">
 
-        <dd>
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.apellido1)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido1)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.apellido1)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.apellido1)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido2)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.apellido2)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.apellido2)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.apellido2)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.telefono)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.provincia)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.provincia)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.canton)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.telefono)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.canton)
+            </td>
+        </tr>
+         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.distrito)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.provincia)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.distrito)
+            </td>
+         </tr>
+         <tr>
+             <th>
+                 @Html.DisplayNameFor(model => model.correo)
+             </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.provincia)
-        </dd>
+             <td>
+                 @Html.DisplayFor(model => model.correo)
+             </td>
+         </tr>
+         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.direccionDetallada)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.canton)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.direccionDetallada)
+            </td>
+         </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.canton)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.distrito)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.distrito)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.correo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.correo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.direccionDetallada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.direccionDetallada)
-        </dd>
-
-    </dl>
+    </table>
 
     @using (Html.BeginForm())
     {
