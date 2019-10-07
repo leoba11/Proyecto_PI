@@ -132,5 +132,23 @@ namespace Proyecto_Integrador.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public void UddRol(int codProyecto, string cedulaEmp)
+        {
+            roles rol = db.roles.Create();
+            rol.codigoProyectoFK = codProyecto;
+            rol.cedulaFK = cedulaEmp;
+            rol.rol = "desarrollador";
+        }
+
+        public void EraseRol(int codProyecto, string cedulaEmp)
+        {
+            roles roles = db.roles.Find(codProyecto, cedulaEmp);
+            db.roles.Remove(roles);
+            db.SaveChanges();
+        }
     }
+
+
 }
