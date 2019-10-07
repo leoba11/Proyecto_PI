@@ -4,87 +4,107 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Informacion del Cliente</h2>
 
 <div>
-    <h4>clientes</h4>
+    <h4>Administrador de clientes</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido1)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.apellido1)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.apellido1)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido2)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.apellido1)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.apellido2)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.apellido2)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.telefono)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.provincia)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.apellido2)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.provincia)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.canton)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.canton)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.distrito)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.telefono)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.distrito)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.correo)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.provincia)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.correo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.direccionDetallada)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.provincia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.canton)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.canton)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.distrito)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.distrito)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.correo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.correo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.direccionDetallada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.direccionDetallada)
-        </dd>
-
-    </dl>
+            <td>
+                @Html.DisplayFor(model => model.direccionDetallada)
+            </td>
+        </tr>
+    </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.cedulaPK }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*Boton de regresar a la pagina pincipal *@
+    <div>
+        <a href="~/clientes/Index" role="button" class="btn btn-secondary"> Regresar</a>
+    </div>
+</p>
+<p>
+    @*Botones de crear y eliminar modulo especifico en el que se esta *@
+    <div style="position:absolute; right:470px; top:200px;">
+        <a href="@Url.Action("Edit", new { id = Model.cedulaPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>
+    </div>
+    <div style="position:absolute; right:425px; top:200px;">
+        <a href="@Url.Action("Delete", new { id = Model.cedulaPK  })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
+    </div>
 </p>

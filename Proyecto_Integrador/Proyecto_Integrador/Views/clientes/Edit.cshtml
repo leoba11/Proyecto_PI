@@ -4,15 +4,17 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+<h2>Modificar</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>clientes</h4>
+        <h4>Administrador de clientes</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.cedulaPK)
@@ -89,17 +91,14 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+    </div>
+    <div style="position:absolute; right:750px; top:880px;">
+        <input type="submit" value="Aceptar" class="btn btn-success btn-sm " />
+    </div>
+    <div style="position:absolute; right:650px; top:880px;">
+        <a href="~/clientes/Index" role="button" class="btn btn-danger btn-sm "> Cancelar</a>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

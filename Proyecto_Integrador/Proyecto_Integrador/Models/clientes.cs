@@ -11,7 +11,8 @@ namespace Proyecto_Integrador.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class clientes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,16 +20,26 @@ namespace Proyecto_Integrador.Models
         {
             this.proyectos = new HashSet<proyectos>();
         }
-    
+        [Key]
+        [Display(Name = "Cédula")]
         public string cedulaPK { get; set; }
+        [Display(Name = "Nombre")]
         public string nombre { get; set; }
+        [Display(Name = "Primer Apellido")]
         public string apellido1 { get; set; }
+        [Display(Name = "Segundo Apellido")]
         public string apellido2 { get; set; }
+        [Display(Name = "Teléfono")]
         public string telefono { get; set; }
+        [Display(Name = "Provincia")]
         public string provincia { get; set; }
+        [Display(Name = "Cantón")]
         public string canton { get; set; }
+        [Display(Name = "Distrito")]
         public string distrito { get; set; }
+        [Display(Name = "E-mail")]
         public string correo { get; set; }
+        [Display(Name = "Direccion detallada")]
         public string direccionDetallada { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
