@@ -126,11 +126,10 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
+        @*Botones de aceptar y regresar(cancelar) *@
+        <div class="form-actions no-color">
+            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+            <a href="~/empleados/Index" role="button" class="btn btn-danger"> Cancelar</a>
+        </div>
     }
-    @*Botones de aceptar y regresar(cancelar) *@
-    <div class="form-actions no-color">
-        <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
-        <a href="~/empleados/Index" role="button" class="btn btn-danger"> Cancelar</a>
-    </div>
 </div>

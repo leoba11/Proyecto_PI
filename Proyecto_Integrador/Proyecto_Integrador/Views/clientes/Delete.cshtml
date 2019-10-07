@@ -66,7 +66,7 @@
                 @Html.DisplayFor(model => model.canton)
             </td>
         </tr>
-         <tr>
+        <tr>
             <th>
                 @Html.DisplayNameFor(model => model.distrito)
             </th>
@@ -74,17 +74,17 @@
             <td>
                 @Html.DisplayFor(model => model.distrito)
             </td>
-         </tr>
-         <tr>
-             <th>
-                 @Html.DisplayNameFor(model => model.correo)
-             </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.correo)
+            </th>
 
-             <td>
-                 @Html.DisplayFor(model => model.correo)
-             </td>
-         </tr>
-         <tr>
+            <td>
+                @Html.DisplayFor(model => model.correo)
+            </td>
+        </tr>
+        <tr>
             <th>
                 @Html.DisplayNameFor(model => model.direccionDetallada)
             </th>
@@ -92,17 +92,17 @@
             <td>
                 @Html.DisplayFor(model => model.direccionDetallada)
             </td>
-         </tr>
+        </tr>
 
     </table>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
+        @*Botones de aceptar y regresar(cancelar) *@
+        <div class="form-actions no-color">
+            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+            <a href="~/empleados/Index" role="button" class="btn btn-danger"> Cancelar</a>
+        </div>
     }
-    <div class="form-actions no-color">
-        <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
-        <a href="~/clientes/Index" role="button" class="btn btn-danger"> Cancelar</a>
-    </div>
 </div>
