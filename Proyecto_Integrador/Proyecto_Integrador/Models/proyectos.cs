@@ -12,6 +12,7 @@ namespace Proyecto_Integrador.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class proyectos
     {
@@ -43,6 +44,8 @@ namespace Proyecto_Integrador.Models
         public Nullable<System.DateTime> fechaFinal { get; set; }
         [Display(Name = "Costo real")]
         public Nullable<decimal> costoReal { get; set; }
+        [NotMapped]
+        public List<empleados> empleadosDisponibles { get; set; }
 
         public virtual clientes clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
