@@ -4,15 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-@*Links para que la busqueda filtrada funcione en la tabla*@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 
 @*Título de la ventana*@
 <h2>Módulos</h2>
 @*Informacion para la busqueda*@
-<p>Escriba algo en la barra para buscar en la tabla por proyecto, nombre de módulos o la descripción</p>
+<p>Escriba algo en la barra para buscar en la tabla algún módulo</p>
 <input class="form-control" id="userInput" type="text" placeholder="Buscar..">
 <br />
 
@@ -73,9 +70,9 @@
 <script>
     $(document).ready(function () {
         $("#userInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
+            var value1 = $(this).val().toLowerCase();
             $("#myTableMod tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1)
             });
         });
     });

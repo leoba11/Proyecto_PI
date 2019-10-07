@@ -35,6 +35,7 @@ namespace Proyecto_Integrador.Models
         public decimal costoEstimado { get; set; }
         [Display(Name = "Objetivo del Proyecto")]
         public string objetivo { get; set; }
+        [Display(Name = "Cédula de cliente")]
         public string cedulaClienteFK { get; set; }
         [Display(Name = "ID de equipo")]
         public Nullable<int> idEquipo { get; set; }

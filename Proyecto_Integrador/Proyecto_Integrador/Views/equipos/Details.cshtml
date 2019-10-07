@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<!-- Adición de libirería de íconos -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+
+
+<h2>Informacion completa de empleado</h2>
+@{
+    var employeeData = TempData["empleado"] as Proyecto_Integrador.Models.empleados;
+
+}
+<dl>
+    <dd>
+        Cedula <b>@employeeData.cedulaPK</b>
+    </dd>
+    <dd>
+        Nombre <b>@employeeData.nombre</b>
+    </dd>
+    <dd>
+        Primer apellido <b>@employeeData.apellido1</b>
+    </dd>
+    <dd>
+        Segundo apellido <b>@employeeData.apellido2</b>
+    </dd>
+    <dd>
+        Fecha de nacimiento <b>@employeeData.fechaNacimiento</b>
+    </dd>
+    <dd>
+        Edad <b>@employeeData.edad</b>
+    </dd>
+    <dd>
+        Correo <b>@employeeData.correo</b>
+    </dd>
+    <dd>
+        Telefono <b>@employeeData.telefono</b>
+    </dd>
+    <dd>
+        Provincia <b>@employeeData.provincia</b>
+    </dd>
+    <dd>
+        Canton <b>@employeeData.canton</b>
+    </dd>
+    <dd>
+        Distrito <b>@employeeData.distrito</b>
+    </dd>
+    <dd>
+        Direccion detallada <b>@employeeData.direccionDetallada</b>
+    </dd>
+
+
+
+</dl>
+
+
+
+
+<p>
+    @*Boton de regresar a la pagina pincipal *@
+    <div>
+        <a href="~/equipos/Lista" role="button" class="btn btn-secondary"> Regresar</a>
+    </div>
+</p>

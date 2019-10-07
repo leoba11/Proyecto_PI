@@ -1,13 +1,18 @@
 ﻿@model Proyecto_Integrador.Models.proyectos
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
 <h2>Detalles</h2>
 
 <div>
     <h4>Administrador de Proyectos</h4>
+    @*Botones de editar y eliminar*@
+    <div class="botones">
+        <a href="@Url.Action("edit", new { id = Model.codigoPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>
+        <a href="@Url.Action("Delete", new { id = Model.codigoPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
+    </div>
     <hr />
     <table class="table table-bordered">
         <tr>
@@ -91,19 +96,23 @@
                 @Html.DisplayFor(model => model.clientes.nombre)
             </td>
         </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cedulaClienteFK)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.cedulaClienteFK)
+            </td>
+        </tr>
     </table>
 </div>
-<p>
-    <div style="position:absolute; right:455px; top:120px;">
-        <a href="@Url.Action("edit", new { id = Model.codigoPK })"><i class="far fa-edit fa-2x" style="color:orange"></i></a>
-    </div>
-    <div style="position:absolute; right:425px; top:120px;">
-        <a href="@Url.Action("Delete", new { id = Model.codigoPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
-    </div>
-</p>
+
 <p>
     @*Boton de regresar a la pagina pincipal *@
     <div>
         <a href="~/proyectos/Index" role="button" class="btn btn-secondary"> Regresar</a>
     </div>
 </p>
+
+<br />

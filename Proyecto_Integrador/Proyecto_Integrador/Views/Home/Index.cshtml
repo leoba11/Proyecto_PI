@@ -1,14 +1,46 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model Proyecto_Integrador.Models.UserLoginModel
+
+@{
+    ViewBag.Title = "Index";
 }
+@{
+    Layout = null;
+}
+<h2>Iniciar Sesión en SoftwareExpertSA</h2>
 
-<!-- Adición de libirería de íconos -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">SoftwareExpertSA</h1>
-        <p class="lead">Administrador de proyectos</p>
-    </div>
-</div>
+    if (Model != null)
+    {
+        <h1>
+            @Model.Message
+        </h1>
+    }
+
+    <fieldset>
+        <legend>Inicio de sesión</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <p>
+            <input type="submit" value="Iniciar sesión" />
+        </p>
+    </fieldset>
+}

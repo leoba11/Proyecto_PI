@@ -21,13 +21,13 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: empleados/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string cedulaPk)
         {
-            if (id == null)
+            if (cedulaPk == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleados empleados = db.empleados.Find(id);
+            empleados empleados = db.empleados.Find(cedulaPk);
             if (empleados == null)
             {
                 return HttpNotFound();
@@ -59,13 +59,13 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: empleados/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string cedulaPk)
         {
-            if (id == null)
+            if (cedulaPk == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleados empleados = db.empleados.Find(id);
+            empleados empleados = db.empleados.Find(cedulaPk);
             if (empleados == null)
             {
                 return HttpNotFound();
@@ -90,13 +90,13 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: empleados/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string cedulaPk)
         {
-            if (id == null)
+            if (cedulaPk == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleados empleados = db.empleados.Find(id);
+            empleados empleados = db.empleados.Find(cedulaPk);
             if (empleados == null)
             {
                 return HttpNotFound();
@@ -107,9 +107,9 @@ namespace Proyecto_Integrador.Controllers
         // POST: empleados/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string cedulaPk)
         {
-            empleados empleados = db.empleados.Find(id);
+            empleados empleados = db.empleados.Find(cedulaPk);
             db.empleados.Remove(empleados);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -122,6 +122,59 @@ namespace Proyecto_Integrador.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+
+        public List<empleados> GetFreeEmployees()
+        {
+            List<empleados> employeesList = db.empleados.Where(x => x.disponibilidad == true).ToList();
+            return employeesList;
+        }
+
+
+        public empleados GetEmployee(string cedula)
+        {
+            empleados employee = db.empleados.Find(cedula);
+            return employee;
+        }
+
+
+        public List<empleados> GetEmployeeByKnowledge(string conoc)
+        {
+            List<empleados> employees = db.empleados.ToList();
+            List<conocimientos> conocimiento = db.conocimientos.ToList();
+
+            var listaEmp = (from d in db.empleados
+                            join f in db.conocimientos
+                            on d.cedulaPK equals f.cedulaEmpleadoFK
+                            where f.conocimientoPK == conoc
+                            select d).ToList();
+
+
+
+            return listaEmp;
+
+
+        }
+
+
+        public List<empleados> GetEmployeeByProyect(int codigo)
+        {
+            List<empleados> employees = db.empleados.ToList();
+            List<roles> conocimiento = db.roles.ToList();
+
+            var listaEmpPr = (from d in db.empleados
+                              join f in db.roles
+                              on d.cedulaPK equals f.cedulaFK
+                              where f.codigoProyectoFK == codigo
+                              select d).ToList();
+
+
+
+            return listaEmpPr;
+
+
         }
     }
 }

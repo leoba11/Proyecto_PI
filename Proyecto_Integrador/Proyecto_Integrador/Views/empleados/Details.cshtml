@@ -4,111 +4,172 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles de Empleado</h2>
+
+<div class="botones">
+    <a href="@Url.Action("edit", new { cedulaPk = Model.cedulaPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>&nbsp;
+    <a href="#" data-toggle="modal" data-target="#myModal"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
+</div>
 
 <div>
-    <h4>empleados</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido1)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.apellido1)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.apellido1)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido2)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.apellido1)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.apellido2)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.edad)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.apellido2)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.edad)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaNacimiento)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.apellido2)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.fechaNacimiento)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.edad)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.telefono)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.provincia)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.edad)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.provincia)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.canton)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaNacimiento)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.canton)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.distrito)
 
-        <dd>
-            @Html.DisplayFor(model => model.fechaNacimiento)
-        </dd>
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.distrito)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.correo)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.telefono)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.correo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.direccionDetallada)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.provincia)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.direccionDetallada)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.disponibilidad)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.provincia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.canton)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.canton)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.distrito)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.distrito)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.correo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.correo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.direccionDetallada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.direccionDetallada)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.disponibilidad)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.disponibilidad)
-        </dd>
-
-    </dl>
+            <td>
+                @Html.DisplayFor(model => model.disponibilidad)
+            </td>
+        </tr>
+    </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.cedulaPK }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@** Modal para desplegar ventana emergente*@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h2> Eliminar Empleado </h2>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="fas fa-trash" style="color:black"></i>
+                    <h5>
+                        Esta seguro que desea seguir con esta accion??
+                    </h5>
+                </div>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" data-id="cedulaPk = Model.cedulaPK" class="btn btn-danger" />
+                    </div>
+                }
+                <a href="#" type="button" class="btn" data-dismiss="modal">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Boton de regresar a la pagina pincipal *@
+<div>
+    <a href="~/empleados/Index" role="button" class="btn btn-secondary"> Regresar</a>
+</div>
+<br />
+<br />
+
