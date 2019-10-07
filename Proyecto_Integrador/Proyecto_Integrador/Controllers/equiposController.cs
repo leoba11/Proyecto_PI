@@ -79,6 +79,12 @@ namespace Proyecto_Integrador.Controllers
                 count++;
             }
             return Json(true, JsonRequestBehavior.AllowGet);
+
+
+            /*
+             List<roles> rol =  new rolesController().UpdateRol();
+             
+             */
         }
     }
 }

@@ -162,7 +162,7 @@ namespace Proyecto_Integrador.Controllers
         public List<empleados> GetEmployeeByProyect(int codigo)
         {
             List<empleados> employees = db.empleados.ToList();
-            List<roles> conocimiento = db.roles.ToList();
+            List<roles> roles = db.roles.ToList();
 
             var listaEmpPr = (from d in db.empleados
                               join f in db.roles
