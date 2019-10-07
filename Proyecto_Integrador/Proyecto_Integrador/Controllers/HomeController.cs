@@ -12,8 +12,18 @@ namespace Proyecto_Integrador.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Index(Models.UserLoginModel objUserLogin)
+        {
+            if (objUserLogin.UserName == "admin" && objUserLogin.Password == "1234")
+                return RedirectToAction("About");
+            else
+            {
+                objUserLogin.Message = "Nombre de usuario/contraseña inválido";
+                return View(objUserLogin);
+            }
+        }
+            public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
