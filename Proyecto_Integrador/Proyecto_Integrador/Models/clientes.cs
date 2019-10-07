@@ -21,7 +21,7 @@ namespace Proyecto_Integrador.Models
             this.proyectos = new HashSet<proyectos>();
         }
         [Key]
-        [StringLength(11)]
+        [StringLength(9)]
         [RegularExpression(@"^[0-9]+", ErrorMessage = "La cédula solo puede estar compuesta por números")]
         [Display(Name = "Cédula")]
         public string cedulaPK { get; set; }
