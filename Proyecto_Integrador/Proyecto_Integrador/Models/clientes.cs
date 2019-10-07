@@ -21,25 +21,50 @@ namespace Proyecto_Integrador.Models
             this.proyectos = new HashSet<proyectos>();
         }
         [Key]
+        [StringLength(11)]
+        [RegularExpression(@"^[0-9]+", ErrorMessage = "La cédula solo puede estar compuesta por números")]
         [Display(Name = "Cédula")]
         public string cedulaPK { get; set; }
+
+        [StringLength(20)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "El nombre solo puede estar compuesto por letras")]
         [Display(Name = "Nombre")]
         public string nombre { get; set; }
+
+        [StringLength(20)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "Los Apellido solo puede estar compuesto por letras")]
         [Display(Name = "Primer Apellido")]
         public string apellido1 { get; set; }
+
+        [StringLength(20)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "Los Apellido solo puede estar compuesto por letras")]
         [Display(Name = "Segundo Apellido")]
         public string apellido2 { get; set; }
+
+        [StringLength(15)]
         [Display(Name = "Teléfono")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Este espacio solo debe tener números")]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "El número de telefono solo úede estar compuesto por números")]
         public string telefono { get; set; }
+
+        [StringLength(20)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "La provincia solo puede estar compuesto por letras")]
         [Display(Name = "Provincia")]
         public string provincia { get; set; }
+
+        [StringLength(20)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "El Cantón solo puede estar compuesto por letras")]
         [Display(Name = "Cantón")]
         public string canton { get; set; }
+
+        [StringLength(20)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "El Distrito solo puede estar compuesto por letras")]
         [Display(Name = "Distrito")]
         public string distrito { get; set; }
+
+        [StringLength(25)]
         [Display(Name = "E-mail")]
         public string correo { get; set; }
+
         [Display(Name = "Direccion detallada")]
         public string direccionDetallada { get; set; }
     
