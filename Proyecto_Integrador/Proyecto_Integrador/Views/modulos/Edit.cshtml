@@ -30,17 +30,12 @@
                 @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
             </div>
         </div>
-        @*Botones de aceptar y cancelar *@
-        @*<div class="form-actions no-color">
-            <input type="submit" value="Aceptar" class="btn btn-success float-md-right" />
-            <a href="~/modulos/Index" role="button" class="btn btn-danger float-righ"> Cancelar</a>
-            @*<a href="@Url.Action("Details", new { nombreMod = Model.nombrePK,codProyecto = Model.codigoProyectoFK  })"class=" btn btn-danger">Cancelar</a>*@
+
     </div>
-    <div style="position:absolute; right:650px; top:380px;">
-        <input type="submit" value="Aceptar" class="btn btn-success btn-sm " />
-    </div>
-    <div style="position:absolute; right:550px; top:380px;">
-        <a href="~/modulos/Index" role="button" class="btn btn-danger btn-sm "> Cancelar</a>
+    @*Botones de aceptar y cancelar *@
+    <div class="form-actions no-color">
+        <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+        <a href="~/modulos/Index" role="button" class="btn btn-danger"> Cancelar</a>
     </div>
 }
 @section Scripts {

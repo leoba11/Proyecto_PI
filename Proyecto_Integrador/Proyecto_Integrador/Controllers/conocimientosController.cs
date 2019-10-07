@@ -128,5 +128,11 @@ namespace Proyecto_Integrador.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public List<conocimientos> PassKnowledge()
+        {
+            List<conocimientos> conocimientos = db.conocimientos.OrderBy(d => d.cedulaEmpleadoFK).GroupBy(d => d.conocimientoPK).SelectMany(g => g).ToList();
+            return conocimientos;
+        }
     }
 }

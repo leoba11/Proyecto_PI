@@ -6,12 +6,12 @@
     <edmx:Diagrams>
       <Diagram DiagramId="14e0880c5e714887a09ab6e94034bb96" Name="Diagram1">
         <EntityTypeShape EntityType="Gr02Proy1Model.clientes" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr02Proy1Model.conocimientos" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr02Proy1Model.empleados" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr02Proy1Model.conocimientos" Width="1.5" PointX="6.375" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr02Proy1Model.empleados" Width="1.5" PointX="1.25" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr02Proy1Model.modulos" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr02Proy1Model.proyectos" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr02Proy1Model.requerimientos" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr02Proy1Model.roles" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr02Proy1Model.roles" Width="1.5" PointX="4.375" PointY="6.875" IsExpanded="true" />
         <AssociationConnector Association="Gr02Proy1Model.FK_cedulaCliente" ManuallyRouted="false" />
         <AssociationConnector Association="Gr02Proy1Model.cedulaEmpleadoFK" ManuallyRouted="false" />
         <AssociationConnector Association="Gr02Proy1Model.FK_cedulaEmpleado" ManuallyRouted="false" />

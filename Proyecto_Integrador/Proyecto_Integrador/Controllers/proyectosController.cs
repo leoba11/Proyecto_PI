@@ -128,5 +128,11 @@ namespace Proyecto_Integrador.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public List<proyectos> Pass()//dispone la lista de proyectos para otros controladores
+        {
+            List<proyectos> proyectos = db.proyectos.ToList();
+            return proyectos;
+        }
     }
 }

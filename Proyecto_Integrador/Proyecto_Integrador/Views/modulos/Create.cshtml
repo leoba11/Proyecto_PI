@@ -10,46 +10,45 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @*Subtitulo de la vista *@
-        <h4>Administrador de módulos</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.codigoProyectoFK, "Proyecto", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("codigoProyectoFK", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.codigoProyectoFK, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    @*Subtitulo de la vista *@
+    <h4>Administrador de módulos</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.codigoProyectoFK, "Proyecto", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("codigoProyectoFK", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.codigoProyectoFK, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombrePK, "Nombre módulo", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
+            @Html.TextBoxFor(model => model.nombrePK, new { @class = "form-control", placeholder = "nombre", required = "required" })
+            @Html.ValidationMessageFor(model => model.nombrePK, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.descripcion, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*Acá es para hacer que a fuerzas el usuario ingrese un valor*@
+            @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required", @rows = 5 })
+            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.nombrePK, "Nombre módulo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-                @Html.TextBoxFor(model => model.nombrePK, new { @class = "form-control", placeholder = "nombre", required = "required" })
-                @Html.ValidationMessageFor(model => model.nombrePK, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.descripcion, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*Acá es para hacer que a fuerzas el usuario ingrese un valor*@
-                @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required", @rows = 5 })
-                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
-            </div>
-
-        </div>
-
-
     </div>
-    <div style="position:absolute; right:650px; top:600px;">
-        <input type="submit" value="Aceptar" class="btn btn-success btn-sm " />
+
+    @*Botones de aceptar y cancelar *@
+    <div class="form-actions no-color">
+        <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+        <a href="~/empleados/Index" role="button" class="btn btn-danger"> Cancelar</a>
     </div>
-    <div style="position:absolute; right:550px; top:600px;">
-        <a href="~/modulos/Index" role="button" class="btn btn-danger btn-sm "> Cancelar</a>
-    </div>
+</div>
+  
 }
 
 @section Scripts {
