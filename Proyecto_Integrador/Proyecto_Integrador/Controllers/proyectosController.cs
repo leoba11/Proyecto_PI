@@ -40,6 +40,7 @@ namespace Proyecto_Integrador.Controllers
         public ActionResult Create()
         {
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre");
+            ViewBag.empleadosDisponibles = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre");
             return View();
         }
 
@@ -74,6 +75,7 @@ namespace Proyecto_Integrador.Controllers
                 return HttpNotFound();
             }
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre", proyectos.cedulaClienteFK);
+            ViewBag.empleadosDisponibles = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", proyectos.empleadosDisponibles);
             return View(proyectos);
         }
 
