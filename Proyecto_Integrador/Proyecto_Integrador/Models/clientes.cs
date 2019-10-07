@@ -30,6 +30,7 @@ namespace Proyecto_Integrador.Models
         [Display(Name = "Segundo Apellido")]
         public string apellido2 { get; set; }
         [Display(Name = "Teléfono")]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Este espacio solo debe tener números")]
         public string telefono { get; set; }
         [Display(Name = "Provincia")]
         public string provincia { get; set; }

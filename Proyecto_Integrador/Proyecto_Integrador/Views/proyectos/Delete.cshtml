@@ -9,16 +9,7 @@
 <h3>Administrador de proyectos</h3>
 <div>
     @*Mensaje de confimacion para el usuario*@
-    <div class="p-3 mb-2 bg-light text-danger">¿Está seguro que desea eliminar este proyecto?</div>
-    @*Botones de aceptar y cancelar *@
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div>
-            <input type="submit" value="Aceptar" class="btn btn-success" />
-            <a href="~/proyectos/Index" role="button" class="btn btn-danger"> Cancelar</a>
-        </div>
-    }
+    <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este proyecto?</div>
     <hr />
     <table class="table table-bordered">
         <tr>
@@ -113,13 +104,14 @@
         </tr>
     </table>
 
-    @*@using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }*@
+    }
+    @*Botones de aceptar y regresar(cancelar) *@
+    <div class="form-actions no-color">
+        <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+        <a href="~/proyectos/Index" role="button" class="btn btn-danger"> Cancelar</a>
+    </div>
 </div>
