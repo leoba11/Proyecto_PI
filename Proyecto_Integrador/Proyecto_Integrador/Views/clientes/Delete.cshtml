@@ -6,9 +6,9 @@
 
 <h2>Eliminar</h2>
 
-<h3>Administrador de clientes</h3>
+<h4>Administrador de clientes</h4>
 <div>
-    <div class="p-3 mb-2 bg-light text-danger">¿Está seguro que desea eliminar este cliente?</div>
+    <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este cliente?</div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -89,11 +89,9 @@
     {
         @Html.AntiForgeryToken()
 
-        <div style="position:absolute; right:850px; top:175px;">
-            <input type="submit" value="Aceptar" class="btn btn-success btn-sm " />
-        </div>
-        <div style="position:absolute; right:750px; top:175px;">
-            <a href="~/clientes/Index" role="button" class="btn btn-danger btn-sm "> Cancelar</a>
-        </div>
     }
+    <div class="form-actions no-color">
+        <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+        <a href="~/clientes/Index" role="button" class="btn btn-danger"> Cancelar</a>
+    </div>
 </div>

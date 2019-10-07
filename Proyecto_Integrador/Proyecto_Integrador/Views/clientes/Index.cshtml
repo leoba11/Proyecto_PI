@@ -8,6 +8,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <h2>Clientes</h2>
+<h4>Administrador de clientes</h4>
+@*Informacion para la busqueda*@
+<p>Escriba algo en la barra para buscar en la tabla algún cliente</p>
+<input class="form-control" id="userInput" type="text" placeholder="Buscar..">
+<br />
 
 <table class="table table-striped">
     <thead>
@@ -44,7 +49,7 @@
             </th>
         </tr>
     </thead>
-    <tbody id="myTableMod">
+    <tbody id="myTableClien">
         @foreach (var item in Model)
         {
             <tr>
@@ -82,3 +87,15 @@
         }
     </tbody>
 </table>
+
+@*Script de Jquery para filtar elementos de la tabla*@
+<script>
+    $(document).ready(function () {
+        $("#userInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTableClien tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

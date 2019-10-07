@@ -9,7 +9,7 @@
 <h3>Administrador módulos</h3>
 <div>
     @*Mensaje de confimacion para el usuario*@
-    <div class="p-3 mb-2 bg-light text-danger">¿Está seguro que desea eliminar el módulo?</div>
+    <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este módulo?</div>
     <hr />
     <table class="table table-bordered">
         <tr>
@@ -44,12 +44,11 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        @*Botones de aceptar y regresar(cancelar) *@
-        <div style="position:absolute; right:850px; top:210px;">
-            <input type="submit" value="Aceptar" class="btn btn-success btn-sm " />
-        </div>
-        <div style="position:absolute; right:750px; top:210px;">
-            <a href="~/modulos/Index" role="button" class="btn btn-danger btn-sm "> Cancelar</a>
-        </div>
+
     }
+    @*Botones de aceptar y regresar(cancelar) *@
+    <div class="form-actions no-color">
+        <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+        <a href="~/modulos/Index" role="button" class="btn btn-danger"> Cancelar</a>
+    </div>
 </div>
