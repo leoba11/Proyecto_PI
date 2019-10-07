@@ -25,14 +25,19 @@ namespace Proyecto_Integrador.Models
 
         [Key]
         [Display(Name = "Código del Proyecto")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public int codigoPK { get; set; }
         [Display(Name = "Nombre del Proyecto")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string nombre { get; set; }
         [Display(Name = "Fecha de inicio")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public System.DateTime fechaInicio { get; set; }
         [Display(Name = "Fecha final estimada")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public System.DateTime fechaFinalEstimada { get; set; }
         [Display(Name = "Costo estimado")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public decimal costoEstimado { get; set; }
         [Display(Name = "Objetivo del Proyecto")]
         public string objetivo { get; set; }
