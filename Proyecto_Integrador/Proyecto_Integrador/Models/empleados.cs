@@ -63,20 +63,14 @@ namespace Proyecto_Integrador.Models
         public string telefono { get; set; }
 
         [Display(Name = "Provincia")]
-        [StringLength(20)]
-        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "La provincia solo puede estar compuesto por letras")]
         [Required(ErrorMessage = "Este campo es requerido")]
         public string provincia { get; set; }
 
         [Display(Name = "Cantón")]
-        [StringLength(20)]
-        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "El cantón solo puede estar compuesto por letras")]
         [Required(ErrorMessage = "Este campo es requerido")]
         public string canton { get; set; }
 
         [Display(Name = "Distrito")]
-        [StringLength(20)]
-        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "El distrito solo puede estar compuesto por letras")]
         public string distrito { get; set; }
 
         [StringLength(25)]
