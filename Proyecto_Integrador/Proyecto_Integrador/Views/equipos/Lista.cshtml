@@ -15,17 +15,15 @@
                     var itemId = $(this).attr("data-taskid");
                     itemIds = itemIds + itemId + ",";
                 });
-                $.ajax({
-                    url: '@Url.Action("UpdateItem", "equipos")',
-                    data: { itemIds: itemIds },
-                    type: 'POST',
-                    success: function (data) {
+            },
+            receive: function (event, ui) {
 
-                    },
-                    error: function (xhr, status, error) {
 
-                    }
-                });
+                @* aqui se llama al metodo para quitar el rol al empleado
+                $.get("/empleados/SetFree", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
+                    alert("you clickek");
+
+                });*@
             }
 
         });
@@ -43,17 +41,15 @@
                     var itemId = $(this).attr("data-taskid");
                     itemIds = itemIds + itemId + ",";
                 });
-                $.ajax({
-                    url: '@Url.Action("UpdateItem", "equipos")',
-                    data: { itemIds: itemIds },
-                    type: 'POST',
-                    success: function (data) {
+            },
+            receive: function (event, ui) {
 
-                    },
-                    error: function (xhr, status, error) {
 
-                    }
-                });
+                @* aqui se llama al metodo para agregar el rol al empleado
+                $.get("/empleados/SetBusy", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
+                    alert("you clickek");
+
+                });*@
             }
 
         });
@@ -68,12 +64,8 @@
 
 
 
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
+<br />
+<br />
 
 <style>
     #sortable tr:hover {
@@ -121,23 +113,46 @@
 
             <tbody id="sortable" style="cursor:pointer;">
                 <!-- listar los desarrolladores disponibles-->
-                @if (TempData["empleados"] != null)
+                @if (ViewBag.know != "----------" && TempData["empleadosK"].ToString() != "")
                 {
-                    foreach (var item in TempData["empleados"] as List<Proyecto_Integrador.Models.empleados>)
+                    foreach (var item in TempData["empleadosK"] as List<Proyecto_Integrador.Models.empleados>)
                     {
                         <tr>
                             <td>
+                                <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
                                 @item.cedulaPK
-
                             </td>
                             <td class=" taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
                                 @item.nombre
-                                <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
                             </td>
 
                         </tr>
                     }
                 }
+                else
+                {
+                    if (TempData["empleados"] != null)
+                    {
+                        foreach (var item in TempData["empleados"] as List<Proyecto_Integrador.Models.empleados>)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
+                                    @item.cedulaPK
+
+                                </td>
+                                <td class=" taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                                    @item.nombre
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                }
+
+
+
             </tbody>
         </table>
     </div>
@@ -148,18 +163,16 @@
 
     <div class=".col-6 .col-sm-4">
         <!-- codigo de segunda colunma-->
-        <p> Empleados en el proyecto</p>
-        <!-- lista desplegable para seleccionar proyecto-->
-        <td> Seleccionar proyecto </td>
-        <td>
-            @if (TempData["proyectos"] != null)
-            {
-                @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<Proyecto_Integrador.Models.proyectos>, "codigoPK", "codigoPK"), "----------")
-            }
-        </td>
+        <p>
+            Empleados en el proyecto
 
+            @TempData["nombreProyecto"] (@TempData["proyecto"])
+        </p>
+        <!-- lista desplegable para seleccionar proyecto-->
 
         <p></p>
+        <br />
+        <br />
 
         <!-- muestra el nombre del equipo (id)-->
 
@@ -179,15 +192,15 @@
                 <!-- para visualizar un ejemplo-->
                 @if (TempData["empleados"] != null)
                 {
-                    foreach (var item in TempData["empleados"] as List<Proyecto_Integrador.Models.empleados>)
+                    foreach (var item in TempData["empleadosP"] as List<Proyecto_Integrador.Models.empleados>)
                     {
                         <tr>
                             <td>
+                                <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
                                 @item.cedulaPK
                             </td>
                             <td class="taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
                                 @item.nombre
-                                <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
                             </td>
 
                         </tr>
@@ -209,50 +222,51 @@
 
 
 @*script para filtrar empleados por conociminento*@
-@*
-    <script>
-            $(document).ready(function () {
-
-                $("#conocimientoPK").change(function () {
-
-
-                    $.get("/equipos/GetEmployees", { codigoPK: $("#conocimientoPK").val() }, function (data) {
-                        $TempData["empleados"].empty;
-                        $.each(data, function (index, row) {
-                            $TempData["empleados"].append("<option value = '" + row.cedulaPK + "'>" + row.nombre + "</option>")
-                        });
-
-                    });
-
-
-                })
-            });
-
-    </script>
-*@
-
-
-@*script para filtrar empleados por proyecto*@
-@*
 <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $("#codigoPK").change(function () {
+            $("#conocimientoPK").change(function () {
+                var taka = $("#conocimientoPK Option:selected").text();
+                @*$("#conocimientoPK").val($("#conocimientoPK Option:selected").text().trim());
 
 
-            $.get("/equipos/GetEmployees2", { conocimientoPK: $("#codigoPK").val() }, function (data) {
-                $TempData["empleados2"].empty;
-                $.each(data, function (index, row) {
-                    $TempData["empleados"].append("<option value = '" + row.cedulaPK + "'>" + row.nombre + "</option>")
+                @foreach (var item in TempData["conocimientos"] as List<PiLocalWeb.Models.conocimiento>)
+                {
+                    if (taka == "c++")
+                        window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  "c++" })";
+                }*@
+                @*
+                @{ foreach (var item in TempData["conocimientos"] as List<PiLocalWeb.Models.conocimiento>)
+                        {
+                            if (item.conocimientoPK == taka) {
+                                window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  item.conocimientoPK})";
+                            }
+                        }
+                    }
+                *@
+
+                @* hay que encontrar como convertir el valor del dropdown a string *@
+                if (taka == "c++")
+                    window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  "c++"})";
+                if (taka == "java")
+                    window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  "java"})";
+                if (taka == "c#")
+                    window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  "c#"})";
+                if (taka == "php")
+                    window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK = "php" })";
+
+
                 });
-
-            });
-
-
-        })
-    });
+        });
 
 </script>
-*@
 
+<style>
 
+    tbody {
+        float: left;
+        margin: 30px;
+        width: 250px;
+        height: 500px;
+    }
+</style>

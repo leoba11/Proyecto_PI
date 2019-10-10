@@ -136,5 +136,12 @@ namespace Proyecto_Integrador.Controllers
             List<proyectos> proyectos = db.proyectos.ToList();
             return proyectos;
         }
+        public proyectos ProjectByCode(int cod)
+        {
+            proyectos proy = db.proyectos.Find(cod);
+            //TempData["proyectos"] = proyectos;
+            //TempData.Keep();
+            return proy;
+        }
     }
 }

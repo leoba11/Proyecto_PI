@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Seleccionar proyecto";
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+
+<td> Seleccionar proyecto </td>
+
+
+
+@using (Html.BeginForm("SelectProject", "equipos", FormMethod.Post))
+{
+    if (TempData["proyectos"] != null)
+    {
+        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<Proyecto_Integrador.Models.proyectos>, "codigoPK", "codigoPK"), "----------")
+    }
+
+    <input type="submit" value="Seleccionar" />
+}

@@ -142,8 +142,7 @@ namespace Proyecto_Integrador.Controllers
 
         public List<empleados> GetEmployeeByKnowledge(string conoc)
         {
-            List<empleados> employees = db.empleados.ToList();
-            List<conocimientos> conocimiento = db.conocimientos.ToList();
+            db.Configuration.ProxyCreationEnabled = false;
 
             var listaEmp = (from d in db.empleados
                             join f in db.conocimientos
@@ -161,9 +160,6 @@ namespace Proyecto_Integrador.Controllers
 
         public List<empleados> GetEmployeeByProyect(int codigo)
         {
-            List<empleados> employees = db.empleados.ToList();
-            List<roles> roles = db.roles.ToList();
-
             var listaEmpPr = (from d in db.empleados
                               join f in db.roles
                               on d.cedulaPK equals f.cedulaFK
@@ -175,6 +171,22 @@ namespace Proyecto_Integrador.Controllers
             return listaEmpPr;
 
 
+        }
+
+        public bool UpdateRol(int codProyecto, string cedulaEmp)
+        {
+            roles role = db.roles.Create();
+            role.codigoProyectoFK = codProyecto;
+            role.cedulaFK = cedulaEmp;
+            role.rol = "desarrollador";
+            return true;
+        }
+
+        public bool QuiteRol(int codProyecto, string cedulaEmp)
+        {
+            roles rol = db.roles.Find(codProyecto, cedulaEmp);
+            db.roles.Remove(rol);
+            return true;
         }
     }
 }

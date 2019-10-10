@@ -21,16 +21,21 @@ namespace Proyecto_Integrador.Controllers
             List<conocimientos> conocimientos = new conocimientosController().PassKnowledge();
             TempData["proyectos"] = proyectos;
             TempData["empleados"] = employeesList;
+            TempData["empleados2"] = employeesList;
             TempData["conocimientos"] = conocimientos;
             TempData.Keep();
-            return RedirectToAction("Lista", "equipos");
+            return RedirectToAction("SelectProject", "equipos");
         }
 
 
         // GET: equipos
-        public ActionResult Lista()
+        public ActionResult Lista(string conocimientoPK)
         {
             // List<proyecto> proyectos = TempData["proyectos"] as List<proyecto>;
+            List<empleados> employeesList = new empleadosController().GetEmployeeByKnowledge(conocimientoPK);
+            List<empleados> employeesList2 = new empleadosController().GetEmployeeByProyect(int.Parse(TempData["proyecto"].ToString()));
+            TempData["empleadosK"] = employeesList;
+            TempData["empleadosP"] = employeesList2;
             TempData.Keep();
 
 
@@ -46,6 +51,35 @@ namespace Proyecto_Integrador.Controllers
             TempData.Keep();
             return View();
         }
+
+
+
+        public ActionResult SelectProject()
+        {
+            TempData.Keep();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SelectProject(proyectos proyectito)
+        {
+            //TempData["proyecto"] = proyectito.codigoPK;
+            if (proyectito.codigoPK != null)
+            {
+                string know = "----------";
+                TempData["proyecto"] = proyectito.codigoPK;
+                TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
+                TempData.Keep();
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = know });
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+
+
 
 
 
@@ -88,5 +122,27 @@ namespace Proyecto_Integrador.Controllers
              
              */
         }
+
+
+
+        public JsonResult GetEmployees3(string conocimientoPK)
+        {
+            List<empleados> employeesList = new empleadosController().GetEmployeeByKnowledge(conocimientoPK);
+            //TempData["empleados"] = employeesList;
+            //TempData.Keep();
+            return Json(employeesList, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetEmployees(string conocimientoPK)
+        {
+            List<empleados> employeesList = new empleadosController().GetEmployeeByKnowledge(conocimientoPK);
+            TempData["empleados"] = employeesList;
+            TempData.Keep();
+            return Json(employeesList, JsonRequestBehavior.AllowGet);
+        }
+
+
+
     }
 }

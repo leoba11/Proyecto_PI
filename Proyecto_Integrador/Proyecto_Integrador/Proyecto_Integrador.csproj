@@ -361,6 +361,7 @@
     <Content Include="Views\equipos\Lista.cshtml" />
     <Content Include="Views\equipos\Details.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\equipos\SelectProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
