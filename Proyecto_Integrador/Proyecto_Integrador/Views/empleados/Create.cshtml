@@ -23,7 +23,7 @@
         <h4>Administrador de empleados</h4>
     </div>
     <div class="card-body cont">
-        <div class="ele1">
+        <div >
             <div class="form-group required">
                 @Html.LabelFor(model => model.cedulaPK, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-10">
@@ -73,7 +73,7 @@
             </div>
         </div>
 
-        <div class="ele2">
+        <div>
 
             <div class="form-group required">
                 @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -131,8 +131,6 @@
         <label class="control-label col-md-4"><span style="color:red">*</span> Campo obligatorio</label>
 
     </div>
-
-    <br />
 
     @*Botones de aceptar y cancelar *@
     <div class="form-actions no-color bot">
