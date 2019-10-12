@@ -16,8 +16,8 @@
         <AssociationConnector Association="Gr02Proy1Model.cedulaEmpleadoFK" ManuallyRouted="false" />
         <AssociationConnector Association="Gr02Proy1Model.FK_cedulaEmpleado" ManuallyRouted="false" />
         <AssociationConnector Association="Gr02Proy1Model.FK_codigoProyecto" ManuallyRouted="false" />
-        <AssociationConnector Association="Gr02Proy1Model.FK_proyecto_modulo" ManuallyRouted="false" />
         <AssociationConnector Association="Gr02Proy1Model.FK_codProyecto" ManuallyRouted="false" />
+        <AssociationConnector Association="Gr02Proy1Model.FK_proyecto_modulo1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

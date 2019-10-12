@@ -40,7 +40,6 @@ namespace Proyecto_Integrador.Controllers
         public ActionResult Create()
         {
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre");
-            ViewBag.empleadosDisponibles = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre");
             return View();
         }
 
@@ -49,7 +48,7 @@ namespace Proyecto_Integrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigoPK,nombre,fechaInicio,fechaFinalEstimada,costoEstimado,objetivo,cedulaClienteFK,idEquipo,fechaFinal,costoReal")] proyectos proyectos)
+        public ActionResult Create([Bind(Include = "nombre,fechaInicio,fechaFinalEstimada,costoEstimado,objetivo,cedulaClienteFK,idEquipo,fechaFinal,costoReal")] proyectos proyectos)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +74,6 @@ namespace Proyecto_Integrador.Controllers
                 return HttpNotFound();
             }
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre", proyectos.cedulaClienteFK);
-            ViewBag.empleadosDisponibles = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", proyectos.empleadosDisponibles);
             return View(proyectos);
         }
 

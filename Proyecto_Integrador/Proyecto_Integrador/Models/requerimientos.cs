@@ -15,16 +15,16 @@ namespace Proyecto_Integrador.Models
     public partial class requerimientos
     {
         public int codigoProyectoFK { get; set; }
-        public string nombreModuloFK { get; set; }
+        public int idModuloFK { get; set; }
         public int idPK { get; set; }
         public string descripcion { get; set; }
-        public int peso { get; set; }
+        public int complejidad { get; set; }
         public string estado { get; set; }
         public string cedulaEmpleadoFK { get; set; }
         public Nullable<System.DateTime> fechaInicio { get; set; }
         public Nullable<System.DateTime> fechaFin { get; set; }
-        public Nullable<int> duraciónEstimada { get; set; }
-        public Nullable<int> duraciónReal { get; set; }
+        public Nullable<System.DateTime> duraciónEstimada { get; set; }
+        public Nullable<System.DateTime> duraciónReal { get; set; }
     
         public virtual modulos modulos { get; set; }
     }

@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.clientes.nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.idEquipo)
+            @Html.DisplayNameFor(model => model.codigoPK)
         </th>
         <th>
             <a href="~/proyectos/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
@@ -41,7 +41,7 @@
                     @Html.DisplayFor(modelItem => item.clientes.nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.idEquipo)
+                    @Html.DisplayFor(modelItem => item.codigoPK)
                 </td>
                 <td>
                     <a href="@Url.Action("Details", new { id = item.codigoPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>

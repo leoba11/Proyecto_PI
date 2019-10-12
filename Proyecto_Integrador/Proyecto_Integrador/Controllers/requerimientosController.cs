@@ -48,7 +48,7 @@ namespace Proyecto_Integrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigoProyectoFK,nombreModuloFK,idPK,descripcion,peso,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duraciónEstimada,duraciónReal")] requerimientos requerimientos)
+        public ActionResult Create([Bind(Include = "codigoProyectoFK,nombreModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duraciónEstimada,duraciónReal")] requerimientos requerimientos)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Proyecto_Integrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codigoProyectoFK,nombreModuloFK,idPK,descripcion,peso,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duraciónEstimada,duraciónReal")] requerimientos requerimientos)
+        public ActionResult Edit([Bind(Include = "codigoProyectoFK,nombreModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duraciónEstimada,duraciónReal")] requerimientos requerimientos)
         {
             if (ModelState.IsValid)
             {

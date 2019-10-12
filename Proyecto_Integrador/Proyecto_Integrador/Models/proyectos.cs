@@ -25,7 +25,6 @@ namespace Proyecto_Integrador.Models
 
         [Key]
         [Display(Name = "Código del Proyecto")]
-        [Required(ErrorMessage = "Este campo es requerido")]
         public int codigoPK { get; set; }
         [Display(Name = "Nombre del Proyecto")]
         [Required(ErrorMessage = "Este campo es requerido")]

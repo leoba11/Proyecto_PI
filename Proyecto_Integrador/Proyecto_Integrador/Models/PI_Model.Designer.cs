@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\b50946\source\repos\Proyecto_Integrador\Proyecto_Integrador\Models\PI_Model.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Roy Andres\Documents\Proyecto_PI\Proyecto_Integrador\Proyecto_Integrador\Models\PI_Model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

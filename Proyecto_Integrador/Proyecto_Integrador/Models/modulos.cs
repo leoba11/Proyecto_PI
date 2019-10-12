@@ -24,8 +24,9 @@ namespace Proyecto_Integrador.Models
         [Display(Name = "Nombre del Proyecto")]
         public int codigoProyectoFK { get; set; }
         [Key]
+        public int idPK { get; set; }
         [Display(Name = "Nombre del módulo")]
-        public string nombrePK { get; set; }
+        public string nombre { get; set; }
         [Display(Name = "Descripción")]
         public string descripcion { get; set; }
     

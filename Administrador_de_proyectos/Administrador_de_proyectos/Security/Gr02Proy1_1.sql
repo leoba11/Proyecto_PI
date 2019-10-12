@@ -1,0 +1,2 @@
+﻿CREATE USER [Gr02Proy1] FOR LOGIN [Gr02Proy1];
+

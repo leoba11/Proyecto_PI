@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Gr02Proy1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Gr02Proy1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="clientes">
           <Key>
             <PropertyRef Name="cedulaPK" />
@@ -16,7 +16,7 @@
           <Property Name="telefono" Type="varchar(max)" Nullable="false" />
           <Property Name="provincia" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="canton" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="distrito" Type="varchar" MaxLength="50" />
+          <Property Name="distrito" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="correo" Type="varchar(max)" />
           <Property Name="direccionDetallada" Type="varchar(max)" />
         </EntityType>
@@ -41,7 +41,7 @@
           <Property Name="telefono" Type="varchar(max)" Nullable="false" />
           <Property Name="provincia" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="canton" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="distrito" Type="varchar" MaxLength="50" />
+          <Property Name="distrito" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="correo" Type="varchar(max)" />
           <Property Name="direccionDetallada" Type="varchar(max)" />
           <Property Name="disponibilidad" Type="bit" Nullable="false" />
@@ -49,17 +49,18 @@
         <EntityType Name="modulos">
           <Key>
             <PropertyRef Name="codigoProyectoFK" />
-            <PropertyRef Name="nombrePK" />
+            <PropertyRef Name="idPK" />
           </Key>
           <Property Name="codigoProyectoFK" Type="int" Nullable="false" />
-          <Property Name="nombrePK" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="descripcion" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="proyectos">
           <Key>
             <PropertyRef Name="codigoPK" />
           </Key>
-          <Property Name="codigoPK" Type="int" Nullable="false" />
+          <Property Name="codigoPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fechaInicio" Type="datetime" Nullable="false" />
           <Property Name="fechaFinalEstimada" Type="datetime" Nullable="false" />
@@ -73,27 +74,27 @@
         <EntityType Name="requerimientos">
           <Key>
             <PropertyRef Name="codigoProyectoFK" />
-            <PropertyRef Name="nombreModuloFK" />
+            <PropertyRef Name="idModuloFK" />
             <PropertyRef Name="idPK" />
           </Key>
           <Property Name="codigoProyectoFK" Type="int" Nullable="false" />
-          <Property Name="nombreModuloFK" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="idPK" Type="int" Nullable="false" />
+          <Property Name="idModuloFK" Type="int" Nullable="false" />
+          <Property Name="idPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="peso" Type="int" Nullable="false" />
+          <Property Name="complejidad" Type="int" Nullable="false" />
           <Property Name="estado" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cedulaEmpleadoFK" Type="char" MaxLength="9" Nullable="false" />
-          <Property Name="fechaInicio" Type="datetime" />
+          <Property Name="fechaInicio" Type="datetime" Nullable="false" />
           <Property Name="fechaFin" Type="datetime" />
-          <Property Name="duraciónEstimada" Type="int" />
-          <Property Name="duraciónReal" Type="int" />
+          <Property Name="duraciónEstimada" Type="datetime" Nullable="false" />
+          <Property Name="duraciónReal" Type="datetime" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
             <PropertyRef Name="cedulaFK" />
             <PropertyRef Name="codigoProyectoFK" />
           </Key>
-          <Property Name="rol" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="rol" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="cedulaFK" Type="char" MaxLength="9" Nullable="false" />
           <Property Name="codigoProyectoFK" Type="int" Nullable="false" />
         </EntityType>
@@ -152,9 +153,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_codProyecto">
-          <End Role="proyectos" Type="Self.proyectos" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="proyectos" Type="Self.proyectos" Multiplicity="1" />
           <End Role="roles" Type="Self.roles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="proyectos">
@@ -173,11 +172,11 @@
           <ReferentialConstraint>
             <Principal Role="modulos">
               <PropertyRef Name="codigoProyectoFK" />
-              <PropertyRef Name="nombrePK" />
+              <PropertyRef Name="idPK" />
             </Principal>
             <Dependent Role="requerimientos">
               <PropertyRef Name="codigoProyectoFK" />
-              <PropertyRef Name="nombreModuloFK" />
+              <PropertyRef Name="idModuloFK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -214,8 +213,7 @@
             <End Role="requerimientos" EntitySet="requerimientos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Gr02Proy1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -230,7 +228,7 @@
           <Property Name="telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="canton" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="distrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="distrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="direccionDetallada" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="proyectos" Relationship="Self.FK_cedulaCliente" FromRole="clientes" ToRole="proyectos" />
@@ -257,7 +255,7 @@
           <Property Name="telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="canton" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="distrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="distrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="direccionDetallada" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="disponibilidad" Type="Boolean" Nullable="false" />
@@ -267,19 +265,20 @@
         <EntityType Name="modulos">
           <Key>
             <PropertyRef Name="codigoProyectoFK" />
-            <PropertyRef Name="nombrePK" />
+            <PropertyRef Name="idPK" />
           </Key>
-          <Property Name="codigoProyectoFK" Type="Int32" Nullable="false" />
-          <Property Name="nombrePK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigoProyectoFK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="proyectos" Relationship="Self.FK_codigoProyecto" FromRole="modulos" ToRole="proyectos" />
-          <NavigationProperty Name="requerimientos" Relationship="Self.FK_proyecto_modulo" FromRole="modulos" ToRole="requerimientos" />
+          <Property Name="idPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="requerimientos" Relationship="Gr02Proy1Model.FK_proyecto_modulo1" FromRole="modulos" ToRole="requerimientos" />
         </EntityType>
         <EntityType Name="proyectos">
           <Key>
             <PropertyRef Name="codigoPK" />
           </Key>
-          <Property Name="codigoPK" Type="Int32" Nullable="false" />
+          <Property Name="codigoPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaInicio" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fechaFinalEstimada" Type="DateTime" Nullable="false" Precision="3" />
@@ -296,30 +295,30 @@
         <EntityType Name="requerimientos">
           <Key>
             <PropertyRef Name="codigoProyectoFK" />
-            <PropertyRef Name="nombreModuloFK" />
             <PropertyRef Name="idPK" />
+            <PropertyRef Name="idModuloFK" />
           </Key>
-          <Property Name="codigoProyectoFK" Type="Int32" Nullable="false" />
-          <Property Name="nombreModuloFK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="idPK" Type="Int32" Nullable="false" />
+          <Property Name="codigoProyectoFK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="peso" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cedulaEmpleadoFK" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="fechaInicio" Type="DateTime" Precision="3" />
+          <Property Name="fechaInicio" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="fechaFin" Type="DateTime" Precision="3" />
-          <Property Name="duraciónEstimada" Type="Int32" />
-          <Property Name="duraciónReal" Type="Int32" />
-          <NavigationProperty Name="modulos" Relationship="Self.FK_proyecto_modulo" FromRole="requerimientos" ToRole="modulos" />
+          <Property Name="duraciónEstimada" Type="DateTime" Nullable="false" />
+          <Property Name="duraciónReal" Type="DateTime" />
+          <Property Name="idModuloFK" Type="Int32" Nullable="false" />
+          <Property Name="complejidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="modulos" Relationship="Gr02Proy1Model.FK_proyecto_modulo1" FromRole="requerimientos" ToRole="modulos" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
             <PropertyRef Name="cedulaFK" />
             <PropertyRef Name="codigoProyectoFK" />
           </Key>
-          <Property Name="rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rol" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cedulaFK" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="codigoProyectoFK" Type="Int32" Nullable="false" />
+          <Property Name="codigoProyectoFK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="empleados" Relationship="Self.FK_cedulaEmpleado" FromRole="roles" ToRole="empleados" />
           <NavigationProperty Name="proyectos" Relationship="Self.FK_codProyecto" FromRole="roles" ToRole="proyectos" />
         </EntityType>
@@ -377,22 +376,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_proyecto_modulo">
-          <End Role="modulos" Type="Self.modulos" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="requerimientos" Type="Self.requerimientos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="modulos">
-              <PropertyRef Name="codigoProyectoFK" />
-              <PropertyRef Name="nombrePK" />
-            </Principal>
-            <Dependent Role="requerimientos">
-              <PropertyRef Name="codigoProyectoFK" />
-              <PropertyRef Name="nombreModuloFK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_codProyecto">
           <End Role="proyectos" Type="Self.proyectos" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -431,15 +414,31 @@
             <End Role="proyectos" EntitySet="proyectos" />
             <End Role="modulos" EntitySet="modulos" />
           </AssociationSet>
-          <AssociationSet Name="FK_proyecto_modulo" Association="Self.FK_proyecto_modulo">
-            <End Role="modulos" EntitySet="modulos" />
-            <End Role="requerimientos" EntitySet="requerimientos" />
-          </AssociationSet>
           <AssociationSet Name="FK_codProyecto" Association="Self.FK_codProyecto">
             <End Role="proyectos" EntitySet="proyectos" />
             <End Role="roles" EntitySet="roles" />
           </AssociationSet>
+          <AssociationSet Name="FK_proyecto_modulo1" Association="Gr02Proy1Model.FK_proyecto_modulo1">
+            <End Role="modulos" EntitySet="modulos" />
+            <End Role="requerimientos" EntitySet="requerimientos" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_proyecto_modulo1">
+          <End Type="Gr02Proy1Model.modulos" Role="modulos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Gr02Proy1Model.requerimientos" Role="requerimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modulos">
+              <PropertyRef Name="codigoProyectoFK" />
+              <PropertyRef Name="idPK" />
+            </Principal>
+            <Dependent Role="requerimientos">
+              <PropertyRef Name="codigoProyectoFK" />
+              <PropertyRef Name="idModuloFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -492,8 +491,9 @@
           <EntitySetMapping Name="modulos">
             <EntityTypeMapping TypeName="Gr02Proy1Model.modulos">
               <MappingFragment StoreEntitySet="modulos">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idPK" ColumnName="idPK" />
                 <ScalarProperty Name="codigoProyectoFK" ColumnName="codigoProyectoFK" />
-                <ScalarProperty Name="nombrePK" ColumnName="nombrePK" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -517,11 +517,11 @@
           <EntitySetMapping Name="requerimientos">
             <EntityTypeMapping TypeName="Gr02Proy1Model.requerimientos">
               <MappingFragment StoreEntitySet="requerimientos">
+                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
+                <ScalarProperty Name="idModuloFK" ColumnName="idModuloFK" />
                 <ScalarProperty Name="codigoProyectoFK" ColumnName="codigoProyectoFK" />
-                <ScalarProperty Name="nombreModuloFK" ColumnName="nombreModuloFK" />
                 <ScalarProperty Name="idPK" ColumnName="idPK" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="peso" ColumnName="peso" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="cedulaEmpleadoFK" ColumnName="cedulaEmpleadoFK" />
                 <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />

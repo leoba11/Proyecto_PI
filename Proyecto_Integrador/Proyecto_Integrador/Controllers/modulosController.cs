@@ -22,13 +22,13 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: modulos/Details/5
-        public ActionResult Details(int? codProyecto, string nombreMod)
+        public ActionResult Details(int? codProyecto, int? id)
         {
-            if (codProyecto == null || nombreMod == null)
+            if (codProyecto == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            modulos modulos = db.modulos.Find(codProyecto, nombreMod);
+            modulos modulos = db.modulos.Find(codProyecto, id);
             if (modulos == null)
             {
                 return HttpNotFound();
@@ -48,7 +48,7 @@ namespace Proyecto_Integrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigoProyectoFK,nombrePK,descripcion")] modulos modulos)
+        public ActionResult Create([Bind(Include = "codigoProyectoFK,nombre,descripcion")] modulos modulos)
         {
             if (ModelState.IsValid)
             {
@@ -62,19 +62,19 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: modulos/Edit/5
-        public ActionResult Edit(int? codProyecto, string nombreMod)
+        public ActionResult Edit(int? codProyecto, int? id)
         {
-            if (codProyecto == null || nombreMod == null)
+            if (codProyecto == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            modulos modulos = db.modulos.Find(codProyecto, nombreMod);
+            modulos modulos = db.modulos.Find(codProyecto, id);
             if (modulos == null)
             {
                 return HttpNotFound();
             }
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "codigo", modulos.codigoProyectoFK);
-            ViewBag.nombrePK = new SelectList(db.modulos, "nombrePK", "nombre", modulos.nombrePK);
+            ViewBag.idPK = new SelectList(db.modulos, "idPK", "id", modulos.idPK);
             return View(modulos);
         }
 
@@ -83,7 +83,7 @@ namespace Proyecto_Integrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codigoProyectoFK,nombrePK,descripcion")] modulos modulos)
+        public ActionResult Edit([Bind(Include = "codigoProyectoFK,idPK,nombre,descripcion")] modulos modulos)
         {
             if (ModelState.IsValid)
             {
@@ -96,13 +96,13 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: modulos/Delete/5
-        public ActionResult Delete(int? codProyecto, string nombreMod)
+        public ActionResult Delete(int? codProyecto, int? id)
         {
-            if (codProyecto == null || nombreMod == null)
+            if (codProyecto == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            modulos modulos = db.modulos.Find(codProyecto, nombreMod);
+            modulos modulos = db.modulos.Find(codProyecto, id);
             if (modulos == null)
             {
                 return HttpNotFound();
@@ -113,9 +113,9 @@ namespace Proyecto_Integrador.Controllers
         // POST: modulos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int codProyecto, string nombreMod)
+        public ActionResult DeleteConfirmed(int codProyecto, int? id)
         {
-            modulos modulos = db.modulos.Find(codProyecto, nombreMod);
+            modulos modulos = db.modulos.Find(codProyecto, id);
             db.modulos.Remove(modulos);
             db.SaveChanges();
             return RedirectToAction("Index");
