@@ -19,10 +19,9 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.codigoProyectoFK)
+    @Html.HiddenFor(model => model.idPK)
 
-    @Html.HiddenFor(model => model.nombre)
 
-    
     <div class="form-group required text-nowrap">
         @Html.LabelFor(model => model.nombre, "Nombre módulo", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -39,7 +38,7 @@
             @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
         </div>
     </div>
-    
+
 
 </div>
     @*Aviso de campo obligatorio*@

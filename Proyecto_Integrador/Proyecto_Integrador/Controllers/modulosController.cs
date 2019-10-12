@@ -123,6 +123,7 @@ namespace Proyecto_Integrador.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "codigo", modulos.codigoProyectoFK);
+            ViewBag.idPK = new SelectList(db.modulos, "idPK", "id", modulos.idPK);
             return View(modulos);
         }
 
