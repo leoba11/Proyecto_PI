@@ -7,42 +7,44 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>conocimientos</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.cedulaEmpleadoFK, "cedulaEmpleadoFK", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("cedulaEmpleadoFK", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.cedulaEmpleadoFK, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.conocimientoPK, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.conocimientoPK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.conocimientoPK, "", new { @class = "text-danger" })
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h4>Administrador de conoimientos</h4>
         </div>
+        <div class="card-body cont">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.cedulaEmpleadoFK, "cedulaEmpleadoFK", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-10">
+                    @Html.DropDownList("cedulaEmpleadoFK", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.cedulaEmpleadoFK, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="form-group">
+                @Html.LabelFor(model => model.conocimientoPK, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.conocimientoPK, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.conocimientoPK, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
+        @*Botones de aceptar y cancelar *@
+        <div class="form-actions no-color bot">
+            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+            <a href="~/empleados/Index" role="button" class="btn btn-danger"> Cancelar</a>
+        </div>
+        <br />  
     </div>
+
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
