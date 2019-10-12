@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<Proyecto_Integrador.Models.modulos>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Seleccionar proyecto";
 }
 
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
 
+<<<<<<< HEAD
 @*Título de la ventana*@
 <h2>Módulos</h2>
 @*Informacion para la busqueda*@
@@ -56,23 +60,21 @@
 
 
                     <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, id = item.idPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
-
-
-                </td>
+                    =======
             </tr>
         }
-    </tbody>
+                <td> Seleccionar proyecto </td>
+                
 
-</table>
+                >>>>>>> 25747aede4ff15416d591da2f999c893fdf57864
 
-@*Script de Jquery para filtar elementos de la tabla*@
-<script>
-    $(document).ready(function () {
-        $("#userInput").on("keyup", function () {
-            var value1 = $(this).val().toLowerCase();
-            $("#myTableMod tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1)
-            });
-        });
-    });
-</script>
+                @using (Html.BeginForm("Index", "modulos", FormMethod.Post))
+                {
+                    if (TempData["proyectos"] != null)
+                    {
+                        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<Proyecto_Integrador.Models.proyectos>, "codigoPK", "codigoPK"), "----------")
+                    }
+
+                    <input type="submit" value="Seleccionar" />
+                }
+

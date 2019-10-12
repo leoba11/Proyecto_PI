@@ -17,9 +17,40 @@ namespace Proyecto_Integrador.Controllers
         // GET: modulos
         public ActionResult Index()
         {
-            var modulos = db.modulos.Include(m => m.proyectos);
-            return View(modulos.ToList());
+            /*var modulos = db.modulos.Include(m => m.proyectos);
+            return View(modulos.ToList());*/
+            List<proyectos> proyectos = new proyectosController().Pass();
+            TempData["proyectos"] = proyectos;
+            TempData.Keep();
+            return View();
         }
+
+        [HttpPost]
+        public ActionResult Index(proyectos proyectito)
+        {
+            //TempData["proyecto"] = proyectito.codigoPK;
+            if (proyectito.codigoPK != null)
+            {
+                TempData["proyecto"] = proyectito.codigoPK;
+                TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
+                TempData.Keep();
+                return RedirectToAction("Lista", "modulos");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Lista()
+        {
+            TempData.Keep();
+            int codigo = int.Parse(TempData["proyecto"].ToString());
+            List<modulos> modulos = db.modulos.Where(x => x.codigoProyectoFK == codigo).ToList();
+            TempData["modulos"] = modulos;
+            return View();
+        }
+
 
         // GET: modulos/Details/5
         public ActionResult Details(int? codProyecto, int? id)
