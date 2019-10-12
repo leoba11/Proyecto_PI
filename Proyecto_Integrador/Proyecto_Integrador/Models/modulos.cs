@@ -25,9 +25,13 @@ namespace Proyecto_Integrador.Models
         public int codigoProyectoFK { get; set; }
         [Key]
         public int idPK { get; set; }
+
         [Display(Name = "Nombre del módulo")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string nombre { get; set; }
+
         [Display(Name = "Descripción")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string descripcion { get; set; }
     
         public virtual proyectos proyectos { get; set; }

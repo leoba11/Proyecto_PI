@@ -9,72 +9,18 @@
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
 
-<<<<<<< HEAD
+
 @*Título de la ventana*@
 <h2>Módulos</h2>
-@*Informacion para la busqueda*@
-<p>Escriba algo en la barra para buscar en la tabla algún módulo</p>
-<input class="form-control" id="userInput" type="text" placeholder="Buscar..">
-<br />
-
-
-@*Tabla para el despliegue de tuplas*@
-<table class="table table-striped">
-    @*Encabezado de la tabla*@
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.proyectos.codigoPK)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.descripcion)
-            </th>
-            <th>
-                @*Botón de crear*@
-                <a href="~/modulos/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
-            </th>
-        </tr>
-    </thead>
-    <tbody id="myTableMod">
-        @*For para desplegar las tublas de la tabla*@
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.proyectos.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.descripcion)
-                </td>
-                <td>
-                    @*Aquí se colocan los iconos para cada tupla de la tabla
-                        Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
-                        Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
-                    *@
-
-
-                    <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, id = item.idPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
-                    =======
-            </tr>
-        }
-                <td> Seleccionar proyecto </td>
+<h4> Seleccionar proyecto </h4>
                 
+@using (Html.BeginForm("Index", "modulos", FormMethod.Post))
+{
+if (TempData["proyectos"] != null)
+{
+    @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<Proyecto_Integrador.Models.proyectos>, "codigoPK", "codigoPK"), "----------")
+}
 
-                >>>>>>> 25747aede4ff15416d591da2f999c893fdf57864
-
-                @using (Html.BeginForm("Index", "modulos", FormMethod.Post))
-                {
-                    if (TempData["proyectos"] != null)
-                    {
-                        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<Proyecto_Integrador.Models.proyectos>, "codigoPK", "codigoPK"), "----------")
-                    }
-
-                    <input type="submit" value="Seleccionar" />
-                }
+    <input type="submit" value="Seleccionar" />
+}
 

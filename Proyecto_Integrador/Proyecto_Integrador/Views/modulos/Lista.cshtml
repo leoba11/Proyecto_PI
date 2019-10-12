@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Proyecto_Integrador.Models.modulos>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista";
 }
 
 
@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.proyectos.codigoPK)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nombrePK)
+                @Html.DisplayNameFor(model => model.nombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.descripcion)
@@ -43,7 +43,7 @@
                     @Html.DisplayFor(modelItem => item.proyectos.nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.nombrePK)
+                    @Html.DisplayFor(modelItem => item.nombre)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.descripcion)
@@ -56,7 +56,7 @@
                     *@
 
 
-                    <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, nombreMod = item.nombrePK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
+                    <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, id = item.idPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
 
 
                 </td>

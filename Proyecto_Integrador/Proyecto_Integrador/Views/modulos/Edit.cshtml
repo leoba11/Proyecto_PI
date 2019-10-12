@@ -13,25 +13,37 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @*Subitulo de la vista*@
-        <h4>Administrador módulos</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.codigoProyectoFK)
+<div class="form-horizontal">
+    @*Subitulo de la vista*@
+    <h4>Administrador módulos</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.codigoProyectoFK)
 
-        @Html.HiddenFor(model => model.nombre)
+    @Html.HiddenFor(model => model.nombre)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-                @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required", @rows = 5 })
-                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
-            </div>
+    
+    <div class="form-group required text-nowrap">
+        @Html.LabelFor(model => model.nombre, "Nombre módulo", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
+            @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", placeholder = "nombre", required = "required" })
+            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
         </div>
-
     </div>
+    <div class="form-group required text-nowrap">
+        @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
+            @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required", @rows = 5 })
+            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    
+
+</div>
+    @*Aviso de campo obligatorio*@
+        <label class="control-label col-md-2"><span style="color:red">*</span> Campo obligatorio</label>
     @*Botones de aceptar y cancelar *@
     <div class="form-actions no-color">
         <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;

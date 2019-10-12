@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group required text-nowrap">
         @Html.LabelFor(model => model.nombre, "Nombre módulo", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group required text-nowrap">
         @Html.LabelFor(model => model.descripcion, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @*Acá es para hacer que a fuerzas el usuario ingrese un valor*@
@@ -41,6 +41,8 @@
         </div>
 
     </div>
+    @*Aviso de campo obligatorio*@
+    <label class="control-label col-md-2"><span style="color:red">*</span> Campo obligatorio</label>
 
     @*Botones de aceptar y cancelar *@
     <div class="form-actions no-color">
