@@ -11,10 +11,16 @@ namespace Proyecto_Integrador.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class conocimientos
     {
+        [Key]
+        [Display(Name = "Cédula de empleado")]
         public string cedulaEmpleadoFK { get; set; }
+
+        [Key]
+        [Display(Name = "Conocimiento")]
         public string conocimientoPK { get; set; }
     
         public virtual empleados empleados { get; set; }

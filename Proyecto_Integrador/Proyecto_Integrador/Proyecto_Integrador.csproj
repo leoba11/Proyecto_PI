@@ -327,8 +327,6 @@
     <Content Include="Views\conocimientos\Index.cshtml" />
     <Content Include="Views\empleados\Create.cshtml" />
     <Content Include="Views\empleados\Delete.cshtml" />
-    <Content Include="Views\empleados\Details.cshtml" />
-    <Content Include="Views\empleados\Edit.cshtml" />
     <Content Include="Views\empleados\Index.cshtml" />
     <Content Include="Views\modulos\Create.cshtml" />
     <Content Include="Views\modulos\Delete.cshtml" />

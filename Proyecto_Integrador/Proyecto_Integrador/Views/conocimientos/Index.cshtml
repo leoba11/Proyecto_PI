@@ -4,30 +4,31 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Conocimientos</h2>
+<br />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
+        
         <th>
-            @Html.DisplayNameFor(model => model.empleados.nombre)
+            @Html.DisplayNameFor(model => model.conocimientoPK)
         </th>
-        <th></th>
+        <th>
+            @*Botón de crear*@
+            <a href="~/conocimientos/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
+        </th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.empleados.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.conocimientoPK)
+    </td>
+    <td>
+        <a href="@Url.Action("Delete", new {cedulaEmp = item.cedulaEmpleadoFK, cono = item.conocimientoPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
+    </td>
+</tr>
 }
 
 </table>

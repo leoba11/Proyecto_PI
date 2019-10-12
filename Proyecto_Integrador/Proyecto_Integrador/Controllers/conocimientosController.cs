@@ -21,21 +21,6 @@ namespace Proyecto_Integrador.Controllers
             return View(conocimientos.ToList());
         }
 
-        // GET: conocimientos/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            conocimientos conocimientos = db.conocimientos.Find(id);
-            if (conocimientos == null)
-            {
-                return HttpNotFound();
-            }
-            return View(conocimientos);
-        }
-
         // GET: conocimientos/Create
         public ActionResult Create()
         {
@@ -61,47 +46,15 @@ namespace Proyecto_Integrador.Controllers
             return View(conocimientos);
         }
 
-        // GET: conocimientos/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            conocimientos conocimientos = db.conocimientos.Find(id);
-            if (conocimientos == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", conocimientos.cedulaEmpleadoFK);
-            return View(conocimientos);
-        }
-
-        // POST: conocimientos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "cedulaEmpleadoFK,conocimientoPK")] conocimientos conocimientos)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(conocimientos).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", conocimientos.cedulaEmpleadoFK);
-            return View(conocimientos);
-        }
-
+       
         // GET: conocimientos/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string cedulaEmp, string cono)
         {
-            if (id == null)
+            if (cedulaEmp == null || cono == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            conocimientos conocimientos = db.conocimientos.Find(id);
+            conocimientos conocimientos = db.conocimientos.Find(cedulaEmp, cono);
             if (conocimientos == null)
             {
                 return HttpNotFound();
@@ -112,9 +65,9 @@ namespace Proyecto_Integrador.Controllers
         // POST: conocimientos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string cedulaEmp, string cono)
         {
-            conocimientos conocimientos = db.conocimientos.Find(id);
+            conocimientos conocimientos = db.conocimientos.Find(cedulaEmp, cono);
             db.conocimientos.Remove(conocimientos);
             db.SaveChanges();
             return RedirectToAction("Index");
