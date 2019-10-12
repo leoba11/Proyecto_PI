@@ -332,7 +332,7 @@
     <Content Include="Views\modulos\Delete.cshtml" />
     <Content Include="Views\modulos\Details.cshtml" />
     <Content Include="Views\modulos\Edit.cshtml" />
-    <Content Include="Views\modulos\Index.cshtml" />
+    <Content Include="Views\modulos\Lista.cshtml" />
     <Content Include="Views\proyectos\Create.cshtml" />
     <Content Include="Views\proyectos\Delete.cshtml" />
     <Content Include="Views\proyectos\Details.cshtml" />
@@ -361,6 +361,7 @@
     <Content Include="Views\equipos\Details.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\equipos\SelectProject.cshtml" />
+    <Content Include="Views\modulos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
