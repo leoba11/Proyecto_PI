@@ -179,20 +179,20 @@ namespace Proyecto_Integrador.Controllers
 
         }
 
-        public bool UpdateRol(int codProyecto, string cedulaEmp)
+        public void SetFree(int codigo, string cedula)
         {
-            roles role = db.roles.Create();
-            role.codigoProyectoFK = codProyecto;
-            role.cedulaFK = cedulaEmp;
-            role.rol = "desarrollador";
-            return true;
+            empleados actual = db.empleados.Find(cedula);
+            actual.disponibilidad = true;
+            bool rol = new rolesController().QuiteRol(codigo, cedula);
+
         }
 
-        public bool QuiteRol(int codProyecto, string cedulaEmp)
+        public void SetBusy(int codigo, string cedula)
         {
-            roles rol = db.roles.Find(codProyecto, cedulaEmp);
-            db.roles.Remove(rol);
-            return true;
+            empleados actual = db.empleados.Find(cedula);
+            actual.disponibilidad = false;
+            bool rol = new rolesController().UpdateRol(codigo, cedula);
+
         }
     }
 }
