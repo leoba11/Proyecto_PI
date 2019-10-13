@@ -40,6 +40,7 @@ namespace Proyecto_Integrador.Controllers
         public ActionResult Create()
         {
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre");
+            ViewBag.cedulaLider = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre");
             return View();
         }
 
@@ -48,16 +49,18 @@ namespace Proyecto_Integrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "nombre,fechaInicio,fechaFinalEstimada,costoEstimado,objetivo,cedulaClienteFK,idEquipo,fechaFinal,costoReal")] proyectos proyectos)
+        public ActionResult Create([Bind(Include = "nombre,fechaInicio,fechaFinalEstimada,costoEstimado,objetivo,cedulaClienteFK,idEquipo,fechaFinal,costoReal,cedulaLider")] proyectos proyectos)
         {
             if (ModelState.IsValid)
             {
                 db.proyectos.Add(proyectos);
                 db.SaveChanges();
+                new rolesController().AddRol(proyectos.codigoPK, proyectos.cedulaLider, 0);
                 return RedirectToAction("Index");
             }
 
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre", proyectos.cedulaClienteFK);
+            ViewBag.cedulaLider = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", proyectos.cedulaLider);
             return View(proyectos);
         }
 
@@ -74,6 +77,7 @@ namespace Proyecto_Integrador.Controllers
                 return HttpNotFound();
             }
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre", proyectos.cedulaClienteFK);
+            ViewBag.cedulaLider = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", proyectos.cedulaLider);
             return View(proyectos);
         }
 
@@ -82,15 +86,17 @@ namespace Proyecto_Integrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codigoPK,nombre,fechaInicio,fechaFinalEstimada,costoEstimado,objetivo,cedulaClienteFK,idEquipo,fechaFinal,costoReal")] proyectos proyectos)
+        public ActionResult Edit([Bind(Include = "codigoPK,nombre,fechaInicio,fechaFinalEstimada,costoEstimado,objetivo,cedulaClienteFK,idEquipo,fechaFinal,costoReal,cedulaLider")] proyectos proyectos)
         {
             if (ModelState.IsValid)
             {
+                new rolesController().UpdateLider(proyectos.codigoPK, new rolesController().getLiderID(proyectos.codigoPK), proyectos.cedulaLider);
                 db.Entry(proyectos).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre", proyectos.cedulaClienteFK);
+            ViewBag.cedulaLider = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", proyectos.cedulaLider);
             return View(proyectos);
         }
 
@@ -115,6 +121,7 @@ namespace Proyecto_Integrador.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             proyectos proyectos = db.proyectos.Find(id);
+            new rolesController().EraseRol(proyectos.codigoPK, new rolesController().getLiderID(proyectos.codigoPK));
             db.proyectos.Remove(proyectos);
             db.SaveChanges();
             return RedirectToAction("Index");

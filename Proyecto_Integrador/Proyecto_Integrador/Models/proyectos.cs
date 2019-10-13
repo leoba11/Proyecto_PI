@@ -49,8 +49,9 @@ namespace Proyecto_Integrador.Models
         [Display(Name = "Costo real")]
         public Nullable<decimal> costoReal { get; set; }
         [NotMapped]
-        public List<empleados> empleadosDisponibles { get; set; }
+        public string cedulaLider { get; set; }
 
+        public virtual empleados empleados { get; set; }
         public virtual clientes clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<modulos> modulos { get; set; }

@@ -133,18 +133,23 @@ namespace Proyecto_Integrador.Controllers
             base.Dispose(disposing);
         }
 
-
-        public void UddRol(int codProyecto, string cedulaEmp)
+        [ValidateAntiForgeryToken]
+        public void AddRol(int codProyecto, string cedulaEmp, int rolOpt)
         {
             roles rol = db.roles.Create();
             rol.codigoProyectoFK = codProyecto;
             rol.cedulaFK = cedulaEmp;
-            rol.rol = "desarrollador";
+            if( rolOpt == 0 )
+                rol.rol = "Líder";
+            else
+                rol.rol = "Desarrollador";
+            db.roles.Add(rol);
+            db.SaveChanges();
         }
 
         public void EraseRol(int codProyecto, string cedulaEmp)
         {
-            roles roles = db.roles.Find(codProyecto, cedulaEmp);
+            roles roles = db.roles.Find(cedulaEmp, codProyecto);
             db.roles.Remove(roles);
             db.SaveChanges();
         }
@@ -164,6 +169,30 @@ namespace Proyecto_Integrador.Controllers
             roles rol = db.roles.Find(codProyecto, cedulaEmp);
             db.roles.Remove(rol);
             return true;
+        }
+
+        public string getLiderID(int codProyecto)
+        {
+            roles rol = db.roles.FirstOrDefault(r => r.codigoProyectoFK == codProyecto && r.rol == "Líder");
+            if (rol == null)
+                return null;
+            return rol.cedulaFK;
+        }
+
+        public void UpdateLider(int codProyecto, string cedulaEmp, string nCedulaEmp)
+        {
+            roles rol;
+            if (cedulaEmp != null) {
+                rol = db.roles.First(r => r.codigoProyectoFK == codProyecto && r.cedulaFK == cedulaEmp);
+                rol.cedulaFK = nCedulaEmp;
+            } else {
+                rol = db.roles.Create();
+                rol.codigoProyectoFK = codProyecto;
+                rol.cedulaFK = nCedulaEmp;
+                rol.rol = "Líder";
+            }
+            db.Entry(rol).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 
