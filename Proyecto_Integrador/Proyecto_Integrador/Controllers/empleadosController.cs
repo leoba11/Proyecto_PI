@@ -48,6 +48,12 @@ namespace Proyecto_Integrador.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cedulaPK,nombre,apellido1,apellido2,edad,fechaNacimiento,telefono,provincia,canton,distrito,correo,direccionDetallada,disponibilidad")] empleados empleados)
         {
+            if (db.empleados.Any(x => x.cedulaPK == empleados.cedulaPK))
+            {
+                ModelState.AddModelError("cedulaPK", "No se pueden agregar empleados con la misma cedula");
+                return View(empleados);
+            }
+
             if (ModelState.IsValid)
             {
                 db.empleados.Add(empleados);

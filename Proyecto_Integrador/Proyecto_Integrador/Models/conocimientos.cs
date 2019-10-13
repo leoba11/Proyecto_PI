@@ -24,5 +24,9 @@ namespace Proyecto_Integrador.Models
         public string conocimientoPK { get; set; }
     
         public virtual empleados empleados { get; set; }
+
+        public List<conocimientos> listaConocimientos { get; set; }
+
+        public conocimientos modeloConocimientos { get; set; }
     }
 }

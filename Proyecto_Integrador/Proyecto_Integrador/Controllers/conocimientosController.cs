@@ -15,10 +15,28 @@ namespace Proyecto_Integrador.Controllers
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
 
         // GET: conocimientos
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            var conocimientos = db.conocimientos.Include(c => c.empleados);
-            return View(conocimientos.ToList());
+            //var conocimientos = db.conocimientos.Include(c => c.empleados);
+            //return View(conocimientos.ToList());
+
+            conocimientos modelo = new conocimientos();
+            List<conocimientos> aList;
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            aList = new List<conocimientos>();
+            modelo.listaConocimientos = db.conocimientos.ToList();
+            for (int j = 0; j < modelo.listaConocimientos.Count; j++)
+            {
+                if (id.Equals(modelo.listaConocimientos.ElementAt(j).cedulaEmpleadoFK))
+                {
+                    aList.Add(modelo.listaConocimientos.ElementAt(j));
+                }
+            }
+            return View(aList.ToList());
         }
 
         // GET: conocimientos/Create
@@ -39,7 +57,7 @@ namespace Proyecto_Integrador.Controllers
             {
                 db.conocimientos.Add(conocimientos);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = conocimientos.cedulaEmpleadoFK} );
             }
 
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", conocimientos.cedulaEmpleadoFK);
@@ -70,7 +88,7 @@ namespace Proyecto_Integrador.Controllers
             conocimientos conocimientos = db.conocimientos.Find(cedulaEmp, cono);
             db.conocimientos.Remove(conocimientos);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = conocimientos.cedulaEmpleadoFK });
         }
 
         protected override void Dispose(bool disposing)
