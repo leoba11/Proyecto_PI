@@ -29,7 +29,7 @@ namespace Proyecto_Integrador.Controllers
         public ActionResult Index(proyectos proyectito)
         {
             //TempData["proyecto"] = proyectito.codigoPK;
-            if (proyectito.codigoPK != null)
+            if (proyectito.codigoPK != 0)
             {
                 TempData["proyecto"] = proyectito.codigoPK;
                 TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
