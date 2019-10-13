@@ -4,8 +4,50 @@
     ViewBag.Title = "Details";
 }
 
+@*Script para el dropdownlist de provincia, canton, ditrito*@
+<script>
+
+        $(document).ready(function () {
+            //@Html.DisplayFor(model => model.provincia)
+            if (@Html.DisplayFor(model => model.provincia) == 1) {
+                $("#provincia").html("San José");
+            } else if(@Html.DisplayFor(model => model.provincia) == 2){
+                $("#provincia").html("Alajuela");
+            } else if(@Html.DisplayFor(model => model.provincia) == 3){
+                $("#provincia").html("Cartago");
+            } else if(@Html.DisplayFor(model => model.provincia) == 4){
+                $("#provincia").html("Heredia");
+            } else if(@Html.DisplayFor(model => model.provincia) == 5){
+                $("#provincia").html("Guanacaste");
+            } else if(@Html.DisplayFor(model => model.provincia) == 6){
+                $("#provincia").html("Puntarenas");
+            } else if(@Html.DisplayFor(model => model.provincia) == 7){
+                $("#provincia").html("Limón");
+            }
+
+            $.ajax({
+                dataType: "json",
+                url: "https://ubicaciones.paginasweb.cr/provincia/" + @Html.DisplayFor(model => model.provincia) + "/cantones.json",
+                data: {},
+                success: function (data) {
+                    $("#canton").html(data[@Html.DisplayFor(model => model.canton)]);
+                }
+            });
+
+            $.ajax({
+                dataType: "json",
+                url: "https://ubicaciones.paginasweb.cr/provincia/" + @Html.DisplayFor(model => model.provincia) + "/canton/"+@Html.DisplayFor(model => model.canton)+"/distritos.json",
+                data: {},
+                success: function (data) {
+                    $("#distrito").html(data[@Html.DisplayFor(model => model.distrito)]);
+                }
+            });
+        });
+
+</script>
+@*Titulo*@
 <h2>Detalles del Cliente</h2>
-@*Botones de crear y eliminar modulo especifico en el que se esta *@
+@*Botones de crear y eliminar este ciente *@
 <div class="botones">
     <a href="@Url.Action("Edit", new { id = Model.cedulaPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>&nbsp;
     <a href="@Url.Action("Delete", new { id = Model.cedulaPK  })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>&nbsp;
@@ -56,7 +98,7 @@
             </th>
 
             <td>
-                @Html.DisplayFor(model => model.provincia)
+                <span id="provincia"></span>
             </td>
         </tr>
         <tr>
@@ -65,7 +107,7 @@
             </th>
 
             <td>
-                @Html.DisplayFor(model => model.canton)
+                <span id="canton"></span>
             </td>
         </tr>
         <tr>
@@ -74,7 +116,7 @@
             </th>
 
             <td>
-                @Html.DisplayFor(model => model.distrito)
+                <span id="distrito"></span>
             </td>
         </tr>
         <tr>

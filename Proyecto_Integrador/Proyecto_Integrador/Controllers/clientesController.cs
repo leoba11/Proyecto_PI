@@ -48,6 +48,13 @@ namespace Proyecto_Integrador.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cedulaPK,nombre,apellido1,apellido2,telefono,provincia,canton,distrito,correo,direccionDetallada")] clientes clientes)
         {
+            //Validacion de cedulas no repetidas en el sistema
+            if (db.clientes.Any(x => x.cedulaPK == clientes.cedulaPK) || db.empleados.Any(x => x.cedulaPK == clientes.cedulaPK))
+                {
+                ModelState.AddModelError("cedulaPK", "Ya existe un Cliente registrado con esta cedula");
+                return View(clientes);
+            }
+
             if (ModelState.IsValid)
             {
                 db.clientes.Add(clientes);

@@ -4,10 +4,9 @@
     ViewBag.Title = "Index";
 }
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+@*Titulo*@
 <h2>Clientes</h2>
+@*subtitulo*@
 <h4>Administrador de clientes</h4>
 @*Informacion para la busqueda*@
 <p>Escriba algo en la barra para buscar en la tabla algún cliente</p>
@@ -30,19 +29,7 @@
                 @Html.DisplayNameFor(model => model.telefono)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.provincia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.canton)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.distrito)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.correo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.direccionDetallada)
             </th>
             <th>
                 <a href="~/clientes/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
@@ -66,19 +53,7 @@
                     @Html.DisplayFor(modelItem => item.telefono)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.provincia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.canton)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.distrito)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.correo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.direccionDetallada)
                 </td>
                 <td>
                     <a href="@Url.Action("Details", new {  id=item.cedulaPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
