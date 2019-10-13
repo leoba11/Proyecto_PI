@@ -2,8 +2,8 @@
 // @author: Maria Jose Aguilar 
 // @date : 2/10/19   
 // OJO! Para poder desplegar en las vistas un nombre diferente que el nombre dado en la base de datos se utiliza  [Display(Name = "nombre que quiere desplegar")]
-// Para poder usar display, incluir -> using System.ComponentModel.DataAnnotations;    
-//     
+// Para poder usar display, incluir -> using System.ComponentModel.DataAnnotations; 
+//  Se coloca el required para que se maneje la excepción de que el usuario no introduzca el valor.    
 // 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 

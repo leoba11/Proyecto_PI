@@ -17,8 +17,7 @@ namespace Proyecto_Integrador.Controllers
         // GET: modulos
         public ActionResult Index()
         {
-            /*var modulos = db.modulos.Include(m => m.proyectos);
-            return View(modulos.ToList());*/
+            //acá se cambió para que solo agarre los modulos relacionados con el poryecto que el usuario escogio
             List<proyectos> proyectos = new proyectosController().Pass();
             TempData["proyectos"] = proyectos;
             TempData.Keep();
@@ -28,7 +27,7 @@ namespace Proyecto_Integrador.Controllers
         [HttpPost]
         public ActionResult Index(proyectos proyectito)
         {
-            //TempData["proyecto"] = proyectito.codigoPK;
+            //acá se cambió para que solo agarre los modulos relacionados con el poryecto que el usuario escogio
             if (proyectito.codigoPK != 0)
             {
                 TempData["proyecto"] = proyectito.codigoPK;
@@ -44,6 +43,8 @@ namespace Proyecto_Integrador.Controllers
 
         public ActionResult Lista()
         {
+            //Se agrega este método para deplegar los datos de los modulos del proyecto que el usuario seleccionó
+            //el método agarra el id del proyecto, para desplegar entonces solo los modulos correspondientes
             TempData.Keep();
             int codigo = int.Parse(TempData["proyecto"].ToString());
             List<modulos> modulos = db.modulos.Where(x => x.codigoProyectoFK == codigo).ToList();
