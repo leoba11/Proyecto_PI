@@ -46,10 +46,17 @@ namespace Proyecto_Integrador.Controllers
             //Se agrega este método para deplegar los datos de los modulos del proyecto que el usuario seleccionó
             //el método agarra el id del proyecto, para desplegar entonces solo los modulos correspondientes
             TempData.Keep();
-            int codigo = int.Parse(TempData["proyecto"].ToString());
-            List<modulos> modulos = db.modulos.Where(x => x.codigoProyectoFK == codigo).ToList();
-            TempData["modulos"] = modulos;
-            return View();
+            if (TempData["proyecto"] != null)
+            {
+                int codigo = int.Parse(TempData["proyecto"].ToString());
+                List<modulos> modulos = db.modulos.Where(x => x.codigoProyectoFK == codigo).ToList();
+                TempData["modulos"] = modulos;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "modulos");
+            }
         }
 
 
