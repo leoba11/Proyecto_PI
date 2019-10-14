@@ -179,6 +179,9 @@ namespace Proyecto_Integrador.Controllers
 
         }
 
+        //EFE: cambia el valor de disponibilidad del empleado, para indicar que esta libre
+        //REQ: que el empleado sea valido
+        //MOD: disponibilidad pasa a ser true
         public void SetFree(int codigo, string cedula)
         {
             empleados actual = db.empleados.Find(cedula);
@@ -187,6 +190,10 @@ namespace Proyecto_Integrador.Controllers
 
         }
 
+
+        //EFE: cambia el valor de disponibilidad del empleado, para indicar que esta ocupado
+        //REQ: que el empleado sea valido
+        //MOD: disponibilidad pasa a ser false
         public void SetBusy(int codigo, string cedula)
         {
             empleados actual = db.empleados.Find(cedula);
