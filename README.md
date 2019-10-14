@@ -7,6 +7,10 @@
 | Johnn Hernandez| 
 | Raymond Ramirez | 
 | Maria Jose Aguilar -Lider|
+
+# Para ingresar en el sistema
+## Usuario : admin
+## contraseña : 1234
  
 
 
