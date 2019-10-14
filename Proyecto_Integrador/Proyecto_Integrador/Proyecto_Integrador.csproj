@@ -143,6 +143,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\modulosController.cs" />
     <Compile Include="Controllers\proyectosController.cs" />
+    <Compile Include="Controllers\reportesController.cs" />
     <Compile Include="Controllers\requerimientosController.cs" />
     <Compile Include="Controllers\rolesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -362,6 +363,7 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\equipos\SelectProject.cshtml" />
     <Content Include="Views\modulos\Index.cshtml" />
+    <Content Include="Views\reportes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
