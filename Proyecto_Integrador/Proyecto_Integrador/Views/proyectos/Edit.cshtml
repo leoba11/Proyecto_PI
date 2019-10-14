@@ -77,10 +77,19 @@
                     </div>
                 </div>
 
+                @*DropDown para seleccionar líder de proyecto*@
                 <div class="form-group">
                     @Html.LabelFor(model => model.cedulaLider, "Líder de proyecto", htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-10">
-                        @Html.DropDownList("cedulaLider", null, htmlAttributes: new { @class = "form-control" })
+                        @*Si ya fue asignado líder y entonces deshabilitar editar ese campo*@
+                        @if (ViewBag.hayLider)
+                        {
+                            @Html.DropDownList("cedulaLider", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                        } else {
+                            @*DropDownList que admite valor nulo, osea que usuario no haga selección*@
+                            @Html.DropDownList("cedulaLider", (IEnumerable<SelectListItem>)ViewData["Menu"],
+                                "-- Seleccione líder --", htmlAttributes: new { @class = "form-control" })
+                        }
                         @Html.ValidationMessageFor(model => model.cedulaLider, "", new { @class = "text-danger" })
                     </div>
                 </div>
