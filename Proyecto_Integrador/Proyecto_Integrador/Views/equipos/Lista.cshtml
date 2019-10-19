@@ -5,7 +5,7 @@
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
 @*
-    *EFE: da la propiedad de moverse y depositarse a los elementos de la tabla sortable2
+    *EFE: da la propiedad de moverse y depositarse a los elementos de la tabla sortable2 (derecha)
     *REQ: que existan elementos en la tabla sortable y que esta sea valida
     *MOD:
 *@
@@ -23,8 +23,10 @@
             receive: function (event, ui) {
 
 
-                @* aqui se llama al metodo para quitar el rol al empleado
-                $.get("/empleados/SetFree", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
+                @* window.location.href = "@Url.Action("SetBusy", "empleados", new { codigo = int.Parse(TempData["proyecto"].ToString()) , cedula = valor})";
+                    window.location.href = "@Url.Action("SetBusy", "empleados", new { codigo = int.Parse(TempData["proyecto"].ToString()) , cedula = ui.sender()})";
+                aqui se llama al metodo para agregar el rol al empleado
+                $.get("/empleados/SetBusy", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
                     alert("you clickek");
 
                 });*@
@@ -36,7 +38,7 @@
 </script>
 
 @*
-    *EFE: da la propiedad de moverse y depositarse a los elementos de la tabla sortable
+    *EFE: da la propiedad de moverse y depositarse a los elementos de la tabla sortable (izquierda)
     *REQ: que existan elementos en la tabla sortable y que esta sea valida
     *MOD:
 *@
@@ -75,7 +77,7 @@
 
 <br />
 <br />
-
+@*genera remarcacion de la opcion sobre la cual se encuentra el puntero*@
 <style>
     #sortable tr:hover {
         background-color: #0094ff;
@@ -174,16 +176,15 @@
         <!-- codigo de segunda colunma-->
         <p>
             Empleados en el proyecto
+            <!-- muestra el nombre del proyecto (id)-->
 
             @TempData["nombreProyecto"] (@TempData["proyecto"])
         </p>
-        <!-- lista desplegable para seleccionar proyecto-->
 
         <p></p>
         <br />
         <br />
 
-        <!-- muestra el nombre del equipo (id)-->
 
         <table class="table table-responsive-md">
 
@@ -196,9 +197,7 @@
             <!-- listar los miembros del equipo para el proyecto seleccinado-->
 
 
-
             <tbody id="sortable2" style="cursor:pointer;">
-                <!-- para visualizar un ejemplo-->
                 @if (TempData["empleados"] != null)
                 {
                     foreach (var item in TempData["empleadosP"] as List<Proyecto_Integrador.Models.empleados>)
@@ -274,8 +273,9 @@
 
 </script>
 
-<style>
 
+@*se crean las columnas como "cajas" permanentes, no desaparecen al vaciarse*@
+<style>
     tbody {
         float: left;
         margin: 30px;

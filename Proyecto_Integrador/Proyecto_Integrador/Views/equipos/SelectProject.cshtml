@@ -12,13 +12,13 @@
 <td> Seleccionar proyecto </td>
 
 
-
+@*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
 @using (Html.BeginForm("SelectProject", "equipos", FormMethod.Post))
 {
     if (TempData["proyectos"] != null)
     {
         @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<Proyecto_Integrador.Models.proyectos>, "codigoPK", "codigoPK"), "----------")
     }
-
+    @*boton para aceptar el proyecto seleccionado y continuar*@
     <input type="submit" value="Seleccionar" />
 }

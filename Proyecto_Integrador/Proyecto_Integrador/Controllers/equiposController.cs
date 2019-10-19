@@ -37,13 +37,24 @@ namespace Proyecto_Integrador.Controllers
         {
             // List<proyecto> proyectos = TempData["proyectos"] as List<proyecto>;
             List<empleados> employeesList = new empleadosController().GetEmployeeByKnowledge(conocimientoPK);
-            List<empleados> employeesList2 = new empleadosController().GetEmployeeByProyect(int.Parse(TempData["proyecto"].ToString()));
             TempData["empleadosK"] = employeesList;
-            TempData["empleadosP"] = employeesList2;
-            TempData.Keep();
+            ViewBag.know = conocimientoPK;
+            if (TempData["proyecto"] != null) {
+                List<empleados> employeesList2 = new empleadosController().GetEmployeeByProyect(int.Parse(TempData["proyecto"].ToString()));
+                TempData["empleadosP"] = employeesList2;
+                TempData.Keep();
 
 
-            return View();
+                return View();
+            }
+            else
+            {
+                List<proyectos> proyectos = new proyectosController().Pass();
+                TempData["proyectos"] = proyectos;
+                TempData.Keep();
+                return RedirectToAction("SelectProject", "equipos");
+            }
+            
         }
 
         //EFE: trae y presenta los datos correpondientes para un empleado en especifico 
