@@ -17,26 +17,26 @@ namespace Proyecto_Integrador.Controllers
         // GET: conocimientos
         public ActionResult Index(string id)
         {
-            //var conocimientos = db.conocimientos.Include(c => c.empleados);
-            //return View(conocimientos.ToList());
 
             conocimientos modelo = new conocimientos();
-            List<conocimientos> aList;
+            List<conocimientos> conocimientosLista;
 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            aList = new List<conocimientos>();
+
+            conocimientosLista = new List<conocimientos>();
             modelo.listaConocimientos = db.conocimientos.ToList();
+            // agregar de acuerdo a la cedula del empleado
             for (int j = 0; j < modelo.listaConocimientos.Count; j++)
             {
                 if (id.Equals(modelo.listaConocimientos.ElementAt(j).cedulaEmpleadoFK))
                 {
-                    aList.Add(modelo.listaConocimientos.ElementAt(j));
+                    conocimientosLista.Add(modelo.listaConocimientos.ElementAt(j));
                 }
             }
-            return View(aList.ToList());
+            return View(conocimientosLista.ToList());
         }
 
         // GET: conocimientos/Create
@@ -53,6 +53,7 @@ namespace Proyecto_Integrador.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cedulaEmpleadoFK,conocimientoPK")] conocimientos conocimientos)
         {
+
             if (ModelState.IsValid)
             {
                 db.conocimientos.Add(conocimientos);
