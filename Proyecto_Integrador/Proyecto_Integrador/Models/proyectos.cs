@@ -31,9 +31,11 @@ namespace Proyecto_Integrador.Models
         public string nombre { get; set; }
         [Display(Name = "Fecha de inicio")]
         [Required(ErrorMessage = "Este campo es requerido")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime fechaInicio { get; set; }
         [Display(Name = "Fecha final estimada")]
         [Required(ErrorMessage = "Este campo es requerido")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime fechaFinalEstimada { get; set; }
         [Display(Name = "Costo estimado")]
         [Required(ErrorMessage = "Este campo es requerido")]
@@ -45,6 +47,7 @@ namespace Proyecto_Integrador.Models
         [Display(Name = "ID de equipo")]
         public Nullable<int> idEquipo { get; set; }
         [Display(Name = "Fecha final")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> fechaFinal { get; set; }
         [Display(Name = "Costo real")]
         public Nullable<decimal> costoReal { get; set; }

@@ -55,7 +55,10 @@ namespace Proyecto_Integrador.Controllers
             {
                 db.proyectos.Add(proyectos);
                 db.SaveChanges();
-                new rolesController().AddRol(proyectos.codigoPK, proyectos.cedulaLider, 0);
+                /* Si se selecciona líder se procede a agregar la tupla en roles correspondiente.
+                   Llamada a método que agrega rol en el controlador de roles */
+                if(proyectos.cedulaLider != null)
+                    new rolesController().AddRol(proyectos.codigoPK, proyectos.cedulaLider, 0);
                 return RedirectToAction("Index");
             }
 
@@ -77,6 +80,10 @@ namespace Proyecto_Integrador.Controllers
                 return HttpNotFound();
             }
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre", proyectos.cedulaClienteFK);
+            ViewBag.hayLider = false;
+            /* Si ya hay líder asignado se envía booleano para deshabilitar edición de campo de líder */
+            if (new rolesController().getLiderId(proyectos.codigoPK) != null)
+                ViewBag.hayLider = true;
             ViewBag.cedulaLider = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", proyectos.cedulaLider);
             return View(proyectos);
         }
@@ -90,12 +97,19 @@ namespace Proyecto_Integrador.Controllers
         {
             if (ModelState.IsValid)
             {
-                new rolesController().UpdateLider(proyectos.codigoPK, new rolesController().getLiderID(proyectos.codigoPK), proyectos.cedulaLider);
                 db.Entry(proyectos).State = EntityState.Modified;
                 db.SaveChanges();
+                /* Si se selecciona líder se procede a agregar la tupla en roles correspondiente.
+                   Llamada a método que agrega rol en el controlador de roles */
+                if (proyectos.cedulaLider != null)
+                    new rolesController().AddRol(proyectos.codigoPK, proyectos.cedulaLider, 0);
                 return RedirectToAction("Index");
             }
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre", proyectos.cedulaClienteFK);
+            ViewBag.hayLider = false;
+            /* Si ya hay líder asignado se envía booleano para deshabilitar edición de campo de líder */
+            if (new rolesController().getLiderId(proyectos.codigoPK) != null)
+                ViewBag.hayLider = true;
             ViewBag.cedulaLider = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", proyectos.cedulaLider);
             return View(proyectos);
         }
@@ -121,7 +135,11 @@ namespace Proyecto_Integrador.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             proyectos proyectos = db.proyectos.Find(id);
-            new rolesController().EraseRol(proyectos.codigoPK, new rolesController().getLiderID(proyectos.codigoPK));
+            /* Si el proyecto tiene líder se procede a eliminar la tupla en roles correspondiente */
+            string liderId = new rolesController().getLiderId(proyectos.codigoPK);
+            /* Llamada a método que elimina rol en el controlador de roles */
+            if (liderId != null)
+                new rolesController().EraseRol(proyectos.codigoPK, liderId);
             db.proyectos.Remove(proyectos);
             db.SaveChanges();
             return RedirectToAction("Index");
