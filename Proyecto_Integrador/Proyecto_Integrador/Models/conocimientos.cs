@@ -16,7 +16,7 @@ namespace Proyecto_Integrador.Models
     public partial class conocimientos
     {
         [Key]
-        [Display(Name = "Cédula de empleado")]
+        [Display(Name = "Nombre de empleado")]
         public string cedulaEmpleadoFK { get; set; }
 
         [Key]

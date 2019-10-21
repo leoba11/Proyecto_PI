@@ -133,6 +133,11 @@ namespace Proyecto_Integrador.Controllers
             base.Dispose(disposing);
         }
 
+        /*
+         * Efecto: añade tupla de rol a tabla de roles
+         * Requiere: código proyecto, cédula empleado y rol (0 = líder, cualquier otro número para desarrollador)
+         * Modifica tabla roles en BD
+         */
         [ValidateAntiForgeryToken]
         public void AddRol(int codProyecto, string cedulaEmp, int rolOpt)
         {
@@ -173,28 +178,17 @@ namespace Proyecto_Integrador.Controllers
             return true;
         }
 
-        public string getLiderID(int codProyecto)
+        /*
+         * Efecto: retorna string que representa cédula de líder de proyecto
+         * Requiere: código del proyecto
+         * No realiza modificaciones
+         */
+        public string getLiderId(int codProyecto)
         {
             roles rol = db.roles.FirstOrDefault(r => r.codigoProyectoFK == codProyecto && r.rol == "Líder");
             if (rol == null)
                 return null;
             return rol.cedulaFK;
-        }
-
-        public void UpdateLider(int codProyecto, string cedulaEmp, string nCedulaEmp)
-        {
-            roles rol;
-            if (cedulaEmp != null) {
-                rol = db.roles.First(r => r.codigoProyectoFK == codProyecto && r.cedulaFK == cedulaEmp);
-                rol.cedulaFK = nCedulaEmp;
-            } else {
-                rol = db.roles.Create();
-                rol.codigoProyectoFK = codProyecto;
-                rol.cedulaFK = nCedulaEmp;
-                rol.rol = "Líder";
-            }
-            db.Entry(rol).State = EntityState.Modified;
-            db.SaveChanges();
         }
     }
 
