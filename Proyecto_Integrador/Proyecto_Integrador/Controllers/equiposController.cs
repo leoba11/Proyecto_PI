@@ -36,8 +36,16 @@ namespace Proyecto_Integrador.Controllers
         public ActionResult Lista(string conocimientoPK)
         {
             // List<proyecto> proyectos = TempData["proyectos"] as List<proyecto>;
-            List<empleados> employeesList = new empleadosController().GetEmployeeByKnowledge(conocimientoPK);
-            TempData["empleadosK"] = employeesList;
+            if (conocimientoPK != "todos")
+            {
+                List<empleados> employeesList = new empleadosController().GetEmployeeByKnowledge(conocimientoPK);
+                TempData["empleadosK"] = employeesList;
+            }
+            else
+            {
+                List<empleados> employeesList = new empleadosController().GetFreeEmployees();
+                TempData["empleadosK"] = employeesList;
+            }
             ViewBag.know = conocimientoPK;
             if (TempData["proyecto"] != null) {
                 List<empleados> employeesList2 = new empleadosController().GetEmployeeByProyect(int.Parse(TempData["proyecto"].ToString()));
@@ -49,13 +57,33 @@ namespace Proyecto_Integrador.Controllers
             }
             else
             {
-                List<proyectos> proyectos = new proyectosController().Pass();
-                TempData["proyectos"] = proyectos;
                 TempData.Keep();
-                return RedirectToAction("SelectProject", "equipos");
+                return RedirectToAction("Index", "equipos");
             }
             
         }
+
+        //EFE: valida el conocimiento del filtro y vuelve a la vista de equipos con dicho valor
+        //REQ: debe exitir al menos un proyecto
+        //MOD: 
+        [HttpPost]
+        public ActionResult Lista(conocimientos knowledge)
+        {
+            if (knowledge.conocimientoPK != null)
+            {
+                TempData.Keep();
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = knowledge.conocimientoPK });
+            }
+            else
+            {
+                TempData.Keep();
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = "todos" });
+            }
+
+        }
+
+
+
 
         //EFE: trae y presenta los datos correpondientes para un empleado en especifico 
         //REQ: que el empleado seleccionado sea valido

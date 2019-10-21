@@ -101,9 +101,13 @@
         <!-- lista desplegable para filtrar por conocimientos-->
         <td> Seleccionar filtro </td>
         <td>
-            @if (TempData["conocimientos"] != null)
+            @using (Html.BeginForm("Lista", "equipos", FormMethod.Post))
             {
-                @Html.DropDownList("conocimientoPK", new SelectList(TempData["conocimientos"] as List<Proyecto_Integrador.Models.conocimientos>, "conocimientoPK", "conocimientoPK"), "----------")
+                if (TempData["conocimientos"] != null)
+                {
+                    @Html.DropDownList("conocimientoPK", new SelectList(TempData["conocimientos"] as List<Proyecto_Integrador.Models.conocimientos>, "conocimientoPK", "conocimientoPK"), "----------")
+                }
+                <input type="submit" value="Filtrar" />
             }
         </td>
 
@@ -223,55 +227,6 @@
 </div>
 
 
-
-
-
-
-
-@*
-    *EFE: filtra los empleados con base en el conocimiento seleccionado
-    *REQ: que el conocimiento elegido sea valido
-    *MOD:
-*@
-@*script para filtrar empleados por conociminento*@
-<script>
-        $(document).ready(function () {
-
-            $("#conocimientoPK").change(function () {
-                var taka = $("#conocimientoPK Option:selected").text();
-                @*$("#conocimientoPK").val($("#conocimientoPK Option:selected").text().trim());
-
-
-                @foreach (var item in TempData["conocimientos"] as List<PiLocalWeb.Models.conocimiento>)
-                {
-                    if (taka == "c++")
-                        window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  "c++" })";
-                }*@
-                @*
-                @{ foreach (var item in TempData["conocimientos"] as List<PiLocalWeb.Models.conocimiento>)
-                        {
-                            if (item.conocimientoPK == taka) {
-                                window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  item.conocimientoPK})";
-                            }
-                        }
-                    }
-                *@
-
-                @* hay que encontrar como convertir el valor del dropdown a string *@
-                if (taka == "c++")
-                    window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  "c++"})";
-                if (taka == "java")
-                    window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  "java"})";
-                if (taka == "c#")
-                    window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK =  "c#"})";
-                if (taka == "php")
-                    window.location.href = "@Url.Action("Lista", "equipos", new { conocimientoPK = "php" })";
-
-
-                });
-        });
-
-</script>
 
 
 @*se crean las columnas como "cajas" permanentes, no desaparecen al vaciarse*@
