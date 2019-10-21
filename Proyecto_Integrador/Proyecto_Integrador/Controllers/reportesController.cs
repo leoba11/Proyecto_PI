@@ -56,11 +56,10 @@ namespace Proyecto_Integrador.Controllers
         }
 
         [HttpPost]
-        public ActionResult SelectReport(string reporte)
+        public ActionResult SelectReport(SelectListItem reporte)
         {
+            //invocar como ReportesModel
             TempData.Keep();
-
-
             /*aqui se agrega if, para redirigir del reporte correspondiente*/
             return View();
         }

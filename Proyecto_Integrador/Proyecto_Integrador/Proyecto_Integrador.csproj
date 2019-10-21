@@ -149,6 +149,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportesModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="Models\clientes.cs">
       <DependentUpon>PI_Model.tt</DependentUpon>

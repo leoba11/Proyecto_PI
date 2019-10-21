@@ -3,19 +3,3 @@
     ViewBag.Title = "Reportes";
 }
 
-<script src="~/Scripts/jquery-3.3.1.js"></script>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-
-
-
-<td> Seleccionar reporte a realizar </td>
-
-
-@*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
-@using (Html.BeginForm("Index", "reportes", FormMethod.Post))
-{
-    @Html.DropDownList("MySkills", (IEnumerable<SelectListItem>)TempData["MySkills"], "----------")
-
-    <input type="submit" value="Seleccionar" />
-}

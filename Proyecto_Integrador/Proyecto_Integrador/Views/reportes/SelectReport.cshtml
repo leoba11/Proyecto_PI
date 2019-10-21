@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Reportes act";
+    ViewBag.Title = "Reportes";
 }
 
 <script src="~/Scripts/jquery-3.3.1.js"></script>
@@ -17,7 +17,7 @@
 {
     if (TempData["reportes"] != null)
     {
-        @Html.DropDownList("MySkills", (IEnumerable<SelectListItem>)TempData["reportes"], "----------")
+        @Html.DropDownList("reportes", (IEnumerable<SelectListItem>)TempData["reportes"], "----------")
     }
     @*boton para aceptar el reporte seleccionado y continuar*@
     <input type="submit" value="Seleccionar" />
