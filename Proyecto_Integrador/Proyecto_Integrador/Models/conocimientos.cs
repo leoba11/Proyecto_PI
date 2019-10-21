@@ -21,8 +21,13 @@ namespace Proyecto_Integrador.Models
 
         [Key]
         [Display(Name = "Conocimiento")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string conocimientoPK { get; set; }
     
         public virtual empleados empleados { get; set; }
+
+        public List<conocimientos> listaConocimientos { get; set; }
+
+        public conocimientos modeloConocimientos { get; set; }
     }
 }

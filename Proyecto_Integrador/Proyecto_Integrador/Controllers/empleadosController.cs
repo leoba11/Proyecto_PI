@@ -48,6 +48,13 @@ namespace Proyecto_Integrador.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cedulaPK,nombre,apellido1,apellido2,edad,fechaNacimiento,telefono,provincia,canton,distrito,correo,direccionDetallada,disponibilidad")] empleados empleados)
         {
+            //Validacion de la cedula para no repetirla
+            if (db.empleados.Any(x => x.cedulaPK == empleados.cedulaPK))
+            {
+                ModelState.AddModelError("cedulaPK", "No se pueden agregar empleados con la misma cedula");
+                return View(empleados);
+            }
+
             if (ModelState.IsValid)
             {
                 db.empleados.Add(empleados);
@@ -173,20 +180,27 @@ namespace Proyecto_Integrador.Controllers
 
         }
 
-        public bool UpdateRol(int codProyecto, string cedulaEmp)
+        //EFE: cambia el valor de disponibilidad del empleado, para indicar que esta libre
+        //REQ: que el empleado sea valido
+        //MOD: disponibilidad pasa a ser true
+        public void SetFree(int codigo, string cedula)
         {
-            roles role = db.roles.Create();
-            role.codigoProyectoFK = codProyecto;
-            role.cedulaFK = cedulaEmp;
-            role.rol = "desarrollador";
-            return true;
+            empleados actual = db.empleados.Find(cedula);
+            actual.disponibilidad = true;
+            bool rol = new rolesController().QuiteRol(codigo, cedula);
+
         }
 
-        public bool QuiteRol(int codProyecto, string cedulaEmp)
+
+        //EFE: cambia el valor de disponibilidad del empleado, para indicar que esta ocupado
+        //REQ: que el empleado sea valido
+        //MOD: disponibilidad pasa a ser false
+        public void SetBusy(int codigo, string cedula)
         {
-            roles rol = db.roles.Find(codProyecto, cedulaEmp);
-            db.roles.Remove(rol);
-            return true;
+            empleados actual = db.empleados.Find(cedula);
+            actual.disponibilidad = false;
+            bool rol = new rolesController().UpdateRol(codigo, cedula);
+
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Proyecto_Integrador.Models
 
         [Display(Name = "Fecha de Nacimiento")]
         [Required(ErrorMessage = "Este campo es requerido")]
-        [DisplayFormatAttribute(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] // para que la fecha en editar muestre el valor
         public System.DateTime fechaNacimiento { get; set; }
 
         [Display(Name = "Telefono")]
@@ -71,6 +71,7 @@ namespace Proyecto_Integrador.Models
         public string canton { get; set; }
 
         [Display(Name = "Distrito")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string distrito { get; set; }
 
         [StringLength(25)]

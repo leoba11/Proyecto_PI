@@ -162,10 +162,11 @@ namespace Proyecto_Integrador.Controllers
 
         public bool UpdateRol(int codProyecto, string cedulaEmp)
         {
-            roles role = db.roles.Create();
-            role.codigoProyectoFK = codProyecto;
-            role.cedulaFK = cedulaEmp;
-            role.rol = "desarrollador";
+            roles rol = db.roles.Create();
+            rol.codigoProyectoFK = codProyecto;
+            rol.cedulaFK = cedulaEmp;
+            rol.rol = "desarrollador";
+            db.SaveChanges();
             return true;
         }
 
@@ -173,6 +174,7 @@ namespace Proyecto_Integrador.Controllers
         {
             roles rol = db.roles.Find(codProyecto, cedulaEmp);
             db.roles.Remove(rol);
+            db.SaveChanges();
             return true;
         }
 
