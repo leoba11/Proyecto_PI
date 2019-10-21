@@ -364,6 +364,7 @@
     <Content Include="Views\equipos\SelectProject.cshtml" />
     <Content Include="Views\modulos\Index.cshtml" />
     <Content Include="Views\reportes\Index.cshtml" />
+    <Content Include="Views\reportes\SelectReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Reportes";
+    ViewBag.Title = "Reportes act";
 }
 
 <script src="~/Scripts/jquery-3.3.1.js"></script>
@@ -13,9 +13,12 @@
 
 
 @*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
-@using (Html.BeginForm("Index", "reportes", FormMethod.Post))
+@using (Html.BeginForm("SelectReport", "reportes", FormMethod.Post))
 {
-    @Html.DropDownList("MySkills", (IEnumerable<SelectListItem>)TempData["MySkills"], "----------")
-
+    if (TempData["reportes"] != null)
+    {
+        @Html.DropDownList("MySkills", (IEnumerable<SelectListItem>)TempData["reportes"], "----------")
+    }
+    @*boton para aceptar el reporte seleccionado y continuar*@
     <input type="submit" value="Seleccionar" />
 }
