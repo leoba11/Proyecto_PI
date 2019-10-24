@@ -32,7 +32,7 @@ namespace Proyecto_Integrador.Models
 
         [StringLength(20)]
         [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "El nombre solo puede estar compuesto por letras")]
-        [Display(Name = "Nombre")]
+        [Display(Name = "Nombre de cliente")]
         [Required(ErrorMessage = "Este campo es requerido")]
         public string nombre { get; set; }
 

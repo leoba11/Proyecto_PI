@@ -52,6 +52,7 @@ namespace Proyecto_Integrador.Models
         [Display(Name = "Costo real")]
         public Nullable<decimal> costoReal { get; set; }
         [NotMapped]
+        [Display(Name = "Nombre de líder")]
         public string cedulaLider { get; set; }
 
         public virtual empleados empleados { get; set; }

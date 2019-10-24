@@ -152,6 +152,11 @@ namespace Proyecto_Integrador.Controllers
             db.SaveChanges();
         }
 
+        /*
+         * Efecto: elimina tupla de rol de tabla de roles
+         * Requiere: código proyecto y cédula empleado
+         * Modifica tabla roles en BD
+         */
         public void EraseRol(int codProyecto, string cedulaEmp)
         {
             roles roles = db.roles.Find(cedulaEmp, codProyecto);
@@ -191,6 +196,4 @@ namespace Proyecto_Integrador.Controllers
             return rol.cedulaFK;
         }
     }
-
-
 }
