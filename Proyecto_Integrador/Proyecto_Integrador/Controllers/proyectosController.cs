@@ -33,6 +33,11 @@ namespace Proyecto_Integrador.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.lider = "";
+            /*Si el proyecto tiene líder se envía su nombre a la vista de detalles*/
+            empleados lider = new empleadosController().GetEmployee(new rolesController().getLiderId(id.Value));
+            if (lider != null)
+                ViewBag.lider = lider.nombre;
             return View(proyectos);
         }
 
