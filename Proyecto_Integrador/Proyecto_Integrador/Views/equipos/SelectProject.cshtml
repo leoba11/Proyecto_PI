@@ -17,7 +17,7 @@
 {
     if (TempData["proyectos"] != null)
     {
-        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<Proyecto_Integrador.Models.proyectos>, "codigoPK", "codigoPK"), "----------")
+        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<Proyecto_Integrador.Models.proyectos>, "codigoPK", "nombre"), "----------")
     }
     @*boton para aceptar el proyecto seleccionado y continuar*@
     <input type="submit" value="Seleccionar" />
