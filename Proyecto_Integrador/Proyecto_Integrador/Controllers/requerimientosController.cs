@@ -22,13 +22,13 @@ namespace Proyecto_Integrador.Controllers
         }
 
         // GET: requerimientos/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? idProyecto, int? idModulo, int? id)
         {
-            if (id == null)
+            if (idProyecto == null|| idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            requerimientos requerimientos = db.requerimientos.Find(id);
+            requerimientos requerimientos = db.requerimientos.Find(idProyecto,idModulo,id);
             if (requerimientos == null)
             {
                 return HttpNotFound();
@@ -39,7 +39,8 @@ namespace Proyecto_Integrador.Controllers
         // GET: requerimientos/Create
         public ActionResult Create()
         {
-            ViewBag.codigoProyectoFK = new SelectList(db.modulos, "codigoProyectoFK", "descripcion");
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre");
+            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre");
             return View();
         }
 
@@ -48,7 +49,7 @@ namespace Proyecto_Integrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigoProyectoFK,nombreModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duraciónEstimada,duraciónReal")] requerimientos requerimientos)
+        public ActionResult Create([Bind(Include = "codigoProyectoFK,idModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duraciónEstimada,duraciónReal")] requerimientos requerimientos)
         {
             if (ModelState.IsValid)
             {
@@ -57,23 +58,25 @@ namespace Proyecto_Integrador.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.codigoProyectoFK = new SelectList(db.modulos, "codigoProyectoFK", "descripcion", requerimientos.codigoProyectoFK);
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
+            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
         }
 
         // GET: requerimientos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? idProyecto, int? idModulo, int? id)
         {
-            if (id == null)
+            if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            requerimientos requerimientos = db.requerimientos.Find(id);
+            requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
             if (requerimientos == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.codigoProyectoFK = new SelectList(db.modulos, "codigoProyectoFK", "descripcion", requerimientos.codigoProyectoFK);
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
+            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
         }
 
@@ -82,7 +85,7 @@ namespace Proyecto_Integrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codigoProyectoFK,nombreModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duraciónEstimada,duraciónReal")] requerimientos requerimientos)
+        public ActionResult Edit([Bind(Include = "codigoProyectoFK,idModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duraciónEstimada,duraciónReal")] requerimientos requerimientos)
         {
             if (ModelState.IsValid)
             {
@@ -90,18 +93,18 @@ namespace Proyecto_Integrador.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.codigoProyectoFK = new SelectList(db.modulos, "codigoProyectoFK", "descripcion", requerimientos.codigoProyectoFK);
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
             return View(requerimientos);
         }
 
         // GET: requerimientos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? idProyecto, int? idModulo, int? id)
         {
-            if (id == null)
+            if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            requerimientos requerimientos = db.requerimientos.Find(id);
+            requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
             if (requerimientos == null)
             {
                 return HttpNotFound();
@@ -112,9 +115,9 @@ namespace Proyecto_Integrador.Controllers
         // POST: requerimientos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? idProyecto, int? idModulo, int? id)
         {
-            requerimientos requerimientos = db.requerimientos.Find(id);
+            requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
             db.requerimientos.Remove(requerimientos);
             db.SaveChanges();
             return RedirectToAction("Index");

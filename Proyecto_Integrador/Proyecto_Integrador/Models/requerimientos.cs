@@ -11,11 +11,14 @@ namespace Proyecto_Integrador.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class requerimientos
     {
+        [Key]
         public int codigoProyectoFK { get; set; }
+        [Key]
         public int idModuloFK { get; set; }
+        [Key]
         public int idPK { get; set; }
         public string descripcion { get; set; }
         public int complejidad { get; set; }
