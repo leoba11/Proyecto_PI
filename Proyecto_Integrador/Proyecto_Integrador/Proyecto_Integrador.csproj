@@ -366,6 +366,7 @@
     <Content Include="Views\modulos\Index.cshtml" />
     <Content Include="Views\reportes\Index.cshtml" />
     <Content Include="Views\reportes\SelectReport.cshtml" />
+    <Content Include="Views\reportes\EmployeesDates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
