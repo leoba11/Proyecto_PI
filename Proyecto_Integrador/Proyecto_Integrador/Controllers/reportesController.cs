@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Proyecto_Integrador.Models;
 
 namespace Proyecto_Integrador.Controllers
 {
@@ -12,40 +13,14 @@ namespace Proyecto_Integrador.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            List<SelectListItem> mySkills = new List<SelectListItem>() {
-                new SelectListItem {
-                    Text = "opcion 1", Value = "1"
-                },
-                new SelectListItem {
-                    Text = "ASP.NET WEB API", Value = "2"
-                },
-                new SelectListItem {
-                    Text = "ENTITY FRAMEWORK", Value = "3"
-                },
-                new SelectListItem {
-                    Text = "DOCUSIGN", Value = "4"
-                },
-                new SelectListItem {
-                    Text = "ORCHARD CMS", Value = "5"
-                },
-                new SelectListItem {
-                    Text = "JQUERY", Value = "6"
-                },
-                new SelectListItem {
-                    Text = "ZENDESK", Value = "7"
-                },
-                new SelectListItem {
-                    Text = "LINQ", Value = "8"
-                },
-                new SelectListItem {
-                    Text = "C#", Value = "9"
-                },
-                new SelectListItem {
-                    Text = "GOOGLE ANALYTICS", Value = "10"
-                },
-            };
-            TempData["reportes"] = mySkills;
+            List<ReportesModel> reportes = new List<ReportesModel>();
+            reportes.Add(new ReportesModel { Nombre = "Total de requerimientos de desarrollador" });
+            reportes.Add(new ReportesModel { Nombre = "Conocimientos más requeridos" });
+            reportes.Add(new ReportesModel { Nombre = "Empleados disponibles en entre fechas" });
+
+            TempData["reportes"] = reportes;
             TempData.Keep();
+
             return RedirectToAction("SelectReport", "reportes");
         }
 
@@ -56,12 +31,18 @@ namespace Proyecto_Integrador.Controllers
         }
 
         [HttpPost]
-        public ActionResult SelectReport(SelectListItem reporte)
+        public ActionResult SelectReport(ReportesModel reporte)
         {
             //invocar como ReportesModel
             TempData.Keep();
-            /*aqui se agrega if, para redirigir del reporte correspondiente*/
-            return View();
+            if (reporte.Nombre == "Total de requerimientos de desarrollador")
+                return RedirectToAction("requerimientosDesarrollador", "reportes");
+            else if (reporte.Nombre == "Conocimientos más requeridos")
+                return RedirectToAction("KnowledgesReport", "reportes");
+            else if (reporte.Nombre == "Empleados disponibles en entre fechas")
+                return RedirectToAction("EmployeesDates", "reportes");
+            else
+                return RedirectToAction("SelectReport", "reportes");
         }
     }
 }
