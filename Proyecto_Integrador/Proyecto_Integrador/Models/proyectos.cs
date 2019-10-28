@@ -39,6 +39,7 @@ namespace Proyecto_Integrador.Models
         public System.DateTime fechaFinalEstimada { get; set; }
         [Display(Name = "Costo estimado")]
         [Required(ErrorMessage = "Este campo es requerido")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:#}")]
         public decimal costoEstimado { get; set; }
         [Display(Name = "Objetivo del Proyecto")]
         public string objetivo { get; set; }
