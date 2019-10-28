@@ -15,8 +15,8 @@ namespace Proyecto_Integrador.Controllers
         {
             List<ReportesModel> reportes = new List<ReportesModel>();
             reportes.Add(new ReportesModel { Nombre = "Total de requerimientos de desarrollador" });
-            reportes.Add(new ReportesModel { Nombre = "Conocimientos más requeridos" });
-            reportes.Add(new ReportesModel { Nombre = "Empleados disponibles en entre fechas" });
+            reportes.Add(new ReportesModel { Nombre = "Conocimientos requeridos entre fechas" });
+            reportes.Add(new ReportesModel { Nombre = "Empleados disponibles entre fechas" });
 
             TempData["reportes"] = reportes;
             TempData.Keep();
@@ -43,6 +43,17 @@ namespace Proyecto_Integrador.Controllers
                 return RedirectToAction("EmployeesDates", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
+        }
+
+        public ActionResult KnowledgesReport()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult KnowledgesReport(DateTime fechaInicio, DateTime fechaFinal)
+        {
+            return View();
         }
     }
 }

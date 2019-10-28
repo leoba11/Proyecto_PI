@@ -6,5 +6,11 @@
 
 @using (Html.BeginForm())
 {
-
+    <div class="form-group required">
+        @Html.LabelFor(model => model.fechaInicial, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.fechaInicial, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
+            @Html.ValidationMessageFor(model => model.fechaInicial, "", new { @class = "text-danger" })
+        </div>
+    </div>
 }
