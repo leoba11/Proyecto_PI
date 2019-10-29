@@ -1,0 +1,54 @@
+﻿@model ProyectoIntegrador_mejorado.Models.modulos
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+*Titulo*@
+<h2>Eliminar</h2>
+@*Subtitulo*@
+<h3>Administrador módulos</h3>
+<div>
+    @*Mensaje de confimacion para el usuario*@
+    <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este módulo?</div>
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.proyectos.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.proyectos.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.descripcion)
+            </td>
+        </tr>
+
+    </table>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @*Botones de aceptar y regresar(cancelar) *@
+        <div class="form-actions no-color">
+            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+            <a href="~/modulos/Lista" role="button" class="btn btn-danger"> Cancelar</a>
+        </div>
+    }
+</div>

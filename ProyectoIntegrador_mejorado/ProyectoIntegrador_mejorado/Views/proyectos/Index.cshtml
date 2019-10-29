@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ProyectoIntegrador_mejorado.Models.proyectos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Proyectos</h2>
+@*Informacion para la busqueda*@
+<p>Escriba algo en la barra para buscar en la tabla algún proyecto</p>
+<input class="form-control" id="userInput" type="text" placeholder="Buscar..">
+<br />
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.clientes.nombre)
+        </th>
+        <th>
+            <a href="~/proyectos/Create" role="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Crear</a>
+        </th>
+    </tr>
+    <tbody id="myTableProy">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.clientes.nombre)
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = item.codigoPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@*Script de Jquery para filtar elementos de la tabla*@
+<script>
+    $(document).ready(function () {
+        $("#userInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTableProy tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

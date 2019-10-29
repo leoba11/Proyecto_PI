@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ProyectoIntegrador_mejorado.Models.modulos>
+
+@{
+    ViewBag.Title = "Seleccionar proyecto";
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+@*Aca es para hacer que el usuario seleccione el poryecto del que desea ver módulos*@
+@*Título de la ventana*@
+<h2>Módulos</h2>
+<h4> Seleccionar proyecto </h4>
+
+@using (Html.BeginForm("Index", "modulos", FormMethod.Post))
+{
+    if (TempData["proyectos"] != null)
+    {
+        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
+    }
+
+    <input type="submit" value="Seleccionar" />
+}

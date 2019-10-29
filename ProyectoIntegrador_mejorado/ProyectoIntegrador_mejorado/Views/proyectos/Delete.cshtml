@@ -1,0 +1,116 @@
+﻿@model ProyectoIntegrador_mejorado.Models.proyectos
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Delete</h2>
+
+<h3>Administrador de proyectos</h3>
+<div>
+    @*Mensaje de confimacion para el usuario*@
+    <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este proyecto?</div>
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaInicio)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.fechaInicio)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaFinalEstimada)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.fechaFinalEstimada)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.costoEstimado)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.costoEstimado)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.objetivo)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.objetivo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idEquipo)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.idEquipo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaFinal)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.fechaFinal)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.costoReal)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.costoReal)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.clientes.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.clientes.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cedulaClienteFK)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.cedulaClienteFK)
+            </td>
+        </tr>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @*Botones de aceptar y regresar(cancelar) *@
+        <div class="form-actions no-color">
+            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+            <a href="~/proyectos/Index" role="button" class="btn btn-danger"> Cancelar</a>
+        </div>
+    }
+</div>

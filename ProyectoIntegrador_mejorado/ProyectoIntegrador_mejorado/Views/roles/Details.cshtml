@@ -1,0 +1,42 @@
+﻿@model ProyectoIntegrador_mejorado.Models.roles
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>roles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.rol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empleados.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empleados.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proyectos.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proyectos.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,136 @@
+﻿@model ProyectoIntegrador_mejorado.Models.proyectos
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Administrador de Proyectos</h4>
+    @*Botones de editar y eliminar*@
+    <div class="botones">
+        <a href="@Url.Action("edit", new { id = Model.codigoPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>
+        <a href="@Url.Action("Delete", new { id = Model.codigoPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
+    </div>
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codigoPK)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.codigoPK)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaInicio)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.fechaInicio)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaFinalEstimada)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.fechaFinalEstimada)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.costoEstimado)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.costoEstimado)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.objetivo)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.objetivo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idEquipo)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.idEquipo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaFinal)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.fechaFinal)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.costoReal)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.costoReal)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.clientes.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.clientes.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cedulaClienteFK)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.cedulaClienteFK)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cedulaLider)
+            </th>
+
+            <td>
+                @ViewBag.lider
+            </td>
+        </tr>
+    </table>
+</div>
+
+<p>
+    @*Boton de regresar a la pagina pincipal *@
+    <div>
+        <a href="~/proyectos/Index" role="button" class="btn btn-secondary"> Regresar</a>
+    </div>
+</p>
+
+<br />

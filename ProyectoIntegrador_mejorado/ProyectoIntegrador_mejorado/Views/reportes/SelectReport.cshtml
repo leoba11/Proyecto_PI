@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Reportes";
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+
+<td> Seleccionar reporte a realizar </td>
+
+
+@*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
+@using (Html.BeginForm("SelectReport", "reportes", FormMethod.Post))
+{
+    if (TempData["reportes"] != null)
+    {
+        @Html.DropDownList("Nombre", new SelectList(TempData["reportes"] as List<Proyecto_Integrador.Models.ReportesModel>, "Nombre", "Nombre"), "----------")
+    }
+    @*boton para aceptar el reporte seleccionado y continuar*@
+    <input type="submit" value="Seleccionar" />
+

@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Seleccionar proyecto";
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+
+<td> Seleccionar proyecto </td>
+
+
+@*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
+@using (Html.BeginForm("SelectProject", "equipos", FormMethod.Post))
+{
+    if (TempData["proyectos"] != null)
+    {
+        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
+    }
+    @*boton para aceptar el proyecto seleccionado y continuar*@
+    <input type="submit" value="Seleccionar" />
+}
+

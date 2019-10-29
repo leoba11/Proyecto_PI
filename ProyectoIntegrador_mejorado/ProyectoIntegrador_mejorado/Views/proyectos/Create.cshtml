@@ -1,0 +1,122 @@
+﻿@model ProyectoIntegrador_mejorado.Models.proyectos
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+<h2>Crear proyecto</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Administrador de proyectos</h4>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.codigoPK)
+
+        <div class="card-body cont">
+            <div>
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", placeholder = "nombre", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.fechaInicio, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fechaInicio, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.fechaFinalEstimada, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fechaFinalEstimada, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.fechaFinalEstimada, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fechaFinal, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fechaFinal, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                        @Html.ValidationMessageFor(model => model.fechaFinal, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.costoEstimado, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.costoEstimado, new { htmlAttributes = new { @class = "form-control", placeholder = "costo estimado", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.costoEstimado, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.costoReal, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.costoReal, new { htmlAttributes = new { @class = "form-control", placeholder = "costo real" } })
+                        @Html.ValidationMessageFor(model => model.costoReal, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group text-nowrap">
+                    @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.objetivo, new { @class = "form-control", placeholder = "objetivo", @rows = 5 })
+                        @Html.ValidationMessageFor(model => model.objetivo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.cedulaClienteFK, "Cliente de proyecto", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("cedulaClienteFK", null, htmlAttributes: new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*DropDown para seleccionar líder de proyecto*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.cedulaLider, "Líder de proyecto", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @*DropDownList que admite valor nulo, osea que usuario no haga selección*@
+                        @Html.DropDownList("cedulaLider", (IEnumerable<SelectListItem>)ViewData["Menu"],
+                            "-- Seleccione líder --", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.cedulaLider, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.idEquipo, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.idEquipo, new { htmlAttributes = new { @class = "form-control", placeholder = "ID" } })
+                        @Html.ValidationMessageFor(model => model.idEquipo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            @*Aviso de campo obligatorio*@
+            <label class="control-label col-md-4"><span style="color:red">*</span> Campo obligatorio</label>
+        </div>
+        @*Botones de aceptar y cancelar*@
+        <div class="form-actions no-color bot">
+            <input type="submit" value="Aceptar" class="btn btn-success" />
+            <a href="~/proyectos/Index" role="button" class="btn btn-danger"> Cancelar</a>
+        </div>
+
+        <br />
+
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

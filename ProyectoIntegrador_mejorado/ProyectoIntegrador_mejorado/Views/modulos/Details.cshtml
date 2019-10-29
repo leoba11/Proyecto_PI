@@ -1,0 +1,52 @@
+﻿@model ProyectoIntegrador_mejorado.Models.modulos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@*Subtitulo *@
+<h2>Detalles de módulo</h2>
+
+@*Botones de crear y eliminar modulo especifico en el que se esta *@
+<div class="botones">
+    <a href="@Url.Action("Edit", new { codProyecto = Model.codigoProyectoFK, id = Model.idPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>&nbsp;
+    <a href="@Url.Action("Delete", new { codProyecto = Model.codigoProyectoFK, id = Model.idPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>&nbsp;
+</div>
+<div>
+    <h4>Administrador módulos</h4>
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.proyectos.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.proyectos.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.descripcion)
+            </td>
+        </tr>
+
+    </table>
+</div>
+@*Boton de regresar a la pagina pincipal *@
+<div>
+    <a href="~/modulos/Lista" role="button" class="btn btn-secondary"> Regresar</a>
+</div>

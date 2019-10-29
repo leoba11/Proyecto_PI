@@ -1,0 +1,135 @@
+﻿@model ProyectoIntegrador_mejorado.Models.empleados
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar Empleado</h2>
+<h4>Administrador de empleados</h4>
+<div>
+    @*Mensaje de confimacion para el usuario*@
+    <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este empleado?</div>
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido1)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.apellido1)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido2)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.apellido2)
+            </td>
+        </tr>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.edad)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.edad)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaNacimiento)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.fechaNacimiento)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.telefono)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.provincia)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.provincia)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.canton)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.canton)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.distrito)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.distrito)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.correo)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.correo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.direccionDetallada)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.direccionDetallada)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.disponibilidad)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.disponibilidad)
+            </td>
+        </tr>
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @*Botones de aceptar y regresar(cancelar) *@
+        <div class="form-actions no-color">
+            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+            <a href="~/empleados/Index" role="button" class="btn btn-danger"> Cancelar</a>
+        </div>
+    }
+</div>

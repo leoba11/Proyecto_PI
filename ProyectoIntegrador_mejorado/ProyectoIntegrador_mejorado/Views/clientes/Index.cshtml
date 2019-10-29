@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ProyectoIntegrador_mejorado.Models.clientes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*Titulo*@
+<h2>Clientes</h2>
+@*subtitulo*@
+<h4>Administrador de clientes</h4>
+@*Informacion para la busqueda*@
+<p>Escriba algo en la barra para buscar en la tabla algún cliente</p>
+<input class="form-control" id="userInput" type="text" placeholder="Buscar..">
+<br />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.correo)
+            </th>
+            <th>
+                <a href="~/clientes/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="myTableClien">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.apellido1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.apellido2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.correo)
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", new {  id=item.cedulaPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*Script de Jquery para filtar elementos de la tabla*@
+<script>
+    $(document).ready(function () {
+        $("#userInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTableClien tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

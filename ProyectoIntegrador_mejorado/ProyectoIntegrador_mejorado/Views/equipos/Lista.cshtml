@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "Administración de equipos";
+}
+
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+@*
+    *EFE: da la propiedad de moverse y depositarse a los elementos de la tabla sortable2 (derecha)
+    *REQ: que existan elementos en la tabla sortable y que esta sea valida
+    *MOD:
+*@
+<script>
+    $(document).ready(function () {
+        $("#sortable2").sortable({
+            connectWith: "#sortable",
+            update: function (event, ui) {
+                var itemIds = "";
+                $("sortable").find(".taskSingleInline").each(function () {
+                    var itemId = $(this).attr("data-taskid");
+                    itemIds = itemIds + itemId + ",";
+                });
+            },
+            receive: function (event, ui) {
+
+
+                @* window.location.href = "@Url.Action("SetBusy", "empleados", new { codigo = int.Parse(TempData["proyecto"].ToString()) , cedula = valor})";
+                    window.location.href = "@Url.Action("SetBusy", "empleados", new { codigo = int.Parse(TempData["proyecto"].ToString()) , cedula = ui.sender()})";
+                aqui se llama al metodo para agregar el rol al empleado
+                $.get("/empleados/SetBusy", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
+                    alert("you clickek");
+
+                });*@
+            }
+
+        });
+    })
+
+</script>
+
+@*
+    *EFE: da la propiedad de moverse y depositarse a los elementos de la tabla sortable (izquierda)
+    *REQ: que existan elementos en la tabla sortable y que esta sea valida
+    *MOD:
+*@
+<script>
+    $(document).ready(function () {
+        $("#sortable").sortable({
+            connectWith: "#sortable2",
+            update: function (event, ui) {
+                var itemIds = "";
+                $("sortable").find(".taskSingleInline").each(function () {
+                    var itemId = $(this).attr("data-taskid");
+                    itemIds = itemIds + itemId + ",";
+                });
+            },
+            receive: function (event, ui) {
+
+
+                @* aqui se llama al metodo para agregar el rol al empleado
+                $.get("/empleados/SetBusy", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
+                    alert("you clickek");
+
+                });*@
+            }
+
+        });
+    })
+
+</script>
+
+<!-- Adición de libirería de íconos -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+
+
+
+
+<br />
+<br />
+@*genera remarcacion de la opcion sobre la cual se encuentra el puntero*@
+<style>
+    #sortable tr:hover {
+        background-color: #0094ff;
+        color: #fff;
+    }
+</style>
+
+<style>
+    #sortable2 tr:hover {
+        background-color: #0094ff;
+        color: #fff;
+    }
+</style>
+
+
+<div class="modal-body row">
+    <div class=".col-6 .col-sm-4">
+        <!-- codigo de primer columna-->
+        <p> Desarrolladores disponibles</p>
+
+        <!-- lista desplegable para filtrar por conocimientos-->
+        <td> Seleccionar concimiento </td>
+        <td>
+            @using (Html.BeginForm("Lista", "equipos", FormMethod.Post))
+            {
+                if (TempData["conocimientos"] != null)
+                {
+                    @Html.DropDownList("conocimientoPK", new SelectList(TempData["conocimientos"] as List<ProyectoIntegrador_mejorado.Models.conocimientos>, "conocimientoPK", "conocimientoPK"), "----------")
+                }
+                <input type="submit" value="Filtrar" />
+            }
+        </td>
+
+        <p></p>
+
+
+        <table class="table table-responsive-md">
+
+
+
+
+            <thead class="thead-light">
+                <tr>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+
+            <tbody id="sortable" style="cursor:pointer;">
+                <!-- listar los desarrolladores disponibles-->
+                @if (ViewBag.know != "----------" && TempData["empleadosK"].ToString() != "")
+                {
+                    foreach (var item in TempData["empleadosK"] as List<ProyectoIntegrador_mejorado.Models.empleados>)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
+                                @item.cedulaPK
+                            </td>
+                            <td class=" taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                                @item.nombre
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    if (TempData["empleados"] != null)
+                    {
+                        foreach (var item in TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
+                                    @item.cedulaPK
+
+                                </td>
+                                <td class=" taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                                    @item.nombre
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                }
+
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col">
+
+    </div>
+
+    <div class=".col-6 .col-sm-4">
+        <!-- codigo de segunda colunma-->
+        <p>
+            Empleados en el proyecto
+            <!-- muestra el nombre del proyecto (id)-->
+
+            @TempData["nombreProyecto"] (@TempData["proyecto"])
+        </p>
+
+        <p></p>
+        <br />
+        <br />
+
+
+        <table class="table table-responsive-md">
+
+            <thead class="thead-light">
+                <tr>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <!-- listar los miembros del equipo para el proyecto seleccinado-->
+
+
+            <tbody id="sortable2" style="cursor:pointer;">
+                @if (TempData["empleados"] != null)
+                {
+                    foreach (var item in TempData["empleadosP"] as List<ProyectoIntegrador_mejorado.Models.empleados>)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
+                                @item.cedulaPK
+                            </td>
+                            <td class="taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                                @item.nombre
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+
+
+
+        </table>
+    </div>
+</div>
+
+
+
+
+@*se crean las columnas como "cajas" permanentes, no desaparecen al vaciarse*@
+<style>
+    tbody {
+        float: left;
+        margin: 30px;
+        width: 250px;
+        height: 500px;
+    }
+</style>
+

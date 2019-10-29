@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ProyectoIntegrador_mejorado.Models.conocimientos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Conocimientos</h2>
+<br />
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.conocimientoPK)
+        </th>
+        <th>
+            @*Botón de crear*@
+            <a href="~/conocimientos/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.conocimientoPK)
+            </td>
+            <td>
+                <a href="@Url.Action("Delete", new {cedulaEmp = item.cedulaEmpleadoFK, cono = item.conocimientoPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>
