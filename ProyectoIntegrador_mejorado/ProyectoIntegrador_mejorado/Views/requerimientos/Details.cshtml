@@ -4,95 +4,130 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles de requerimiento</h2>
+<div class="botones">
+    <a href="@Url.Action("Edit", new {  idProyecto = Model.codigoProyectoFK, idModulo = Model.idModuloFK, id = Model.idPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>&nbsp;
+    <a href="@Url.Action("Delete", new {  idProyecto = Model.codigoProyectoFK, idModulo = Model.idModuloFK, id = Model.idPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>&nbsp;
+</div>
 
 <div>
-    <h4>requerimientos</h4>
+    <h4>Administrador de requerimientos</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.descripcion)
+            </td>
+        </tr>
+        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.complejidad)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.complejidad)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.complejidad)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.complejidad)
-        </dd>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.estado)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.estado)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaInicio)
-        </dt>
+        </tr>
+        
 
-        <dd>
-            @Html.DisplayFor(model => model.fechaInicio)
-        </dd>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaInicio)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaFin)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.fechaInicio)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.fechaFin)
-        </dd>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.duraciónEstimada)
-        </dt>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaFin)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.duraciónEstimada)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.fechaFin)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.duraciónReal)
-        </dt>
+        </tr>
+        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.duraciónEstimada)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.duraciónReal)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.duraciónEstimada)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
+        </tr>
+      
 
-        <dd>
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.duraciónReal)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.empleados.nombre)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.duraciónReal)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.empleados.nombre)
-        </dd>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.modulos.nombre)
-        </dt>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.modulos.nombre)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
 
-    </dl>
+        </tr>
+        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.empleados.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.empleados.nombre)
+            </td>
+
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.modulos.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.modulos.nombre)
+            </td>
+
+        </tr>
+ 
+
+    </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+    <a href="~/requerimientos/Index" role="button" class="btn btn-secondary"> Regresar</a>
+</div>

@@ -10,7 +10,7 @@ using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
-    [Authorize]
+    
     public class requerimientosController : Controller
     {
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
@@ -23,13 +23,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: requerimientos/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? idProyecto, int? idModulo, int? id)
         {
-            if (id == null)
+            if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            requerimientos requerimientos = db.requerimientos.Find(id);
+            requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
             if (requerimientos == null)
             {
                 return HttpNotFound();
@@ -41,7 +41,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult Create()
         {
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre");
-            ViewBag.codigoProyectoFK = new SelectList(db.modulos, "codigoProyectoFK", "nombre");
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre");
+            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre");
             return View();
         }
 
@@ -60,24 +61,26 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
 
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
-            ViewBag.codigoProyectoFK = new SelectList(db.modulos, "codigoProyectoFK", "nombre", requerimientos.codigoProyectoFK);
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
+            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
         }
 
         // GET: requerimientos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? idProyecto, int? idModulo, int? id)
         {
-            if (id == null)
+            if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            requerimientos requerimientos = db.requerimientos.Find(id);
+            requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
             if (requerimientos == null)
             {
                 return HttpNotFound();
             }
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
-            ViewBag.codigoProyectoFK = new SelectList(db.modulos, "codigoProyectoFK", "nombre", requerimientos.codigoProyectoFK);
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
+            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
         }
 
@@ -95,18 +98,19 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
-            ViewBag.codigoProyectoFK = new SelectList(db.modulos, "codigoProyectoFK", "nombre", requerimientos.codigoProyectoFK);
+            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
+            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
         }
 
         // GET: requerimientos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? idProyecto, int? idModulo, int? id)
         {
-            if (id == null)
+            if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            requerimientos requerimientos = db.requerimientos.Find(id);
+            requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
             if (requerimientos == null)
             {
                 return HttpNotFound();
@@ -117,9 +121,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
         // POST: requerimientos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? idProyecto, int? idModulo, int? id)
         {
-            requerimientos requerimientos = db.requerimientos.Find(id);
+            requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
             db.requerimientos.Remove(requerimientos);
             db.SaveChanges();
             return RedirectToAction("Index");

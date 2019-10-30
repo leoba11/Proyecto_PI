@@ -4,101 +4,135 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Administrador de requerimientos</h3>
 <div>
-    <h4>requerimientos</h4>
+    @*Mensaje de confimacion para el usuario*@
+    <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este módulo?</div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.descripcion)
+            </td>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.complejidad)
-        </dt>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.complejidad)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.complejidad)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.complejidad)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.estado)
-        </dd>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaInicio)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.estado)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.fechaInicio)
-        </dd>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaFin)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.fechaFin)
-        </dd>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaInicio)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.duraciónEstimada)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.fechaInicio)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.duraciónEstimada)
-        </dd>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.duraciónReal)
-        </dt>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaFin)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.duraciónReal)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.fechaFin)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.duraciónEstimada)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.empleados.nombre)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.duraciónEstimada)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.empleados.nombre)
-        </dd>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.modulos.nombre)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.modulos.nombre)
-        </dd>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.duraciónReal)
+            </th>
 
-    </dl>
+            <td>
+                @Html.DisplayFor(model => model.duraciónReal)
+            </td>
 
-    @using (Html.BeginForm()) {
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.empleados.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.empleados.nombre)
+            </td>
+
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.modulos.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.modulos.nombre)
+            </td>
+
+        </tr>
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
+        @*Botones de aceptar y regresar(cancelar) *@
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+            <a href="~/requerimientos/Index" role="button" class="btn btn-danger"> Cancelar</a>
         </div>
     }
 </div>
