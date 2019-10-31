@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Proyecto_Integrador.Models
+namespace ProyectoIntegrador_mejorado.Models
 {
     using System;
     using System.Collections.Generic;
