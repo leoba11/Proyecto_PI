@@ -2,11 +2,63 @@
 @{
     ViewBag.Title = "Empleados disponibles en un rango de fechas";
 }
-
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
-<p> Seleccionar fecha inicial</p>
+<script>
+    $(document).ready(function () {
+        $("#calendar").datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "2000:2100",
+            showOn: "both",
+            buttonText: "<i class='fa fa-calendar'></i>"
+        });
+    });
+</script>
 
-<p> Seleccionar fecha final</p>
+
+<script>
+    $(document).ready(function () {
+        $("#calendar2").datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "2000:2100",
+            showOn: "both",
+            buttonText: "<i class='fa fa-calendar'></i>"
+        });
+    });
+</script>
+
+
+
+
+<div class="modal-body row">
+    <div class=".col-6 .col-sm-4">
+        <p>
+            fecha inicio
+        </p>
+        <input type="text" id="calendar" />
+    </div>
+
+    <div class=".col-6">
+        <p>
+            separador temporal :)
+        </p>
+    </div>
+
+
+    <div class=".col-6 .col-sm-4">
+        <p>
+            . fecha fin
+        </p>
+        <input type="text" id="calendar2" />
+
+        <input type="submit" value="Generar reporte" />
+    </div>
+</div>
+
