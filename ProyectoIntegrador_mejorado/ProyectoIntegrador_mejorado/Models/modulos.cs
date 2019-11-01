@@ -26,7 +26,7 @@ namespace ProyectoIntegrador_mejorado.Models
         [Key]
         public int idPK { get; set; }
 
-        [Display(Name = "Nombre del módulo")]
+        [Display(Name = "Módulo")]
         [RegularExpression(@"^[A-Za-z0-9\.\ ,]+", ErrorMessage = "texto contiene caracteres no permitidos")]
         [Required(ErrorMessage = "Este campo es requerido")]
         public string nombre { get; set; }
