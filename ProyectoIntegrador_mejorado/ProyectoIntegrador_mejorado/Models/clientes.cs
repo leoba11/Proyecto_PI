@@ -12,9 +12,6 @@ namespace ProyectoIntegrador_mejorado.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    /*Cada atributo de Cliente esta respectivamente limitado con una expresion regular de forma que el dato ingresado por el usuario no cause problemas al sistema.
-    *Provincia, canton y distrito no poseen ER porque se seleccionan del DropDownList y la direccion detallada no posee restriccion con ER por evidente motivo.
-    */
     public partial class clientes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

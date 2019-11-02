@@ -12,6 +12,7 @@ namespace ProyectoIntegrador_mejorado.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     public partial class modulos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,7 +27,7 @@ namespace ProyectoIntegrador_mejorado.Models
         [Key]
         public int idPK { get; set; }
 
-        [Display(Name = "Módulo")]
+        [Display(Name = "Nombre del módulo")]
         [RegularExpression(@"^[A-Za-z0-9\.\ ,]+", ErrorMessage = "texto contiene caracteres no permitidos")]
         [Required(ErrorMessage = "Este campo es requerido")]
         public string nombre { get; set; }

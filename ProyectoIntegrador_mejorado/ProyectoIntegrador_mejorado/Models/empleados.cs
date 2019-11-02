@@ -24,8 +24,8 @@ namespace ProyectoIntegrador_mejorado.Models
 
         [Key]
         [Display(Name = "Cédula")]
-        [RegularExpression(@"^[0-9]{9}$", ErrorMessage = "La cédula debe tener 9 dígitos")]
-        [MaxLength(9, ErrorMessage = "La cédula debe tener 9 dígitos")]
+        [StringLength(9)]
+        [RegularExpression(@"^[0-9]+", ErrorMessage = "La cédula solo puede estar compuesta por números")]
         [Required(ErrorMessage = "Este campo es requerido")]
         public string cedulaPK { get; set; }
 
@@ -78,12 +78,13 @@ namespace ProyectoIntegrador_mejorado.Models
 
 
         [Display(Name = "Dirección Completa")]
-        [DataType(DataType.MultilineText)]
         public string direccionDetallada { get; set; }
 
         [Display(Name = "Disponibilidad")]
         public bool disponibilidad { get; set; }
 
+        public Nullable<int> cantidadRequerimientos { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<conocimientos> conocimientos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -12,7 +12,6 @@ namespace ProyectoIntegrador_mejorado.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
     public partial class requerimientos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -52,7 +51,7 @@ namespace ProyectoIntegrador_mejorado.Models
         [Display(Name = "Fecha estimada de finalización")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] // para que la fecha en editar muestre el valor
         [Required(ErrorMessage = "Este campo es requerido")]
-        public System.DateTime duraciónEstimada { get; set; }
+        public System.DateTime duracionEstimada { get; set; }
 
         [Display(Name = "Fecha de finalización real")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] // para que la fecha en editar muestre el valor
@@ -62,7 +61,11 @@ namespace ProyectoIntegrador_mejorado.Models
         [Required(ErrorMessage = "Este campo es requerido")]
         [Display(Name = "Requerimiento")]
         public string nombre { get; set; }
-    
+
+        [Display(Name = "Días empleados")]
+        public Nullable<int> duracionDias { get; set; }
+
+
         public virtual empleados empleados { get; set; }
         public virtual modulos modulos { get; set; }
     }

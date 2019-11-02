@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Gr02Proy1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Gr02Proy1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="clientes">
           <Key>
             <PropertyRef Name="cedulaPK" />
@@ -45,6 +45,7 @@
           <Property Name="correo" Type="varchar(max)" />
           <Property Name="direccionDetallada" Type="varchar(max)" />
           <Property Name="disponibilidad" Type="bit" Nullable="false" />
+          <Property Name="cantidadRequerimientos" Type="int" />
         </EntityType>
         <EntityType Name="modulos">
           <Key>
@@ -80,15 +81,15 @@
           <Property Name="codigoProyectoFK" Type="int" Nullable="false" />
           <Property Name="idModuloFK" Type="int" Nullable="false" />
           <Property Name="idPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="80" Nullable="false" />
           <Property Name="complejidad" Type="int" Nullable="false" />
           <Property Name="estado" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cedulaEmpleadoFK" Type="char" MaxLength="9" Nullable="false" />
           <Property Name="fechaInicio" Type="datetime" Nullable="false" />
           <Property Name="fechaFin" Type="datetime" />
-          <Property Name="duraciónEstimada" Type="datetime" Nullable="false" />
-          <Property Name="duraciónReal" Type="datetime" />
-          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="duracionEstimada" Type="datetime" Nullable="false" />
+          <Property Name="duracionDias" Type="int" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
@@ -280,8 +281,7 @@
             <End Role="requerimientos" EntitySet="requerimientos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Gr02Proy1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -330,6 +330,7 @@
           <NavigationProperty Name="conocimientos" Relationship="Self.cedulaEmpleadoFK" FromRole="empleados" ToRole="conocimientos" />
           <NavigationProperty Name="requerimientos" Relationship="Self.FK_cedula_Empleado" FromRole="empleados" ToRole="requerimientos" />
           <NavigationProperty Name="roles" Relationship="Self.FK_cedulaEmpleado" FromRole="empleados" ToRole="roles" />
+          <Property Name="cantidadRequerimientos" Type="Int32" />
         </EntityType>
         <EntityType Name="modulos">
           <Key>
@@ -370,17 +371,17 @@
           <Property Name="codigoProyectoFK" Type="Int32" Nullable="false" />
           <Property Name="idModuloFK" Type="Int32" Nullable="false" />
           <Property Name="idPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="complejidad" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cedulaEmpleadoFK" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="fechaInicio" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fechaFin" Type="DateTime" Precision="3" />
-          <Property Name="duraciónEstimada" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="duraciónReal" Type="DateTime" Precision="3" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="empleados" Relationship="Self.FK_cedula_Empleado" FromRole="requerimientos" ToRole="empleados" />
           <NavigationProperty Name="modulos" Relationship="Self.FK_proyecto_modulo" FromRole="requerimientos" ToRole="modulos" />
+          <Property Name="duracionEstimada" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="duracionDias" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
@@ -640,6 +641,7 @@
           <EntitySetMapping Name="empleados">
             <EntityTypeMapping TypeName="Gr02Proy1Model.empleados">
               <MappingFragment StoreEntitySet="empleados">
+                <ScalarProperty Name="cantidadRequerimientos" ColumnName="cantidadRequerimientos" />
                 <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="apellido1" ColumnName="apellido1" />
@@ -685,6 +687,8 @@
           <EntitySetMapping Name="requerimientos">
             <EntityTypeMapping TypeName="Gr02Proy1Model.requerimientos">
               <MappingFragment StoreEntitySet="requerimientos">
+                <ScalarProperty Name="duracionDias" ColumnName="duracionDias" />
+                <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
                 <ScalarProperty Name="codigoProyectoFK" ColumnName="codigoProyectoFK" />
                 <ScalarProperty Name="idModuloFK" ColumnName="idModuloFK" />
                 <ScalarProperty Name="idPK" ColumnName="idPK" />
@@ -694,8 +698,6 @@
                 <ScalarProperty Name="cedulaEmpleadoFK" ColumnName="cedulaEmpleadoFK" />
                 <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
                 <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
-                <ScalarProperty Name="duraciónEstimada" ColumnName="duraciónEstimada" />
-                <ScalarProperty Name="duraciónReal" ColumnName="duraciónReal" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
               </MappingFragment>
             </EntityTypeMapping>
