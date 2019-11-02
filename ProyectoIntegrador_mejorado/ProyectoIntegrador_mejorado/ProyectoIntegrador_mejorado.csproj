@@ -450,6 +450,7 @@
     <Content Include="Views\reportes\EmployeesDates.cshtml" />
     <Content Include="Views\reportes\Index.cshtml" />
     <Content Include="Views\reportes\SelectReport.cshtml" />
+    <Content Include="Views\reportes\requerimientosDesarrollador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
