@@ -6,111 +6,124 @@
 
 <h2>Crear un requerimiento</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Administrador de requerimientos</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.codigoProyectoFK, "Proyecto", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("codigoProyectoFK", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.codigoProyectoFK, "", new { @class = "text-danger" })
+
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Administrador de requerimientos</h4>
         </div>
-    </div>
+        <div class="card-body cont">
+            <div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.idModuloFK, "Módulo", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("idModuloFK", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.idModuloFK, "", new { @class = "text-danger" })
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.codigoProyectoFK, "Proyecto", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("codigoProyectoFK", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.codigoProyectoFK, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.idModuloFK, "Módulo", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("idModuloFK", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.idModuloFK, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
+                        @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", placeholder = "nombre", required = "required" })
+                        @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.complejidad, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.complejidad, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.complejidad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.estado, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
+                        @Html.TextBoxFor(model => model.estado, new { @class = "form-control", placeholder = "Estado", required = "required" })
+                        @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div>
+
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.cedulaEmpleadoFK, "Empleado a cargo", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("cedulaEmpleadoFK", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.cedulaEmpleadoFK, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.fechaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fechaInicio, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
+                        @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
+                        @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group  text-nowrap">
+                    @Html.LabelFor(model => model.fechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fechaFin, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd") } })
+                        @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group required text-nowrap">
+                    @Html.LabelFor(model => model.descripcion, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
+                        @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "Descripción", required = "required", @rows = 5 })
+                        @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+
+            @*Aviso de campo obligatorio*@
+            <label class="control-label col-md-4"><span style="color:red">*</span> Campo obligatorio</label>
+
         </div>
-    </div>
 
-
-    <div class="form-group required text-nowrap">
-        @Html.LabelFor(model => model.nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-            @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", placeholder = "nombre", required = "required" })
-            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+        @*Botones de aceptar y cancelar *@
+        <div class="form-actions no-color bot">
+            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+            <a href="~/requerimientos/Index" role="button" class="btn btn-danger"> Cancelar</a>
         </div>
+
+        <br />
+        <br />
+
     </div>
 
-    <div class="form-group required text-nowrap">
-        @Html.LabelFor(model => model.descripcion, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-            @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "Descripción", required = "required", @rows = 5 })
-            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.complejidad, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.complejidad, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-            @Html.ValidationMessageFor(model => model.complejidad, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group required text-nowrap">
-        @Html.LabelFor(model => model.estado, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-            @Html.TextBoxFor(model => model.estado, new { @class = "form-control", placeholder = "Estado", required = "required" })
-            @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.cedulaEmpleadoFK, "Empleado a cargo", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("cedulaEmpleadoFK", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.cedulaEmpleadoFK, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.fechaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.fechaInicio, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
-            @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.fechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.fechaFin, new { htmlAttributes = new { @class = "form-control" , type = "date", max = DateTime.Now.ToString("yyyy-MM-dd") } })
-            @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
-            @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    
-
-
-    <label class="control-label col-md-2"><span style="color:red">*</span> Campo obligatorio</label>
-    <div class="form-actions no-color">
-        <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
-        <a href="~/requerimientos/Index" role="button" class="btn btn-danger"> Cancelar</a>
-    </div>
-
-</div>
 }
 
 

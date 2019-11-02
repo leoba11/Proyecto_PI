@@ -46,6 +46,7 @@ namespace ProyectoIntegrador_mejorado.Models
         public System.DateTime fechaInicio { get; set; }
 
         [Display(Name = "Fecha de finalización ")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] // para que la fecha en editar muestre el valor
         public Nullable<System.DateTime> fechaFin { get; set; }
 
         [Display(Name = "Fecha estimada de finalización")]
@@ -68,5 +69,6 @@ namespace ProyectoIntegrador_mejorado.Models
 
         public virtual empleados empleados { get; set; }
         public virtual modulos modulos { get; set; }
+        public virtual proyectos proyectos { get; set; }
     }
 }

@@ -12,6 +12,18 @@
     <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este módulo?</div>
     <hr />
     <table class="table table-bordered">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+
+        </tr>
+
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.descripcion)
@@ -90,16 +102,7 @@
 
         </tr>
 
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
 
-            <td>
-                @Html.DisplayFor(model => model.nombre)
-            </td>
-
-        </tr>
 
         <tr>
             <th>
@@ -112,7 +115,7 @@
 
         </tr>
 
-        <tr>
+        @*<tr>
             <th>
                 @Html.DisplayNameFor(model => model.modulos.nombre)
             </th>
@@ -121,7 +124,7 @@
                 @Html.DisplayFor(model => model.modulos.nombre)
             </td>
 
-        </tr>
+        </tr>*@
 
     </table>
 

@@ -16,6 +16,28 @@
     <table class="table table-bordered">
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.nombre)
+            </td>
+
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.modulos.nombre)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.modulos.nombre)
+            </td>
+
+        </tr>
+  
+
+        <tr>
+            <th>
                 @Html.DisplayNameFor(model => model.descripcion)
             </th>
 
@@ -23,17 +45,7 @@
                 @Html.DisplayFor(model => model.descripcion)
             </td>
         </tr>
-        
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.complejidad)
-            </th>
 
-            <td>
-                @Html.DisplayFor(model => model.complejidad)
-            </td>
-
-        </tr>
 
         <tr>
             <th>
@@ -45,7 +57,17 @@
             </td>
 
         </tr>
-        
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.complejidad)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.complejidad)
+            </td>
+
+        </tr>
 
         <tr>
             <th>
@@ -68,7 +90,7 @@
             </td>
 
         </tr>
-        
+
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.duracionEstimada)
@@ -79,7 +101,7 @@
             </td>
 
         </tr>
-      
+
 
         <tr>
             <th>
@@ -92,17 +114,8 @@
 
         </tr>
 
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
 
-            <td>
-                @Html.DisplayFor(model => model.nombre)
-            </td>
 
-        </tr>
-        
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.empleados.nombre)
@@ -114,7 +127,7 @@
 
         </tr>
 
-        <tr>
+        @*<tr>
             <th>
                 @Html.DisplayNameFor(model => model.modulos.nombre)
             </th>
@@ -123,8 +136,8 @@
                 @Html.DisplayFor(model => model.modulos.nombre)
             </td>
 
-        </tr>
- 
+        </tr>*@
+
 
     </table>
 </div>

@@ -14,16 +14,13 @@
     <thead>
         <tr>
 
+
             <th>
 
                 @Html.DisplayNameFor(model => model.nombre)
 
             </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.modulos.nombre)
-            </th>
-
+           
             <th>
                 @Html.DisplayNameFor(model => model.empleados.nombre)
             </th>
@@ -47,9 +44,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.nombre)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.modulos.nombre)
-                </td>
+              
                 <td>
                     @Html.DisplayFor(modelItem => item.empleados.nombre)
                 </td>
