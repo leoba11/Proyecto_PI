@@ -18,7 +18,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
             reportes.Add(new ReportesModel { Nombre = "Total de requerimientos de desarrollador" });
             reportes.Add(new ReportesModel { Nombre = "Conocimientos más requeridos" });
             reportes.Add(new ReportesModel { Nombre = "Empleados disponibles entre fechas" });
-
             TempData["reportes"] = reportes;
             TempData.Keep();
 
