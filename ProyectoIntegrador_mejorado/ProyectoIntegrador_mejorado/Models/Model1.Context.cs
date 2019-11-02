@@ -164,5 +164,31 @@ namespace ProyectoIntegrador_mejorado.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<empleados> EmpleadosParaReporteFechas(Nullable<System.DateTime> fecha1, Nullable<System.DateTime> fecha2)
+        {
+            var fecha1Parameter = fecha1.HasValue ?
+                new ObjectParameter("fecha1", fecha1) :
+                new ObjectParameter("fecha1", typeof(System.DateTime));
+    
+            var fecha2Parameter = fecha2.HasValue ?
+                new ObjectParameter("fecha2", fecha2) :
+                new ObjectParameter("fecha2", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<empleados>("EmpleadosParaReporteFechas", fecha1Parameter, fecha2Parameter);
+        }
+    
+        public virtual ObjectResult<empleados> EmpleadosParaReporteFechas(Nullable<System.DateTime> fecha1, Nullable<System.DateTime> fecha2, MergeOption mergeOption)
+        {
+            var fecha1Parameter = fecha1.HasValue ?
+                new ObjectParameter("fecha1", fecha1) :
+                new ObjectParameter("fecha1", typeof(System.DateTime));
+    
+            var fecha2Parameter = fecha2.HasValue ?
+                new ObjectParameter("fecha2", fecha2) :
+                new ObjectParameter("fecha2", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<empleados>("EmpleadosParaReporteFechas", mergeOption, fecha1Parameter, fecha2Parameter);
+        }
     }
 }
