@@ -51,8 +51,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             TempData.Keep();
             return View();
+            //return RedirectToAction("SelectReport", "reportes");
         }
-
+        
 
         [HttpPost]
         public ActionResult EmployeesDates(FechasModel fechas)
