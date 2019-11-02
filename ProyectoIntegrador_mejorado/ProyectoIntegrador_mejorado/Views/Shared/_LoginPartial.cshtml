@@ -5,18 +5,21 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", Style = "color:White;" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
-    </ul>
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", Style = "color:White;" })
+    </li>
+    <li><a href="javascript:document.getElementById('logoutForm').submit()" role="button" class="btn btn-link">Cerrar sesión</a></li>
+</ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" , Style = "color:White;" })</li>
+        @* <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", Style = "color:White;" })</li>
         <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", Style = "color:White;" })</li>
+        *@
+        <a class="nav-item nav-link" href="~/Account/Login">Iniciar Sesión</a>
+        <a class="nav-item nav-link" href="~/Account/Register">Registrarse</a>
     </ul>
 }

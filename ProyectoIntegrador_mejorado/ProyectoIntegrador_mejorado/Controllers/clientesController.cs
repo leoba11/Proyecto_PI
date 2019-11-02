@@ -10,6 +10,7 @@ using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
+    [Authorize]
     public class clientesController : Controller
     {
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
