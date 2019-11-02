@@ -18,9 +18,48 @@ namespace ProyectoIntegrador_mejorado.Controllers
         // GET: requerimientos
         public ActionResult Index()
         {
-            var requerimientos = db.requerimientos.Include(r => r.empleados).Include(r => r.modulos);
-            return View(requerimientos.ToList());
+            //var requerimientos = db.requerimientos.Include(r => r.empleados).Include(r => r.modulos);
+            //return View(requerimientos.ToList());
+
+            List<proyectos> proyectos = new proyectosController().Pass();
+            TempData["proyectos"] = proyectos;
+            TempData.Keep();
+            return View();
         }
+        [HttpPost]
+        public ActionResult Index(proyectos proyectito)
+        {
+            //acá se cambió para que solo agarre los requerimientos relacionados con el proyecto que el usuario escogio
+            if (proyectito.codigoPK != 0)
+            {
+                TempData["proyecto"] = proyectito.codigoPK;
+                TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
+                TempData.Keep();
+                return RedirectToAction("Lista", "requerimientos");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        public ActionResult Lista()
+        {
+            //Se agrega este método para deplegar los datos de los modulos del proyecto que el usuario seleccionó
+            //el método agarra el id del proyecto, para desplegar entonces solo los modulos correspondientes
+            TempData.Keep();
+            if (TempData["proyecto"] != null)
+            {
+                int codigo = int.Parse(TempData["proyecto"].ToString());
+                List<requerimientos> requerimientos = db.requerimientos.Where(x => x.codigoProyectoFK == codigo).ToList();
+                TempData["requerimientos"] = requerimientos;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "requerimientos");
+            }
+        }
+
 
         // GET: requerimientos/Details/5
         public ActionResult Details(int? idProyecto, int? idModulo, int? id)

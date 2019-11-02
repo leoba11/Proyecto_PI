@@ -451,6 +451,7 @@
     <Content Include="Views\reportes\Index.cshtml" />
     <Content Include="Views\reportes\SelectReport.cshtml" />
     <Content Include="Views\reportes\requerimientosDesarrollador.cshtml" />
+    <Content Include="Views\requerimientos\Lista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

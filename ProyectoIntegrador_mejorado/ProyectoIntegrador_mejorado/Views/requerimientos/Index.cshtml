@@ -1,86 +1,25 @@
 ﻿@model IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Seleccionar proyecto mod";
 }
 @*Vista del index*@
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+@*Aca es para hacer que el usuario seleccione el poryecto del que desea ver módulos*@
+@*Título de la ventana*@
 <h2>Requerimientos</h2>
+<h4> Seleccionar proyecto </h4>
 
-<p>Escriba algo en la barra para buscar en la tabla algún requerimiento</p>
-<input class="form-control" id="userInput" type="text" placeholder="Buscar..">
-<br />
+@using (Html.BeginForm("Index", "requerimientos", FormMethod.Post))
+{
+    if (TempData["proyectos"] != null)
+    {
+        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
+    }
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-
-
-            <th>
-
-                @Html.DisplayNameFor(model => model.nombre)
-
-            </th>
-           
-            <th>
-                @Html.DisplayNameFor(model => model.empleados.nombre)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.estado)
-            </th>
-            <th>
-                @*Botón de crear*@
-                <a href="~/requerimientos/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody id="myTableReq">
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nombre)
-                </td>
-              
-                <td>
-                    @Html.DisplayFor(modelItem => item.empleados.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.estado)
-                </td>
-
-                <td>
-                    @*Aquí se colocan los iconos para cada tupla de la tabla
-                        Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
-                        Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
-                    *@
-
-
-                    <a href="@Url.Action("Details", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
-
-
-                </td>
-
-                @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK }) |
-                        @Html.ActionLink("Details", "Details", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK }) |
-                        @Html.ActionLink("Delete", "Delete", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK })
-                    </td>*@
-            </tr>
-        }
-
-</table>
-@*Script de Jquery para filtar elementos de la tabla*@
-<script>
-    $(document).ready(function () {
-        $("#userInput").on("keyup", function () {
-            var value1 = $(this).val().toLowerCase();
-            $("#myTableReq tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1)
-            });
-        });
-    });
-</script>
+    <input type="submit" value="Seleccionar" />
+}
