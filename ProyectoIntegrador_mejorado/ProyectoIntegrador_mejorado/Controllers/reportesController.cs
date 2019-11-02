@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
     [Authorize]
     public class reportesController : Controller
     {
+        private Gr02Proy1Entities db = new Gr02Proy1Entities();
+
         // GET: reportes
         [HttpGet]
         public ActionResult Index()
@@ -49,6 +52,25 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             TempData.Keep();
             return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult EmployeesDates(FechasModel fechas)
+        {
+            if (fechas.Fecha1 == null || fechas.Fecha2 == null)
+            {
+                TempData.Keep();
+                return View();
+            }
+            else
+            {
+                
+                TempData.Keep();
+                TempData["empl"] = db.EmpleadosParaReporteFechas(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
+                TempData["fechas"] = fechas;
+                return View();
+            }
         }
     }
 }
