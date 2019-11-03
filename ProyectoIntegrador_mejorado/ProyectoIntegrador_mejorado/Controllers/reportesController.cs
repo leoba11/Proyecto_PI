@@ -47,14 +47,16 @@ namespace ProyectoIntegrador_mejorado.Controllers
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
+
+        //Método GET de la vista de reporte de empleados desocupados
         public ActionResult EmployeesDates()
         {
             TempData.Keep();
             return View();
             //return RedirectToAction("SelectReport", "reportes");
         }
-        
 
+        //Método POST de la vista de reporte de empleados desocupados
         [HttpPost]
         public ActionResult EmployeesDates(FechasModel fechas)
         {
@@ -69,6 +71,31 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 TempData.Keep();
                 TempData["empl"] = db.EmpleadosParaReporteFechas(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
                 TempData["fechas"] = fechas;
+                return View();
+            }
+        }
+
+        //Método GET de la vista de reporte de conocimientos
+        public ActionResult KnowledgesReport()
+        {
+            TempData.Keep();
+            return View();
+        }
+
+        //Método POST de la vista de reporte de conocimientos
+        [HttpPost]
+        public ActionResult KnowledgesReport(FechasModel fechas)
+        {
+            if (fechas.Fecha1 != null && fechas.Fecha2 != null)
+            {
+                TempData.Keep(); // verificar fechas !!!
+                TempData["conocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
+                TempData["fechas"] = fechas;
+                return View();
+            }
+            else
+            {
+                TempData.Keep();
                 return View();
             }
         }

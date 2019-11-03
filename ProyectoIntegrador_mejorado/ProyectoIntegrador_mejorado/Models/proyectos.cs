@@ -27,6 +27,7 @@ namespace ProyectoIntegrador_mejorado.Models
         public int codigoPK { get; set; }
         [Display(Name = "Nombre del Proyecto")]
         [Required(ErrorMessage = "Este campo es requerido")]
+        [RegularExpression(@"^[a-zA-Z0-9,.\s]+$", ErrorMessage = "El objetivo no permite el uso de algunos símbolos")]
         public string nombre { get; set; }
         [Display(Name = "Fecha de inicio")]
         [Required(ErrorMessage = "Este campo es requerido")]
@@ -38,8 +39,10 @@ namespace ProyectoIntegrador_mejorado.Models
         public System.DateTime fechaFinalEstimada { get; set; }
         [Display(Name = "Costo estimado")]
         [Required(ErrorMessage = "Este campo es requerido")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:#}")]
         public decimal costoEstimado { get; set; }
         [Display(Name = "Objetivo del Proyecto")]
+        [RegularExpression(@"^[a-zA-Z0-9,.\s]+$", ErrorMessage = "El objetivo no permite el uso de algunos símbolos")]
         public string objetivo { get; set; }
         [Display(Name = "Cédula de cliente")]
         public string cedulaClienteFK { get; set; }

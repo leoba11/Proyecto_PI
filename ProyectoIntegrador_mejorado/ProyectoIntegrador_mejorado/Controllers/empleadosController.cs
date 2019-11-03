@@ -174,7 +174,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             var listaEmpPr = (from d in db.empleados
                               join f in db.roles
                               on d.cedulaPK equals f.cedulaFK
-                              where f.codigoProyectoFK == codigo
+                              where f.codigoProyectoFK == codigo && f.rol != "Líder"
                               select d).ToList();
 
 
@@ -183,28 +183,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
         }
-
-        //EFE: cambia el valor de disponibilidad del empleado, para indicar que esta libre
-        //REQ: que el empleado sea valido
-        //MOD: disponibilidad pasa a ser true
-        public void SetFree(int codigo, string cedula)
-        {
-            empleados actual = db.empleados.Find(cedula);
-            actual.disponibilidad = true;
-            bool rol = new rolesController().QuiteRol(codigo, cedula);
-
-        }
-
-
-        //EFE: cambia el valor de disponibilidad del empleado, para indicar que esta ocupado
-        //REQ: que el empleado sea valido
-        //MOD: disponibilidad pasa a ser false
-        public void SetBusy(int codigo, string cedula)
-        {
-            empleados actual = db.empleados.Find(cedula);
-            actual.disponibilidad = false;
-            bool rol = new rolesController().UpdateRol(codigo, cedula);
-
-        }
+        
     }
 }

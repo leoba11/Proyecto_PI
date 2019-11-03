@@ -160,29 +160,14 @@ namespace ProyectoIntegrador_mejorado.Controllers
          */
         public void EraseRol(int codProyecto, string cedulaEmp)
         {
-            roles roles = db.roles.Find(cedulaEmp, codProyecto);
-            db.roles.Remove(roles);
-            db.SaveChanges();
+            roles rol = db.roles.Find(cedulaEmp, codProyecto);
+            if (rol != null)
+            {
+                db.roles.Remove(rol);
+                db.SaveChanges();
+            }
         }
-
-
-        public bool UpdateRol(int codProyecto, string cedulaEmp)
-        {
-            roles rol = db.roles.Create();
-            rol.codigoProyectoFK = codProyecto;
-            rol.cedulaFK = cedulaEmp;
-            rol.rol = "desarrollador";
-            db.SaveChanges();
-            return true;
-        }
-
-        public bool QuiteRol(int codProyecto, string cedulaEmp)
-        {
-            roles rol = db.roles.Find(codProyecto, cedulaEmp);
-            db.roles.Remove(rol);
-            db.SaveChanges();
-            return true;
-        }
+        
 
         /*
          * Efecto: retorna string que representa cédula de líder de proyecto

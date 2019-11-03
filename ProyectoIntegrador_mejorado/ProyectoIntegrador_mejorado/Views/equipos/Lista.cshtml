@@ -12,30 +12,18 @@
 *@
 <script>
     $(document).ready(function () {
-        $("#sortable2").sortable({
-            connectWith: "#sortable",
-            update: function (event, ui) {
-                var itemIds = "";
-                $("sortable").find(".taskSingleInline").each(function () {
-                    var itemId = $(this).attr("data-taskid");
-                    itemIds = itemIds + itemId + ",";
-                });
-            },
+        $("#sortable").sortable({
+            connectWith: "#sortable2",
             receive: function (event, ui) {
 
-
-                @* window.location.href = "@Url.Action("SetBusy", "empleados", new { codigo = int.Parse(TempData["proyecto"].ToString()) , cedula = valor})";
-                    window.location.href = "@Url.Action("SetBusy", "empleados", new { codigo = int.Parse(TempData["proyecto"].ToString()) , cedula = ui.sender()})";
-                aqui se llama al metodo para agregar el rol al empleado
-                $.get("/empleados/SetBusy", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
-                    alert("you clickek");
-
-                });*@
+                var item = (ui.item).clone();
+                codigo = '@int.Parse(TempData["proyecto"].ToString())';
+                var id = item.text().toString();
+                window.location.href = "SetFree?codigo=" + codigo + "&cedula=" + id;
             }
 
         });
-    })
-
+    })(jQuery);
 </script>
 
 @*
@@ -45,28 +33,17 @@
 *@
 <script>
     $(document).ready(function () {
-        $("#sortable").sortable({
-            connectWith: "#sortable2",
-            update: function (event, ui) {
-                var itemIds = "";
-                $("sortable").find(".taskSingleInline").each(function () {
-                    var itemId = $(this).attr("data-taskid");
-                    itemIds = itemIds + itemId + ",";
-                });
-            },
+        $("#sortable2").sortable({
+            connectWith: "#sortable",
             receive: function (event, ui) {
-
-
-                @* aqui se llama al metodo para agregar el rol al empleado
-                $.get("/empleados/SetBusy", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
-                    alert("you clickek");
-
-                });*@
+                var item = (ui.item).clone();
+                codigo = '@int.Parse(TempData["proyecto"].ToString())';
+                var id = item.text().toString();
+                window.location.href = "SetBusy?codigo=" + codigo + "&cedula=" + id;
             }
 
         });
-    })
-
+    })(jQuery);
 </script>
 
 <!-- Adición de libirería de íconos -->
@@ -76,7 +53,6 @@
 
 
 
-<br />
 <br />
 @*genera remarcacion de la opcion sobre la cual se encuentra el puntero*@
 <style>
@@ -94,11 +70,41 @@
 </style>
 
 
+
+@*para mostrar el proyecto actual como titulo*@
+@if (TempData["proyecto"] != null)
+{
+    <h2>
+
+        Equipo del proyecto: @TempData["nombreProyecto"]
+    </h2>
+    <h3>
+
+        Código: @TempData["proyecto"]
+    </h3>
+    <STYLE type="text/css">
+        H2 {
+            text-align: center
+        }
+
+        H3 {
+            text-align: center
+        }
+    </STYLE>
+}
+
+
+<STYLE type="text/css">
+    #linea {
+        text-align: center
+    }
+</STYLE>
+
+
+
 <div class="modal-body row">
     <div class=".col-6 .col-sm-4">
         <!-- codigo de primer columna-->
-        <p> Desarrolladores disponibles</p>
-
         <!-- lista desplegable para filtrar por conocimientos-->
         <td> Seleccionar concimiento </td>
         <td>
@@ -106,24 +112,20 @@
             {
                 if (TempData["conocimientos"] != null)
                 {
-                    @Html.DropDownList("conocimientoPK", new SelectList(TempData["conocimientos"] as List<ProyectoIntegrador_mejorado.Models.conocimientos>, "conocimientoPK", "conocimientoPK"), "----------")
+                    @Html.DropDownList("knowledge", new SelectList(TempData["conocimientos"] as List<string>, "knowledge"), "----------")
                 }
                 <input type="submit" value="Filtrar" />
             }
         </td>
 
         <p></p>
-
+        <h3> Desarrolladores disponibles</h3>
 
         <table class="table table-responsive-md">
 
-
-
-
             <thead class="thead-light">
                 <tr>
-                    <th>Cédula</th>
-                    <th>Nombre</th>
+                    <th id="linea">  Cédula  &nbsp;&nbsp;&nbsp;&nbsp;  Nombre</th>
                 </tr>
             </thead>
 
@@ -152,12 +154,12 @@
                         foreach (var item in TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>)
                         {
                             <tr>
-                                <td>
+                                <td class=" taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
                                     <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
                                     @item.cedulaPK
 
                                 </td>
-                                <td class=" taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                                <td>
                                     @item.nombre
 
                                 </td>
@@ -166,37 +168,40 @@
                         }
                     }
                 }
-
-
-
             </tbody>
         </table>
     </div>
 
-    <div class="col">
-
+    <div class=".col-6">
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </p>
     </div>
 
     <div class=".col-6 .col-sm-4">
         <!-- codigo de segunda colunma-->
-        <p>
-            Empleados en el proyecto
-            <!-- muestra el nombre del proyecto (id)-->
+        @if (TempData["proyecto"] != null)
+        {
+            if (TempData["lider"] != null)
+            {
+                <p>
+                    Lider del proyecto:
+                    @((TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
 
-            @TempData["nombreProyecto"] (@TempData["proyecto"])
-        </p>
+                </p>
+            }
+        }
 
-        <p></p>
         <br />
-        <br />
+        <h3>Miembros actuales del equipo</h3>
 
 
         <table class="table table-responsive-md">
 
             <thead class="thead-light">
                 <tr>
-                    <th>Cédula</th>
-                    <th>Nombre</th>
+                    <th id="linea">  Cédula  &nbsp;&nbsp;&nbsp;&nbsp;  Nombre</th>
                 </tr>
             </thead>
             <!-- listar los miembros del equipo para el proyecto seleccinado-->
@@ -208,11 +213,11 @@
                     foreach (var item in TempData["empleadosP"] as List<ProyectoIntegrador_mejorado.Models.empleados>)
                     {
                         <tr>
-                            <td>
+                            <td class="taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
                                 <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
                                 @item.cedulaPK
                             </td>
-                            <td class="taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                            <td>
                                 @item.nombre
                             </td>
 
@@ -220,9 +225,6 @@
                     }
                 }
             </tbody>
-
-
-
         </table>
     </div>
 </div>

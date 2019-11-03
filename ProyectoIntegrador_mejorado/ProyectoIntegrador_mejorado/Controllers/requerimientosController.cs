@@ -24,16 +24,30 @@ namespace ProyectoIntegrador_mejorado.Controllers
             List<proyectos> proyectos = new proyectosController().Pass();
             TempData["proyectos"] = proyectos;
             TempData.Keep();
+
+            List<modulos> modulos = new modulosController().Pass();
+            TempData["modulos"] = modulos;
+            TempData.Keep();
             return View();
         }
         [HttpPost]
-        public ActionResult Index(proyectos proyectito)
+        public ActionResult Index(proyectos proyectito, modulos modulito)
         {
             //acá se cambió para que solo agarre los requerimientos relacionados con el proyecto que el usuario escogio
-            if (proyectito.codigoPK != 0)
+            if (proyectito.codigoPK != 0 && modulito.idPK != 0)
             {
                 TempData["proyecto"] = proyectito.codigoPK;
                 TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
+
+                TempData["modulos"] = modulito.idPK;
+                
+                try {
+                    TempData["nombreModulo"] = new modulosController().ModByCode(int.Parse(TempData["proyecto"].ToString()), int.Parse(TempData["modulos"].ToString())).nombre;
+                }catch (NullReferenceException )
+                {
+                    return RedirectToAction("Index", "requerimientos");
+                }
+
                 TempData.Keep();
                 return RedirectToAction("Lista", "requerimientos");
             }
@@ -47,10 +61,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             //Se agrega este método para deplegar los datos de los modulos del proyecto que el usuario seleccionó
             //el método agarra el id del proyecto, para desplegar entonces solo los modulos correspondientes
             TempData.Keep();
-            if (TempData["proyecto"] != null)
+            if (TempData["proyecto"] != null && TempData["modulos"] != null)
             {
                 int codigo = int.Parse(TempData["proyecto"].ToString());
-                List<requerimientos> requerimientos = db.requerimientos.Where(x => x.codigoProyectoFK == codigo).ToList();
+                int idMod = int.Parse(TempData["modulos"].ToString());
+                List<requerimientos> requerimientos = db.requerimientos.Where(x => x.codigoProyectoFK == codigo &&  x.idModuloFK == idMod).ToList();
                 TempData["requerimientos"] = requerimientos;
                 return View();
             }
@@ -94,12 +109,27 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "codigoProyectoFK,idModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duracionEstimada,duracionDias,nombre")] requerimientos requerimientos)
         {
+            
+         
             if (ModelState.IsValid)
             {
                 db.requerimientos.Add(requerimientos);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(System.Data.SqlClient.SqlException ) {
+                    return RedirectToAction("Index", "requerimientos");
+                }
+                catch (Exception )
+                {
+                    return RedirectToAction("Index", "requerimientos");
+                }
+
                 return RedirectToAction("Index");
             }
+
+
 
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
