@@ -19,7 +19,16 @@
     if (TempData["proyectos"] != null)
     {
         @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
+
+    }
+    <h5>  </h5>
+    <h5> Seleccionar modulo </h5>
+    if (TempData["modulos"] != null)
+    {
+        @Html.DropDownList("idPK", new SelectList(TempData["modulos"] as List<ProyectoIntegrador_mejorado.Models.modulos>, "idPK", "nombre"), "----------")
+
     }
 
+    <h2> </h2>
     <input type="submit" value="Seleccionar" />
 }

@@ -24,16 +24,24 @@ namespace ProyectoIntegrador_mejorado.Controllers
             List<proyectos> proyectos = new proyectosController().Pass();
             TempData["proyectos"] = proyectos;
             TempData.Keep();
+
+            List<modulos> modulos = new modulosController().Pass();
+            TempData["modulos"] = modulos;
+            TempData.Keep();
             return View();
         }
         [HttpPost]
-        public ActionResult Index(proyectos proyectito)
+        public ActionResult Index(proyectos proyectito, modulos modulito)
         {
             //acá se cambió para que solo agarre los requerimientos relacionados con el proyecto que el usuario escogio
-            if (proyectito.codigoPK != 0)
+            if (proyectito.codigoPK != 0 && modulito.idPK != 0)
             {
                 TempData["proyecto"] = proyectito.codigoPK;
                 TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
+
+                TempData["modulos"] = modulito.idPK;
+                TempData["nombreModulo"] = new modulosController().ModByCode(int.Parse(TempData["proyecto"].ToString()),int.Parse(TempData["modulos"].ToString())).nombre;
+
                 TempData.Keep();
                 return RedirectToAction("Lista", "requerimientos");
             }
@@ -47,10 +55,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             //Se agrega este método para deplegar los datos de los modulos del proyecto que el usuario seleccionó
             //el método agarra el id del proyecto, para desplegar entonces solo los modulos correspondientes
             TempData.Keep();
-            if (TempData["proyecto"] != null)
+            if (TempData["proyecto"] != null && TempData["modulos"] != null)
             {
                 int codigo = int.Parse(TempData["proyecto"].ToString());
-                List<requerimientos> requerimientos = db.requerimientos.Where(x => x.codigoProyectoFK == codigo).ToList();
+                int idMod = int.Parse(TempData["modulos"].ToString());
+                List<requerimientos> requerimientos = db.requerimientos.Where(x => x.codigoProyectoFK == codigo &&  x.idModuloFK == idMod).ToList();
                 TempData["requerimientos"] = requerimientos;
                 return View();
             }

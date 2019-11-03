@@ -174,5 +174,17 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
             base.Dispose(disposing);
         }
+        public List<modulos> Pass()//dispone la lista de proyectos para otros controladores
+        {
+            List<modulos> modulos = db.modulos.ToList();
+            return modulos;
+        }
+        public modulos ModByCode(int codigoProyecto, int id)
+        {
+            modulos mod = db.modulos.Find(codigoProyecto, id);
+            //TempData["proyectos"] = proyectos;
+            //TempData.Keep();
+            return mod;
+        }
     }
 }
