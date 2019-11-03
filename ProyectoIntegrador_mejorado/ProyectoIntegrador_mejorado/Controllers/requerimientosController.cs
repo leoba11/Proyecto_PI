@@ -56,6 +56,17 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return View();
             }
         }
+
+
+        public ActionResult GetModulList(int codigoProyecto)
+        {
+            List<modulos> modulos = new modulosController().PassByProyect(codigoProyecto);
+            ViewBag.Moduls = new SelectList(modulos, "idPK", "nombre");
+            
+            return PartialView("ModulsPartial");
+        }
+
+
         public ActionResult Lista()
         {
             //Se agrega este método para deplegar los datos de los modulos del proyecto que el usuario seleccionó

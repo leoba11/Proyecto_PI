@@ -186,5 +186,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
             //TempData.Keep();
             return mod;
         }
+
+        public List<modulos> PassByProyect(int codigo)//dispone la lista de modulos por proyecto
+        {
+            List<modulos> modulos = db.modulos.Where(x => x.codigoProyectoFK == codigo).ToList();
+            return modulos;
+        }
+
+
     }
 }

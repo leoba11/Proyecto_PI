@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>
+﻿@model ProyectoIntegrador_mejorado.Models.ProyectModulViewModel
 
 @{
     ViewBag.Title = "Seleccionar proyecto mod";
@@ -16,19 +16,42 @@
 
 @using (Html.BeginForm("Index", "requerimientos", FormMethod.Post))
 {
-    if (TempData["proyectos"] != null)
+    if (ViewBag.ProyectList != null)
     {
-        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
+        @Html.DropDownListFor(model => model.codigoPK, ViewBag.ProyectList as SelectList, "----------", new { @class = "form-control" })
 
     }
     <h5>  </h5>
     <h5> Seleccionar modulo </h5>
-    if (TempData["modulos"] != null)
-    {
-        @Html.DropDownList("idPK", new SelectList(TempData["modulos"] as List<ProyectoIntegrador_mejorado.Models.modulos>, "idPK", "nombre"), "----------")
-
-    }
+    @Html.DropDownListFor(model => model.idPK, new SelectList(""), "----------", new { @class = "form-control" })
 
     <h2> </h2>
     <input type="submit" value="Seleccionar" />
 }
+
+
+<script>
+    $(document).ready(function () {
+        $("#codigoPK").change(function () {
+            var cod = $(this).val();
+            $.ajax({
+                type: "Post",
+                url: "/requerimientos/GetModulList?codigoProyecto=" + cod,
+                contentType: "html",
+                success: function (response) {
+                    $("#idPK").empty();
+                    $("#idPK").append(response);
+                }
+            })
+
+
+            @*
+            $.get("/requerimientos/GetModulList", { codigoProyecto: $("#codigoPK").val() }, function (data) {
+                $("#idPK").empty();
+                $.each(data, function (index, row) {
+                    $("#idPK").append("<option value= '" + row.idpk + +"'>" + row.nombre + "</option>")
+                });
+            });*@
+        })
+    });
+</script>
