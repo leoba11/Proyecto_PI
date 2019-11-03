@@ -53,7 +53,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return View();
             //return RedirectToAction("SelectReport", "reportes");
         }
-        
+
+        public ActionResult requerimientosDesarrollador()
+        {
+            TempData.Keep();
+            return View();
+        }
+
 
         [HttpPost]
         public ActionResult EmployeesDates(FechasModel fechas)
@@ -66,6 +72,25 @@ namespace ProyectoIntegrador_mejorado.Controllers
             else
             {
                 
+                TempData.Keep();
+                TempData["empl"] = db.EmpleadosParaReporteFechas(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
+                TempData["fechas"] = fechas;
+                return View();
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult EmployeesReq()
+        {
+            if (fechas.Fecha1 == null || fechas.Fecha2 == null)
+            {
+                TempData.Keep();
+                return View();
+            }
+            else
+            {
+
                 TempData.Keep();
                 TempData["empl"] = db.EmpleadosParaReporteFechas(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
                 TempData["fechas"] = fechas;
