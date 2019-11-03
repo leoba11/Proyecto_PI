@@ -15,11 +15,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult Index()
         {
             List<proyectos> proyectos = new proyectosController().Pass();
-            List<empleados> employeesList = new empleadosController().GetFreeEmployees();
-            List<conocimientos> conocimientos = new conocimientosController().PassKnowledge();
+            List<string> conocimientos = new conocimientosController().PassKnowledge();
             TempData["proyectos"] = proyectos;
-            TempData["empleados"] = employeesList;
-            TempData["empleados2"] = employeesList;
             TempData["conocimientos"] = conocimientos;
             TempData.Keep();
             return RedirectToAction("SelectProject", "equipos");
@@ -29,9 +26,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //EFE: trae la lista de empleados filtrados por conocimiento y por proyecto y regresa la vista de los mismos
         //REQ: debe exitir al menos un proyecto
         //MOD: crea variables temporales para guardar la lista de empleados filtrados por conocimiento y por proyecto
-        public ActionResult Lista(string conocimientoPK)
+        public ActionResult Lista(string conocimientoPK, string a)
         {
-            // List<proyecto> proyectos = TempData["proyectos"] as List<proyecto>;
+            List<empleados> employeesFree = new empleadosController().GetFreeEmployees();
+            TempData["empleados"] = employeesFree;
+
+
+            TempData["temp"] = conocimientoPK;
             if (conocimientoPK != "todos")
             {
                 List<empleados> employeesList = new empleadosController().GetEmployeeByKnowledge(conocimientoPK);
@@ -70,17 +71,17 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //REQ: debe exitir al menos un proyecto
         //MOD: 
         [HttpPost]
-        public ActionResult Lista(conocimientos knowledge)
+        public ActionResult Lista(string knowledge)
         {
-            if (knowledge.conocimientoPK != null)
+            if (knowledge != "")
             {
                 TempData.Keep();
-                return RedirectToAction("Lista", "equipos", new { conocimientoPK = knowledge.conocimientoPK });
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = knowledge, a = "" });
             }
             else
             {
                 TempData.Keep();
-                return RedirectToAction("Lista", "equipos", new { conocimientoPK = "todos" });
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = "todos", a = "" });
             }
 
         }
@@ -123,7 +124,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 TempData["proyecto"] = proyectito.codigoPK;
                 TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
                 TempData.Keep();
-                return RedirectToAction("Lista", "equipos", new { conocimientoPK = know });
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = know , a = ""});
             }
             else
             {
@@ -131,71 +132,99 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
         }
 
-        /*
-        //EFE:
-        //REQ:
-        //MOD:
-        public ActionResult Refresh(int codProyecto)
+
+        public ActionResult SetFree(int codigo, string cedula)
         {
-            TempData.Keep();
+            /*sacamos la cedula del string*/
+            int counter = cedula.Length;
+            string id = "";
+            int i = 0;
+            int counter2 = 1;
+            bool fin = false;
 
-            
-
-
-            return PartialView("empleadosPartial");
-        }
-        
-        public ActionResult UpdateItem(string itemIds)
-        {
-            Gr02Proy1Entities db = new Gr02Proy1Entities();
-            int count = 1;
-            List<int> itemIdList = new List<int>();
-            itemIdList = itemIds.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
-            foreach (var itemId in itemIds)
+            while (i < counter && fin == false)
             {
-                try
+                if (cedula[i] == '0' || cedula[i] == '1' || cedula[i] == '2' || cedula[i] == '3' || cedula[i] == '4'
+                    || cedula[i] == '5' || cedula[i] == '6' || cedula[i] == '7' || cedula[i] == '8' || cedula[i] == '9')
                 {
-                    empleados item = db.empleados.Where(x => x.cedulaPK == itemId.ToString()).FirstOrDefault();
-                    db.SaveChanges();
+
+                    id = id + cedula[i];
+                    if (counter2 == 9)
+                    {
+                        fin = true;
+                    }
+                    else
+                    {
+                        counter2++;
+                    }
                 }
-                catch (Exception)
-                {
-                    continue;
-                }
-                count++;
+                i++;
             }
-            return Json(true, JsonRequestBehavior.AllowGet);
-
-
             
-             List<roles> rol =  new rolesController().UddeRol();
+            /*se le quita el rol al empleado*/
+            new rolesController().EraseRol(codigo, id);
 
-            List<roles> rol =  new rolesController().EraseeRol();
-             
-             
-        }
-        //EFE:
-        //REQ:
-        //MOD:
-        public JsonResult GetEmployees3(string conocimientoPK)
-        {
-            List<empleados> employeesList = new empleadosController().GetEmployeeByKnowledge(conocimientoPK);
-            //TempData["empleados"] = employeesList;
-            //TempData.Keep();
-            return Json(employeesList, JsonRequestBehavior.AllowGet);
+            /*recargamos la vista de la lista actualizada*/
+            string knowledge = TempData["temp"] as string;
+            if (knowledge != "")
+            {
+                TempData.Keep();
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = knowledge, algo = "" });
+            }
+            else
+            {
+                TempData.Keep();
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = "todos", algo = "" });
+            }
         }
 
-        //EFE:
-        //REQ:
-        //MOD:
-        public JsonResult GetEmployees(string conocimientoPK)
+        
+        public ActionResult SetBusy(int codigo, string cedula)
         {
-            List<empleados> employeesList = new empleadosController().GetEmployeeByKnowledge(conocimientoPK);
-            TempData["empleados"] = employeesList;
-            TempData.Keep();
-            return Json(employeesList, JsonRequestBehavior.AllowGet);
+            /*sacamos la cedula del string*/
+            int counter = cedula.Length;
+            string id = "";
+            int i = 0;
+            int counter2 = 1;
+            bool fin = false;
+
+            while (i < counter && fin == false)
+            {
+                if (cedula[i] == '0' || cedula[i] == '1' || cedula[i] == '2' || cedula[i] == '3' || cedula[i] == '4'
+                    || cedula[i] == '5' || cedula[i] == '6' || cedula[i] == '7' || cedula[i] == '8' || cedula[i] == '9')
+                {
+
+                    id = id + cedula[i];
+                    if (counter2 == 9)
+                    {
+                        fin = true;
+                    }
+                    else
+                    {
+                        counter2++;
+                    }
+                }
+                i++;
+
+            }
+
+
+            /*se le da el rol de desarrollador al empleado*/
+            new rolesController().AddRol(codigo, id, 1);
+            
+            /*recargamos la vista de la lista actualizada*/
+            string knowledge = TempData["temp"] as string;
+            if (knowledge != "")
+            {
+                TempData.Keep();
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = knowledge, algo = "" });
+            }
+            else
+            {
+                TempData.Keep();
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = "todos", algo = "" });
+            }
         }
-        */
 
     }
 }

@@ -160,9 +160,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
          */
         public void EraseRol(int codProyecto, string cedulaEmp)
         {
-            roles roles = db.roles.Find(cedulaEmp, codProyecto);
-            db.roles.Remove(roles);
-            db.SaveChanges();
+            roles rol = db.roles.Find(cedulaEmp, codProyecto);
+            if (rol != null)
+            {
+                db.roles.Remove(rol);
+                db.SaveChanges();
+            }
         }
         
 

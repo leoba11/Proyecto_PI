@@ -1,16 +1,93 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@model Tuple<ProyectoIntegrador_mejorado.Models.FechasModel, ProyectoIntegrador_mejorado.Models.conocimientos_en_rango_Result>
+
+@{
+    ViewBag.Title = "Conocimientos requeridos";
 }
 
-<h2>Conocimientos requeridos</h2>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
-@using (Html.BeginForm())
+<h2>Conocimientos requeridos en un rango de fechas</h2>
+
+<script>
+    $(document).ready(function () {
+        $("#Fecha1").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#Fecha2").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+        });
+    });
+</script>
+
+@using (Html.BeginForm("KnowledgesReport", "reportes", FormMethod.Post))
 {
-    <div class="form-group required">
-        @Html.LabelFor(model => model.fechaInicial, htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.fechaInicial, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
-            @Html.ValidationMessageFor(model => model.fechaInicial, "", new { @class = "text-danger" })
+
+    <div class="modal-body row">
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Fecha inicial
+            </p>
+            @Html.EditorFor(tuple => tuple.Item1.Fecha1, new { htmlAttributes = new { @class = "datepicker", @type = "date" } })
+            @*<input type="text" id="calendar" />*@
+        </div>
+
+        <div class=".col-6">
+            <p>
+                ...........
+            </p>
+        </div>
+
+
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Fecha final
+            </p>
+
+            @Html.EditorFor(tuple => tuple.Item1.Fecha1, new { htmlAttributes = new { @class = "datepicker", @type = "date" } })
+            @*@Html.EditorFor(tuple => tuple.Item1.Fecha2, new { htmlAttributes = new { @class = "form-control date2", @readonly = true } })*@
+
         </div>
     </div>
+
+    <input type="submit" value="Generar reporte" />
+}
+
+<br />
+<br />
+
+@{
+    if (TempData["conocimientos"] != null)
+    {
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Cantidad de veces requerido
+                </th>
+                <th>
+                    Conocimiento
+                </th>
+
+            </tr>
+
+            @foreach (var conocimientos_en_rango_Result in (IEnumerable<object>)TempData["conocimientos"])
+            {
+                <tr>
+                    <td>@Model.Item2.Cantidad</td>
+                    <td>@Model.Item2.Conocimiento</td>
+                </tr>
+            }
+        </table>
+    }
 }

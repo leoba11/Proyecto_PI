@@ -4,16 +4,34 @@
 }
 
 <h2>Requerimientos</h2>
+@*para mostrar el proyecto actual como titulo*@
+@if (TempData["proyecto"] != null && TempData["modulos"] != null)
+{
+    <h5>
 
-<p>Escriba algo en la barra para buscar en la tabla algún requerimiento</p>
-<input class="form-control" id="userInput" type="text" placeholder="Buscar..">
+        Proyecto: @TempData["nombreProyecto"]
+    </h5>
+    <h6>
+
+        Módulo: @TempData["nombreModulo"]
+    </h6>
+    <STYLE type="text/css">
+        H2 {
+            text-align: left
+        }
+
+        H5 {
+            text-align: left
+        }
+    </STYLE>
+}
+
+<input class="form-control" id="userInput" type="text" placeholder="Buscar en requerimientos">
 <br />
 
 <table class="table table-striped">
     <thead>
         <tr>
-
-
             <th>
 
                 @Html.DisplayNameFor(model => model.nombre)
@@ -54,8 +72,8 @@
 
                 <td>
                     @*Aquí se colocan los iconos para cada tupla de la tabla
-                    Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
-                    Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
+                        Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
+                        Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
                     *@
 
 
@@ -65,10 +83,10 @@
                 </td>
 
                 @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK }) |
-                    @Html.ActionLink("Details", "Details", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK }) |
-                    @Html.ActionLink("Delete", "Delete", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK })
-                </td>*@
+                        @Html.ActionLink("Edit", "Edit", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK }) |
+                        @Html.ActionLink("Details", "Details", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK }) |
+                        @Html.ActionLink("Delete", "Delete", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK })
+                    </td>*@
             </tr>
         }
 

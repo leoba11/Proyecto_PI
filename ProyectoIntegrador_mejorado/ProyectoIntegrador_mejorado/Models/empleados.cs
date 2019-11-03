@@ -29,7 +29,7 @@ namespace ProyectoIntegrador_mejorado.Models
         [Required(ErrorMessage = "Este campo es requerido")]
         public string cedulaPK { get; set; }
 
-        [Display(Name = "Nombre")]
+        [Display(Name = "Nombre del empleado")]
         [StringLength(20)]
         [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "El nombre solo puede estar compuesto por letras")]
         [Required(ErrorMessage = "Este campo es requerido")]

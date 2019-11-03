@@ -7,6 +7,24 @@
 
 @*Título de la ventana*@
 <h2>Módulos</h2>
+@*para mostrar el proyecto actual como titulo*@
+@if (TempData["proyecto"] != null)
+{
+    <h3>
+
+        Proyecto: @TempData["nombreProyecto"]
+    </h3>
+
+    <STYLE type="text/css">
+        H2 {
+            text-align: left
+        }
+
+        H3 {
+            text-align: left
+        }
+    </STYLE>
+}
 @*Informacion para la busqueda*@
 <p>Escriba algo en la barra para buscar en la tabla algún módulo</p>
 <input class="form-control" id="userInput" type="text" placeholder="Buscar..">

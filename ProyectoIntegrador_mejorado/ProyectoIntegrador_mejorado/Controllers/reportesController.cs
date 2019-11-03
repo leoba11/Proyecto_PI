@@ -47,12 +47,15 @@ namespace ProyectoIntegrador_mejorado.Controllers
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
+
+        //Método GET de la vista de reporte de empleados desocupados
         public ActionResult EmployeesDates()
         {
             TempData.Keep();
             return View();
             //return RedirectToAction("SelectReport", "reportes");
         }
+<<<<<<< HEAD
 
         public ActionResult requerimientosDesarrollador()
         {
@@ -60,7 +63,10 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return View();
         }
 
+=======
+>>>>>>> de9fcd35f26cc6863e6848ed06f7386384cfb539
 
+        //Método POST de la vista de reporte de empleados desocupados
         [HttpPost]
         public ActionResult EmployeesDates(FechasModel fechas)
         {
@@ -79,6 +85,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
         }
 
+<<<<<<< HEAD
 
         [HttpPost]
         public ActionResult EmployeesReq()
@@ -86,14 +93,36 @@ namespace ProyectoIntegrador_mejorado.Controllers
             if (fechas.Fecha1 == null || fechas.Fecha2 == null)
             {
                 TempData.Keep();
+=======
+        //Método GET de la vista de reporte de conocimientos
+        public ActionResult KnowledgesReport()
+        {
+            TempData.Keep();
+            return View();
+        }
+
+        //Método POST de la vista de reporte de conocimientos
+        [HttpPost]
+        public ActionResult KnowledgesReport(FechasModel fechas)
+        {
+            if (fechas.Fecha1 != null && fechas.Fecha2 != null)
+            {
+                TempData.Keep(); // verificar fechas !!!
+                TempData["conocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
+                TempData["fechas"] = fechas;
+>>>>>>> de9fcd35f26cc6863e6848ed06f7386384cfb539
                 return View();
             }
             else
             {
+<<<<<<< HEAD
 
                 TempData.Keep();
                 TempData["empl"] = db.EmpleadosParaReporteFechas(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
                 TempData["fechas"] = fechas;
+=======
+                TempData.Keep();
+>>>>>>> de9fcd35f26cc6863e6848ed06f7386384cfb539
                 return View();
             }
         }
