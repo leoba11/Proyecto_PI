@@ -14,23 +14,12 @@
     $(document).ready(function () {
         $("#sortable2").sortable({
             connectWith: "#sortable",
-            update: function (event, ui) {
-                var itemIds = "";
-                $("sortable").find(".taskSingleInline").each(function () {
-                    var itemId = $(this).attr("data-taskid");
-                    itemIds = itemIds + itemId + ",";
-                });
-            },
             receive: function (event, ui) {
 
-
-                @* window.location.href = "@Url.Action("SetBusy", "empleados", new { codigo = int.Parse(TempData["proyecto"].ToString()) , cedula = valor})";
-                    window.location.href = "@Url.Action("SetBusy", "empleados", new { codigo = int.Parse(TempData["proyecto"].ToString()) , cedula = ui.sender()})";
-                aqui se llama al metodo para agregar el rol al empleado
-                $.get("/empleados/SetBusy", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
-                    alert("you clickek");
-
-                });*@
+                var item = (ui.item).clone();
+                codigo = '@int.Parse(TempData["proyecto"].ToString())';
+                var id = item.text().toString();
+                window.location.href = "SetFree?codigo=" + codigo + "&cedula=" + id;
             }
 
         });
@@ -47,21 +36,11 @@
     $(document).ready(function () {
         $("#sortable").sortable({
             connectWith: "#sortable2",
-            update: function (event, ui) {
-                var itemIds = "";
-                $("sortable").find(".taskSingleInline").each(function () {
-                    var itemId = $(this).attr("data-taskid");
-                    itemIds = itemIds + itemId + ",";
-                });
-            },
             receive: function (event, ui) {
-
-
-                @* aqui se llama al metodo para agregar el rol al empleado
-                $.get("/empleados/SetBusy", { cedulaPK: $("").text(ui.sortable.text()) }, function (data) {
-                    alert("you clickek");
-
-                });*@
+                var item = (ui.item).clone();
+                codigo = '@int.Parse(TempData["proyecto"].ToString())';
+                var id = item.text().toString();
+                window.location.href = "SetBusy?codigo=" + codigo + "&cedula=" + id;
             }
 
         });
@@ -210,12 +189,14 @@
         <!-- codigo de segunda colunma-->
         @if (TempData["proyecto"] != null)
         {
-            <p>
+            if (TempData["lider"] != null)
+            {
+                <p>
+                    Lider del proyecto:
+                    @((TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
 
-                Lider del proyecto:
-                @((TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
-
-            </p>
+                </p>
+            }
         }
 
         <p></p>
