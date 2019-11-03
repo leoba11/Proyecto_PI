@@ -40,7 +40,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
 
                 TempData["modulos"] = modulito.idPK;
-                TempData["nombreModulo"] = new modulosController().ModByCode(int.Parse(TempData["proyecto"].ToString()),int.Parse(TempData["modulos"].ToString())).nombre;
+                
+                try {
+                    TempData["nombreModulo"] = new modulosController().ModByCode(int.Parse(TempData["proyecto"].ToString()), int.Parse(TempData["modulos"].ToString())).nombre;
+                }catch (NullReferenceException ex)
+                {
+                    return RedirectToAction("Index", "requerimientos");
+                }
 
                 TempData.Keep();
                 return RedirectToAction("Lista", "requerimientos");
