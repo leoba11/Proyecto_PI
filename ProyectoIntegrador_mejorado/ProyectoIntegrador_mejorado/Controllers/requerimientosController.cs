@@ -10,7 +10,7 @@ using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
-    
+    [Authorize]
     public class requerimientosController : Controller
     {
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
@@ -62,6 +62,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
         // GET: requerimientos/Details/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Details(int? idProyecto, int? idModulo, int? id)
         {
             if (idProyecto == null || idModulo == null || id == null)
@@ -77,6 +78,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: requerimientos/Create
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Create()
         {
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre");
@@ -106,6 +108,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: requerimientos/Edit/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Edit(int? idProyecto, int? idModulo, int? id)
         {
             if (idProyecto == null || idModulo == null || id == null)
@@ -143,6 +146,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: requerimientos/Delete/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Delete(int? idProyecto, int? idModulo, int? id)
         {
             if (idProyecto == null || idModulo == null || id == null)

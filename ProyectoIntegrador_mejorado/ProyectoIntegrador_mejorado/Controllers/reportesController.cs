@@ -8,7 +8,7 @@ using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
     public class reportesController : Controller
     {
         private Gr02Proy1Entities db = new Gr02Proy1Entities();

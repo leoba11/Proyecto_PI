@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using ProyectoIntegrador_mejorado.Models;
 namespace ProyectoIntegrador_mejorado.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
     public class equiposController : Controller
     {
         //EFE: trae los datos necesarios para equipos y llama el metodo para seleccionar el proyecto

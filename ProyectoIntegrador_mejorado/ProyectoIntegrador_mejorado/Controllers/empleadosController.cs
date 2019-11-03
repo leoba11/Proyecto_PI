@@ -10,7 +10,7 @@ using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
-    [Authorize(Roles = "Soporte")]
+    [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
     public class empleadosController : Controller
     {
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
@@ -37,6 +37,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: empleados/Create
+        [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Create()
         {
             return View();
@@ -67,6 +68,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: empleados/Edit/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Edit(string cedulaPk)
         {
             if (cedulaPk == null)
@@ -98,6 +100,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: empleados/Delete/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Delete(string cedulaPk)
         {
             if (cedulaPk == null)

@@ -23,6 +23,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: proyectos/Details/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -43,6 +44,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: proyectos/Create
+        [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Create()
         {
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre");
@@ -74,6 +76,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: proyectos/Edit/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -121,6 +124,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: proyectos/Delete/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

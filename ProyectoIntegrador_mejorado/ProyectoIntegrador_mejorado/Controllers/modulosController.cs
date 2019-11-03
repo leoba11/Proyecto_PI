@@ -62,6 +62,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
         // GET: modulos/Details/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Details(int? codProyecto, int? id)
         {
             if (codProyecto == null || id == null)
@@ -77,6 +78,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: modulos/Create
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Create()
         {
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre");
@@ -102,6 +104,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: modulos/Edit/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Edit(int? codProyecto, int? id)
         {
             if (codProyecto == null || id == null)
@@ -137,6 +140,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: modulos/Delete/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Delete(int? codProyecto, int? id)
         {
             if (codProyecto == null || id == null)

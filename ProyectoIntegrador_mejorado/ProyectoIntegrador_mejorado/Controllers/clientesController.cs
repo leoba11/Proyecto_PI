@@ -10,7 +10,7 @@ using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Soporte, JefeDesarrollo, Desarrollador, Lider")]
     public class clientesController : Controller
     {
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
@@ -22,6 +22,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: clientes/Details/5
+        [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -37,6 +38,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: clientes/Create
+        [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Create()
         {
             return View();
