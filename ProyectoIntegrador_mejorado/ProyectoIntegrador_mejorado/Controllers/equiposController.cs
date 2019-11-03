@@ -28,7 +28,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //MOD: crea variables temporales para guardar la lista de empleados filtrados por conocimiento y por proyecto
         public ActionResult Lista(string conocimientoPK, string a)
         {
-            List<empleado> employeesFree = new empleadosController().GetFreeEmployees();
+            List<empleados> employeesFree = new empleadosController().GetFreeEmployees();
             TempData["empleados"] = employeesFree;
 
 
