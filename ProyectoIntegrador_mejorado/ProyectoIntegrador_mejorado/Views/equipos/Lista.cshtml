@@ -94,6 +94,35 @@
 </style>
 
 
+
+@*para mostrar el proyecto actual como titulo*@
+@if (TempData["proyecto"] != null)
+{
+    <h2>
+
+        Equipo del proyecto: @TempData["nombreProyecto"]
+    </h2>
+    <h3>
+
+        Código: @TempData["proyecto"]
+    </h3>
+    <STYLE type="text/css">
+        H2 {
+            text-align: center
+        }
+
+        H3 {
+            text-align: center
+        }
+    </STYLE>
+}
+
+
+
+
+
+
+
 <div class="modal-body row">
     <div class=".col-6 .col-sm-4">
         <!-- codigo de primer columna-->
@@ -179,12 +208,16 @@
 
     <div class=".col-6 .col-sm-4">
         <!-- codigo de segunda colunma-->
-        <p>
-            Empleados en el proyecto
-            <!-- muestra el nombre del proyecto (id)-->
+        @if (TempData["proyecto"] != null)
+        {
+            <p>
 
-            @TempData["nombreProyecto"] (@TempData["proyecto"])
-        </p>
+                Lider del proyecto:
+                @((TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
+
+                @TempData["nombreProyecto"] (@TempData["proyecto"])
+            </p>
+        }
 
         <p></p>
         <br />

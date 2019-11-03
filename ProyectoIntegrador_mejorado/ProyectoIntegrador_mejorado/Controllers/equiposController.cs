@@ -47,6 +47,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 List<empleados> employeesList2 = new empleadosController().GetEmployeeByProyect(int.Parse(TempData["proyecto"].ToString()));
                 TempData["empleadosP"] = employeesList2;
+
+
+                string liderID = new rolesController().getLiderId(int.Parse(TempData["proyecto"].ToString()));
+                empleados lider = new empleadosController().GetEmployee(liderID);
+
+                TempData["lider"] = lider;
                 TempData.Keep();
 
 
