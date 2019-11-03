@@ -135,7 +135,7 @@
             {
                 if (TempData["conocimientos"] != null)
                 {
-                    @Html.DropDownList("conocimientoPK", new SelectList(TempData["conocimientos"] as List<ProyectoIntegrador_mejorado.Models.conocimientos>, "conocimientoPK", "conocimientoPK"), "----------")
+                    @Html.DropDownList("knowledge", new SelectList(TempData["conocimientos"] as List<string>, "knowledge"), "----------")
                 }
                 <input type="submit" value="Filtrar" />
             }
@@ -215,7 +215,6 @@
                 Lider del proyecto:
                 @((TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["lider"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
 
-                @TempData["nombreProyecto"] (@TempData["proyecto"])
             </p>
         }
 

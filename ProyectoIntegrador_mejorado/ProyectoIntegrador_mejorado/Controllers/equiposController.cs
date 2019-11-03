@@ -16,7 +16,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             List<proyectos> proyectos = new proyectosController().Pass();
             List<empleados> employeesList = new empleadosController().GetFreeEmployees();
-            List<conocimientos> conocimientos = new conocimientosController().PassKnowledge();
+            List<string> conocimientos = new conocimientosController().PassKnowledge();
             TempData["proyectos"] = proyectos;
             TempData["empleados"] = employeesList;
             TempData["empleados2"] = employeesList;
@@ -29,7 +29,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //EFE: trae la lista de empleados filtrados por conocimiento y por proyecto y regresa la vista de los mismos
         //REQ: debe exitir al menos un proyecto
         //MOD: crea variables temporales para guardar la lista de empleados filtrados por conocimiento y por proyecto
-        public ActionResult Lista(string conocimientoPK)
+        public ActionResult Lista(string conocimientoPK, string a)
         {
             // List<proyecto> proyectos = TempData["proyectos"] as List<proyecto>;
             if (conocimientoPK != "todos")
@@ -70,17 +70,17 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //REQ: debe exitir al menos un proyecto
         //MOD: 
         [HttpPost]
-        public ActionResult Lista(conocimientos knowledge)
+        public ActionResult Lista(string knowledge)
         {
-            if (knowledge.conocimientoPK != null)
+            if (knowledge != "")
             {
                 TempData.Keep();
-                return RedirectToAction("Lista", "equipos", new { conocimientoPK = knowledge.conocimientoPK });
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = knowledge, a = "" });
             }
             else
             {
                 TempData.Keep();
-                return RedirectToAction("Lista", "equipos", new { conocimientoPK = "todos" });
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = "todos", a = "" });
             }
 
         }
@@ -123,7 +123,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 TempData["proyecto"] = proyectito.codigoPK;
                 TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
                 TempData.Keep();
-                return RedirectToAction("Lista", "equipos", new { conocimientoPK = know });
+                return RedirectToAction("Lista", "equipos", new { conocimientoPK = know , a = ""});
             }
             else
             {
