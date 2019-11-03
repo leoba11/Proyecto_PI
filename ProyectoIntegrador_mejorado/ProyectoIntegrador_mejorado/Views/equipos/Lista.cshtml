@@ -23,8 +23,7 @@
             }
 
         });
-    })
-
+    })(jQuery);
 </script>
 
 @*
@@ -44,8 +43,7 @@
             }
 
         });
-    })
-
+    })(jQuery);
 </script>
 
 <!-- Adición de libirería de íconos -->
@@ -55,7 +53,6 @@
 
 
 
-<br />
 <br />
 @*genera remarcacion de la opcion sobre la cual se encuentra el puntero*@
 <style>
@@ -97,16 +94,17 @@
 }
 
 
-
-
+<STYLE type="text/css">
+    #linea {
+        text-align: center
+    }
+</STYLE>
 
 
 
 <div class="modal-body row">
     <div class=".col-6 .col-sm-4">
         <!-- codigo de primer columna-->
-        <p> Desarrolladores disponibles</p>
-
         <!-- lista desplegable para filtrar por conocimientos-->
         <td> Seleccionar concimiento </td>
         <td>
@@ -121,17 +119,13 @@
         </td>
 
         <p></p>
-
+        <h3> Desarrolladores disponibles</h3>
 
         <table class="table table-responsive-md">
 
-
-
-
             <thead class="thead-light">
                 <tr>
-                    <th>Cédula</th>
-                    <th>Nombre</th>
+                    <th id="linea">  Cédula  &nbsp;&nbsp;&nbsp;&nbsp;  Nombre</th>
                 </tr>
             </thead>
 
@@ -160,12 +154,12 @@
                         foreach (var item in TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>)
                         {
                             <tr>
-                                <td>
+                                <td class=" taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
                                     <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
                                     @item.cedulaPK
 
                                 </td>
-                                <td class=" taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                                <td>
                                     @item.nombre
 
                                 </td>
@@ -174,15 +168,16 @@
                         }
                     }
                 }
-
-
-
             </tbody>
         </table>
     </div>
 
-    <div class="col">
-
+    <div class=".col-6 .col-sm-4">
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </p>
     </div>
 
     <div class=".col-6 .col-sm-4">
@@ -199,17 +194,15 @@
             }
         }
 
-        <p></p>
         <br />
-        <br />
+        <h3>Miembros actuales del equipo</h3>
 
 
         <table class="table table-responsive-md">
 
             <thead class="thead-light">
                 <tr>
-                    <th>Cédula</th>
-                    <th>Nombre</th>
+                    <th id="linea">  Cédula  &nbsp;&nbsp;&nbsp;&nbsp;  Nombre</th>
                 </tr>
             </thead>
             <!-- listar los miembros del equipo para el proyecto seleccinado-->
@@ -221,11 +214,11 @@
                     foreach (var item in TempData["empleadosP"] as List<ProyectoIntegrador_mejorado.Models.empleados>)
                     {
                         <tr>
-                            <td>
+                            <td class="taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
                                 <a href="@Url.Action("Details", new { cedula = item.cedulaPK })"><i class="fas fa-info-circle" style="color:cornflowerblue"></i></a>
                                 @item.cedulaPK
                             </td>
-                            <td class="taskSingleInline" id="task@(item.cedulaPK)" data-taskid="@(item.cedulaPK)">
+                            <td>
                                 @item.nombre
                             </td>
 
@@ -233,9 +226,6 @@
                     }
                 }
             </tbody>
-
-
-
         </table>
     </div>
 </div>
