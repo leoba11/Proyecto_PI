@@ -5,6 +5,7 @@ Integrantes:<br/>
 Leonardo Barrientos<br/>
 Johnn Hernández<br/>
 Raymond Ramírez <br/>
+Roy Rojas <br/>
 María José Aguilar -Líder<br/>
 
 # Ingreso en el sistema
