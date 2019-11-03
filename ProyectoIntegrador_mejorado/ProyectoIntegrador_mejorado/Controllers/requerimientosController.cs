@@ -107,7 +107,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Create()
         {
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre");
+            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre");
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre");
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre");
             return View();
@@ -137,12 +137,10 @@ namespace ProyectoIntegrador_mejorado.Controllers
                     return RedirectToAction("Index", "requerimientos");
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Lista");
             }
 
-
-
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
+            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
@@ -161,7 +159,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
+            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
@@ -178,9 +176,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 db.Entry(requerimientos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Lista");
             }
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
+            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
@@ -210,7 +208,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
             db.requerimientos.Remove(requerimientos);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Lista");
         }
 
         protected override void Dispose(bool disposing)
