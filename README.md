@@ -1,12 +1,11 @@
 # Proyecto Integrador Ingenieria-Bases de Datos (Grupo 01)
 
 ## Versión del código para el sprint 2: ProyectoIntegrador_mejorado
-| Integrantes |
-| -- | 
-| Leonardo Barrientos | 
-| Johnn Hernandez| 
-| Raymond Ramirez | 
-| Maria Jose Aguilar -Lider|
+Integrantes:<br/>
+Leonardo Barrientos<br/>
+Johnn Hernández<br/>
+Raymond Ramírez <br/>
+María José Aguilar -Líder<br/>
 
 # Ingreso en el sistema
 ## Soporte (acceso total)
