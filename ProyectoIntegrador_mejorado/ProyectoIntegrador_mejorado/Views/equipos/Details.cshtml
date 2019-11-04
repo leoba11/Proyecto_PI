@@ -6,6 +6,8 @@
 <script>
 
     $(document).ready(function () {
+
+
         //@Html.DisplayFor(model => model.provincia)
         if (@Html.DisplayFor(model => model.provincia) == 1) {
             $("#provincia").html("San José");
@@ -40,15 +42,6 @@
                 $("#distrito").html(data[@Html.DisplayFor(model => model.distrito)]);
             }
         });
-
-        if (@Html.DisplayFor(model => model.disponibilidad) == false){
-            $("#disponibilidad").html("No disponible");
-        } else {
-            $("#disponibilidad").html("Disponible");
-        }
-
-
-
     });
 
 </script>
@@ -177,7 +170,7 @@
             </th>
 
             <td>
-                <span id="disponibilidad"></span>
+                @Html.DisplayFor(model => model.disponibilidad)
             </td>
         </tr>
     </table>

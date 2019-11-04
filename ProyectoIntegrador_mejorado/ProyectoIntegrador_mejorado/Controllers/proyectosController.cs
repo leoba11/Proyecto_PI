@@ -181,5 +181,18 @@ namespace ProyectoIntegrador_mejorado.Controllers
             //TempData.Keep();
             return proy;
         }
+
+        public bool Ended(int cod)
+        {
+            bool resp = false;
+            proyectos proy = db.proyectos.Find(cod);
+            if (proy.fechaFinal != null)
+                resp = true;
+            //TempData["proyectos"] = proyectos;
+            //TempData.Keep();
+            return resp;
+        }
+
+
     }
 }

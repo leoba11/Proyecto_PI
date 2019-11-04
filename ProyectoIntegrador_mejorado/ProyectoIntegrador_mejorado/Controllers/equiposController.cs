@@ -172,9 +172,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
 
             /*se verifica que no tenga requerimientos asignados*/
-            bool tiene = new requerimientosController().ExistEmployee(id);
+            bool has = new requerimientosController().ExistEmployee(id);
 
-            if (tiene == false)
+            if (has == false)
             {
                 /*se le quita el rol al empleado*/
                 new rolesController().EraseRol(codigo, id);
@@ -225,10 +225,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 i++;
 
             }
-
-
-            /*se le da el rol de desarrollador al empleado*/
-            new rolesController().AddRol(codigo, id, 1);
+            /*se verifica que no tenga requerimientos asignados*/
+            bool end = new proyectosController().Ended(codigo);
+            if (end == false)
+            {
+                /*se le da el rol de desarrollador al empleado*/
+                new rolesController().AddRol(codigo, id, 1);
+            }
             
             /*recargamos la vista de la lista actualizada*/
             string knowledge = TempData["temp"] as string;
