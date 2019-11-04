@@ -106,7 +106,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpPost]
         public ActionResult EmployeesDates(FechasModel fechas)
         {
-            if (fechas.Fecha1 == null || fechas.Fecha2 == null)
+            if (fechas.Fecha1 == null || fechas.Fecha2 == null || fechas.Fecha2 < fechas.Fecha1)
             {
                 TempData.Keep();
                 return View();
