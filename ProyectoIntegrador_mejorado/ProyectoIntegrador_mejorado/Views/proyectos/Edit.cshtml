@@ -84,7 +84,7 @@
                         @*Si ya fue asignado líder y entonces deshabilitar editar ese campo*@
                         @if (ViewBag.hayLider)
                         {
-                            @Html.DropDownList("cedulaLider", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                            @Html.DropDownList("cedulaLider", null, (string)@ViewBag.lider, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
                         }
                         else
                         {

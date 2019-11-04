@@ -40,7 +40,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
 
                 TempData["modulos"] = modulito.idPK;
-                TempData["nombreModulo"] = new modulosController().ModByCode(int.Parse(TempData["proyecto"].ToString()),int.Parse(TempData["modulos"].ToString())).nombre;
+                
+                try {
+                    TempData["nombreModulo"] = new modulosController().ModByCode(int.Parse(TempData["proyecto"].ToString()), int.Parse(TempData["modulos"].ToString())).nombre;
+                }catch (NullReferenceException )
+                {
+                    return RedirectToAction("Index", "requerimientos");
+                }
 
                 TempData.Keep();
                 return RedirectToAction("Lista", "requerimientos");
@@ -103,12 +109,27 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "codigoProyectoFK,idModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duracionEstimada,duracionDias,nombre")] requerimientos requerimientos)
         {
+            
+         
             if (ModelState.IsValid)
             {
                 db.requerimientos.Add(requerimientos);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(System.Data.SqlClient.SqlException ) {
+                    return RedirectToAction("Index", "requerimientos");
+                }
+                catch (Exception )
+                {
+                    return RedirectToAction("Index", "requerimientos");
+                }
+
                 return RedirectToAction("Index");
             }
+
+
 
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);

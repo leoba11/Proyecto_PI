@@ -1,4 +1,4 @@
-﻿@model Tuple<ProyectoIntegrador_mejorado.Models.FechasModel, ProyectoIntegrador_mejorado.Models.conocimientos_en_rango_Result>
+﻿@model ProyectoIntegrador_mejorado.Models.FechasModel
 
 @{
     ViewBag.Title = "Conocimientos requeridos";
@@ -39,8 +39,7 @@
             <p>
                 Fecha inicial
             </p>
-            @Html.EditorFor(tuple => tuple.Item1.Fecha1, new { htmlAttributes = new { @class = "datepicker", @type = "date" } })
-            @*<input type="text" id="calendar" />*@
+            @Html.EditorFor(model => model.Fecha1, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
         </div>
 
         <div class=".col-6">
@@ -55,12 +54,10 @@
                 Fecha final
             </p>
 
-            @Html.EditorFor(tuple => tuple.Item1.Fecha1, new { htmlAttributes = new { @class = "datepicker", @type = "date" } })
-            @*@Html.EditorFor(tuple => tuple.Item1.Fecha2, new { htmlAttributes = new { @class = "form-control date2", @readonly = true } })*@
+            @Html.EditorFor(model => model.Fecha2, new { htmlAttributes = new { @class = "form-control date2", @readonly = true } })
 
         </div>
     </div>
-
     <input type="submit" value="Generar reporte" />
 }
 
@@ -81,11 +78,11 @@
 
             </tr>
 
-            @foreach (var conocimientos_en_rango_Result in (IEnumerable<object>)TempData["conocimientos"])
+            @foreach (var item in (TempData["conocimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.conocimientos_en_rango_Result>))
             {
                 <tr>
-                    <td>@Model.Item2.Cantidad</td>
-                    <td>@Model.Item2.Conocimiento</td>
+                    <td>@item.Cantidad</td>
+                    <td>@item.Conocimiento</td>
                 </tr>
             }
         </table>
