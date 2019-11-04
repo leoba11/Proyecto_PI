@@ -52,6 +52,7 @@ namespace ProyectoIntegrador_mejorado.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> fechaFinal { get; set; }
         [Display(Name = "Costo real")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:#}")]
         public Nullable<decimal> costoReal { get; set; }
         [NotMapped]
         [Display(Name = "Nombre de líder")]

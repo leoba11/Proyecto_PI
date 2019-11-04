@@ -85,7 +85,7 @@
                 <div class="form-group required text-nowrap">
                     @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
+                        @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
                         @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
                     </div>
                 </div>

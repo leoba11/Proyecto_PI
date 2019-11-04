@@ -91,8 +91,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
             ViewBag.cedulaClienteFK = new SelectList(db.clientes, "cedulaPK", "nombre", proyectos.cedulaClienteFK);
             ViewBag.hayLider = false;
             /* Si ya hay líder asignado se envía booleano para deshabilitar edición de campo de líder */
-            if (new rolesController().getLiderId(proyectos.codigoPK) != null)
+            /* Se envía el nombre del líder para mostrarlo en el dropdownlist */
+            empleados lider = new empleadosController().GetEmployee(new rolesController().getLiderId(id.Value));
+            if (lider != null)
+            {
                 ViewBag.hayLider = true;
+                ViewBag.lider = lider.nombre;
+            }
             ViewBag.cedulaLider = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", proyectos.cedulaLider);
             return View(proyectos);
         }
