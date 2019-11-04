@@ -98,7 +98,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             empleados em = new empleadosController().GetEmployee(cedula);
             TempData["empleado"] = em;
             TempData.Keep();
-            return View();
+            return View(em);
         }
 
 

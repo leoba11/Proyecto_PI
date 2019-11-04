@@ -55,7 +55,7 @@ namespace ProyectoIntegrador_mejorado.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] // para que la fecha en editar muestre el valor
         public System.DateTime fechaNacimiento { get; set; }
 
-        [Display(Name = "Telefono")]
+        [Display(Name = "Teléfono")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Este espacio solo debe tener números")]
         [Required(ErrorMessage = "Este campo es requerido")]
         public string telefono { get; set; }
