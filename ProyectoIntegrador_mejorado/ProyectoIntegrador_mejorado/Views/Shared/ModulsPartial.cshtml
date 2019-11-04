@@ -1,0 +1,8 @@
+﻿<option value=""> ---------- </option>
+@if (ViewBag.Moduls != null)
+{
+    foreach (var item in ViewBag.Moduls)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

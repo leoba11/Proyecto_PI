@@ -22,11 +22,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
             //return View(requerimientos.ToList());
 
             List<proyectos> proyectos = new proyectosController().Pass();
+            ViewBag.ProyectList = new SelectList(proyectos, "codigoPK", "nombre");
             TempData["proyectos"] = proyectos;
-            TempData.Keep();
 
+            /*
             List<modulos> modulos = new modulosController().Pass();
-            TempData["modulos"] = modulos;
+            TempData["modulos"] = modulos;*/
             TempData.Keep();
             return View();
         }
@@ -40,10 +41,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre;
 
                 TempData["modulos"] = modulito.idPK;
-                
-                try {
+
+                try
+                {
                     TempData["nombreModulo"] = new modulosController().ModByCode(int.Parse(TempData["proyecto"].ToString()), int.Parse(TempData["modulos"].ToString())).nombre;
-                }catch (NullReferenceException )
+                }
+                catch (NullReferenceException)
                 {
                     return RedirectToAction("Index", "requerimientos");
                 }
@@ -56,6 +59,17 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return View();
             }
         }
+
+
+        public ActionResult GetModulList(int codigoProyecto)
+        {
+            List<modulos> modulos = new modulosController().PassByProyect(codigoProyecto);
+            ViewBag.Moduls = new SelectList(modulos, "idPK", "nombre");
+
+            return PartialView("ModulsPartial");
+        }
+
+
         public ActionResult Lista()
         {
             //Se agrega este método para deplegar los datos de los modulos del proyecto que el usuario seleccionó
@@ -65,7 +79,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 int codigo = int.Parse(TempData["proyecto"].ToString());
                 int idMod = int.Parse(TempData["modulos"].ToString());
-                List<requerimientos> requerimientos = db.requerimientos.Where(x => x.codigoProyectoFK == codigo &&  x.idModuloFK == idMod).ToList();
+                List<requerimientos> requerimientos = db.requerimientos.Where(x => x.codigoProyectoFK == codigo && x.idModuloFK == idMod).ToList();
                 TempData["requerimientos"] = requerimientos;
                 return View();
             }
@@ -96,7 +110,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Create()
         {
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre");
+            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre");
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre");
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre");
             return View();
@@ -109,8 +123,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "codigoProyectoFK,idModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duracionEstimada,duracionDias,nombre")] requerimientos requerimientos)
         {
-            
-         
+
+
             if (ModelState.IsValid)
             {
                 db.requerimientos.Add(requerimientos);
@@ -118,20 +132,19 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 {
                     db.SaveChanges();
                 }
-                catch(System.Data.SqlClient.SqlException ) {
+                catch (System.Data.SqlClient.SqlException)
+                {
                     return RedirectToAction("Index", "requerimientos");
                 }
-                catch (Exception )
+                catch (Exception)
                 {
                     return RedirectToAction("Index", "requerimientos");
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Lista");
             }
 
-
-
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
+            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
@@ -150,7 +163,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
+            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
@@ -167,9 +180,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 db.Entry(requerimientos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Lista");
             }
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
+            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
@@ -199,7 +212,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
             db.requerimientos.Remove(requerimientos);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Lista");
         }
 
         protected override void Dispose(bool disposing)

@@ -585,10 +585,6 @@
             <Parameter Name="idProy" Mode="In" Type="Int32" />
             <Parameter Name="cedulaEmp" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="cantidadRequerimientos" EntitySet="requerimientos" ReturnType="Collection(Gr02Proy1Model.requerimientos)">
-            <Parameter Name="idProy" Mode="In" Type="Int32" />
-            <Parameter Name="cedulaEmp" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="cantidadReq" EntitySet="requerimientos" ReturnType="Collection(Gr02Proy1Model.requerimientos)">
             <Parameter Name="idProy" Mode="In" Type="Int32" />
             <Parameter Name="cedulaEmp" Mode="In" Type="String" />
@@ -870,7 +866,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="cantidadRequerimientos" FunctionName="Gr02Proy1Model.Store.ObtenerRequerimientos" />
           <FunctionImportMapping FunctionImportName="cantidadReq" FunctionName="Gr02Proy1Model.Store.ObtenerRequerimientos" />
         </EntityContainerMapping>
       </Mapping>
