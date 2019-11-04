@@ -225,8 +225,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             var listaReq = (from d in db.requerimientos
                             where d.cedulaEmpleadoFK == cedula && d.estado != "Finalizado"
-                            select d).ToList();
-            if (listaReq != null)
+                            select d).Count();
+            if (listaReq != 0)
                 resp = true;
 
             return resp;

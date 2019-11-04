@@ -164,7 +164,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             /*se verifica que no tenga requerimientos asignados*/
             bool tiene = new requerimientosController().ExistEmployee(id);
 
-            if (tiene != true)
+            if (tiene == false)
             {
                 /*se le quita el rol al empleado*/
                 new rolesController().EraseRol(codigo, id);
