@@ -10,7 +10,7 @@
         @*@Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", Style = "color:White;" }) *@
         <span class="label align-self-sm-baseline">@User.Identity.GetUserName()</span>
     </li>
-    <li><a href="javascript:document.getElementById('logoutForm').submit()" role="button" class="btn btn-outline-light">Cerrar sesión</a></li>
+    <li><a href="javascript:document.getElementById('logoutForm').submit()" class="btn">&nbsp;<i class="fas fa-sign-out-alt fa-lg" style="color:white"></i></a></li>
 </ul>
     }
 }
