@@ -22,11 +22,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
             //return View(requerimientos.ToList());
 
             List<proyectos> proyectos = new proyectosController().Pass();
+            ViewBag.ProyectList = new SelectList(proyectos, "codigoPK", "nombre");
             TempData["proyectos"] = proyectos;
-            TempData.Keep();
 
+            /*
             List<modulos> modulos = new modulosController().Pass();
-            TempData["modulos"] = modulos;
+            TempData["modulos"] = modulos;*/
             TempData.Keep();
             return View();
         }
