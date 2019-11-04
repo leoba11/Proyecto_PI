@@ -38,7 +38,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             //invocar como ReportesModel
             TempData.Keep();
-            if (reporte.Nombre == "Total de requerimientos de desarrollador")
+            if (reporte.Nombre == "Requerimientos de desarrollador")
                 return RedirectToAction("requerimientosDesarrollador", "reportes");
             else if (reporte.Nombre == "Conocimientos más requeridos")
                 return RedirectToAction("KnowledgesReport", "reportes");
@@ -48,7 +48,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("SelectReport", "reportes");
         }
 
-        //Método GET de la vista de reporte de empleados desocupados
+        /*
+         * Efecto: Request GET de EmployeesDates
+         * Requiere: NA
+         * Modifica: NA
+         */
         public ActionResult EmployeesDates()
         {
             TempData.Keep();
@@ -56,12 +60,33 @@ namespace ProyectoIntegrador_mejorado.Controllers
             //return RedirectToAction("SelectReport", "reportes");
         }
 
+        /*
+         * Efecto: Request GET de requerimientosDesarrollador
+         * Requiere: NA
+         * Modifica: NA
+         */
         public ActionResult requerimientosDesarrollador()
         {
+            List<proyectos> proyectos = new proyectosController().Pass();
+            ViewBag.proyectos = new SelectList(proyectos, "codigoPK", "nombre");
+            TempData["proyectos"] = proyectos;
             TempData.Keep();
             return View();
         }
 
+        public ActionResult GetEmpList(int codigoProyecto)
+        {
+            List<empleados> employees = new empleadosController().GetEmployeeByProyect(codigoProyecto);
+            ViewBag.Employees = new SelectList(employees, "cedulaPK", "nombre");
+
+            return PartialView("EmployeesPartial");
+        }
+
+        /*
+         * Efecto: Request POST de requerimientosDesarrollador
+         * Requiere: código de proyecto y cédula de empleado
+         * Modifica: NA
+         */
         [HttpPost]
         public ActionResult requerimientosDesarrollador(FechasModel modelo)
         {
@@ -70,7 +95,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return View();
         }
 
-        //Método POST de la vista de reporte de empleados desocupados
+        /*
+         * Efecto: Request POST de EmployeesDates
+         * Requiere: fecha inicial y final
+         * Modifica: NA
+         */
         [HttpPost]
         public ActionResult EmployeesDates(FechasModel fechas)
         {
@@ -91,7 +120,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
 
-        //Método GET de la vista de reporte de conocimientos
+        /*
+         * Efecto: Request GET de KnowledgesReport
+         * Requiere: NA
+         * Modifica: NA
+         */
         public ActionResult KnowledgesReport()
         {
             TempData.Keep();
@@ -99,23 +132,31 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         //Método POST de la vista de reporte de conocimientos
+        /*
+         * Efecto: Request POST de KnowledgesReport
+         * Requiere: fecha inicial y final
+         * Modifica: NA
+         */
         [HttpPost]
         public ActionResult KnowledgesReport(FechasModel fechas)
         {
             if (fechas.Fecha1 != null && fechas.Fecha2 != null)
             {
-                TempData.Keep(); // verificar fechas !!!
-                TempData["conocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
-                TempData["fechas"] = fechas;
-                return View();
+                if (fechas.Fecha1 <= fechas.Fecha2)
+                {
+                    TempData.Keep();
+                    TempData["conocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
+                    TempData["fechas"] = fechas;
+                    return View();
+                }
+                else
+                {
+
+                    return View();
+                }
             }
             else
             {
-
-                TempData.Keep();
-                TempData["empl"] = db.EmpleadosParaReporteFechas(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
-                TempData["fechas"] = fechas;
-
                 TempData.Keep();
                 return View();
             }

@@ -33,7 +33,7 @@
 
 @using (Html.BeginForm("KnowledgesReport", "reportes", FormMethod.Post))
 {
-
+    /* campos para ingresar fecha inicial y final */
     <div class="modal-body row" >
         <div class=".col-6 .col-sm-4">
             <p>
@@ -57,6 +57,7 @@
 <br />
 <br />
 
+@* si el bucket de conocimientos no es vacío se despliega table con los valores devueltos por el procedimiento almacenado *@
 @{
     if (TempData["conocimientos"] != null)
     {

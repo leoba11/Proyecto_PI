@@ -11,34 +11,47 @@
 
 @using (Html.BeginForm("requerimientosDesarrollador", "reportes", FormMethod.Post))
 {
+    <div class="modal-body ">
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Seleccionar Proyecto
+            </p>
 
-<div class="modal-body ">
-    <div class=".col-6 .col-sm-4">
-        <p>
-            Seleccionar Proyecto
-        </p>
-        @Html.EditorFor(model => model.codigoProy, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.codigoProy, ViewBag.proyectos as SelectList, "Seleccione un proyecto", new { @class = "form-control" })
+        </div>
+        
+        <br />
 
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Seleccionar Empleado
+            </p>
+
+            @Html.DropDownListFor(model => model.cedulaEmp, new SelectList(""), "Seleccione un empleado", new { @class = "form-control" })
+
+        </div>
+        
+        <br />
+        <input type="submit" value="Generar reporte" />
     </div>
-
-    <br />
-
-    <div class=".col-6 .col-sm-4">
-        <p>
-            Seleccionar Empleados
-        </p>
-
-        @Html.EditorFor(model => model.cedulaEmp, new { htmlAttributes = new { @class = "form-control" } })
-
-    </div>
-    <br />
-    <input type="submit" value="Generar reporte" />
-</div>
 }
 
-
-
-
+<script>
+    $(document).ready(function () {
+        $("#codigoProy").change(function () {
+            var cod = $(this).val();
+            $.ajax({
+                type: "Post",
+                url: "/reportes/GetEmpList?codigo=" + cod,
+                contentType: "html",
+                success: function (response) {
+                    $("#cedulaEmp").empty();
+                    $("#cedulaEmp").append(response);
+                }
+            })
+        })
+    });
+</script>
 
 @{
     if (TempData["req"] != null)
