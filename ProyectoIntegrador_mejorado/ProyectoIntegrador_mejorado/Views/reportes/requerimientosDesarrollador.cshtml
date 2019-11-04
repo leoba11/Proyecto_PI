@@ -7,20 +7,33 @@
 
 <h2>Requerimientos Desarrollador</h2>
 <br />
-<h4> Seleccionar proyecto </h4>
 
-@using (Html.BeginForm("Index", "modulos", FormMethod.Post))
+
+@using (Html.BeginForm("requerimientosDesarrollador", "reportes", FormMethod.Post))
 {
-    if (TempData["proyectos"] != null)
-    {
-        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
-    }
 
-    <input type="submit" value="Seleccionar" />
+<div class="modal-body ">
+    <div class=".col-6 .col-sm-4">
+        <p>
+            Seleccionar Proyecto
+        </p>
+        @Html.EditorFor(model => model.codigoProy, new { htmlAttributes = new { @class = "form-control" } })
+
+    </div>
+
+
+    <div class=".col-6 .col-sm-4">
+        <p>
+            Seleccionar Empleados
+        </p>
+
+        @Html.EditorFor(model => model.cedulaEmp, new { htmlAttributes = new { @class = "form-control" } })
+
+    </div>
+    <br />
+    <input type="submit" value="Generar reporte" />
+</div>
 }
-<br />
-
-<h4> Seleccionar Empleado </h4>
 
 
 

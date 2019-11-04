@@ -11,5 +11,9 @@ namespace ProyectoIntegrador_mejorado.Models
         public DateTime Fecha1 { get; set; }
         
         public DateTime Fecha2 { get; set; }
+
+        public int codigoProy { get; set; }
+
+        public string cedulaEmp { get; set; }
     }
 }

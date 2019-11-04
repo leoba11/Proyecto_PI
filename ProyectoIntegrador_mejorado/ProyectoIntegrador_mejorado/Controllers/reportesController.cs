@@ -62,6 +62,14 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public ActionResult requerimientosDesarrollador(FechasModel modelo)
+        //{
+        //    TempData.Keep();
+        //    TempData["req"] = db.(modelo.codigoProy, modelo.cedulaEmp).AsEnumerable();
+        //    return View();
+        //}
+
         //Método POST de la vista de reporte de empleados desocupados
         [HttpPost]
         public ActionResult EmployeesDates(FechasModel fechas)
