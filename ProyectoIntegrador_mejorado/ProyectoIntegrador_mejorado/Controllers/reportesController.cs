@@ -18,7 +18,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult Index()
         {
             List<ReportesModel> reportes = new List<ReportesModel>();
-            reportes.Add(new ReportesModel { Nombre = "Total de requerimientos de desarrollador" });
+            reportes.Add(new ReportesModel { Nombre = "Requerimientos de desarrollador" });
             reportes.Add(new ReportesModel { Nombre = "Conocimientos más requeridos" });
             reportes.Add(new ReportesModel { Nombre = "Empleados disponibles entre fechas" });
             TempData["reportes"] = reportes;
@@ -68,18 +68,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult requerimientosDesarrollador()
         {
             List<proyectos> proyectos = new proyectosController().Pass();
-            ViewBag.proyectos = new SelectList(proyectos, "codigoPK", "nombre");
-            TempData["proyectos"] = proyectos;
+            List<empleados> empleados = new empleadosController().Pass();
+            //ViewBag.proyectos = new SelectList(proyectos, "codigoPK", "nombre");
+            //ViewBag.empleados = new SelectList(empleados, "cedulaPK", "nombre");
+            TempData["proyectos"] = new SelectList(proyectos, "codigoPK", "nombre");
+            TempData["empleados"] = new SelectList(empleados, "cedulaPK", "nombre");
             TempData.Keep();
             return View();
-        }
-
-        public ActionResult GetEmpList(int codigoProyecto)
-        {
-            List<empleados> employees = new empleadosController().GetEmployeeByProyect(codigoProyecto);
-            ViewBag.Employees = new SelectList(employees, "cedulaPK", "nombre");
-
-            return PartialView("EmployeesPartial");
         }
 
         /*
@@ -93,6 +88,14 @@ namespace ProyectoIntegrador_mejorado.Controllers
             TempData.Keep();
             TempData["req"] = db.cantidadReq(modelo.codigoProy, modelo.cedulaEmp).AsEnumerable();
             return View();
+        }
+
+        public ActionResult GetEmpList(int codigoProyecto)
+        {
+            List<empleados> employees = new empleadosController().GetEmployeeByProyect(codigoProyecto);
+            ViewBag.Employees = new SelectList(employees, "cedulaPK", "nombre");
+
+            return PartialView("EmployeesPartial");
         }
 
         /*
@@ -160,6 +163,15 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 TempData.Keep();
                 return View();
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

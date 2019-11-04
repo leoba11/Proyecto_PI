@@ -17,9 +17,9 @@
                 Seleccionar Proyecto
             </p>
 
-            @Html.DropDownListFor(model => model.codigoProy, ViewBag.proyectos as SelectList, "Seleccione un proyecto", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.codigoProy, (IEnumerable<SelectListItem>)TempData["proyectos"], "Seleccione un proyecto", new { @class = "form-control" })
         </div>
-        
+
         <br />
 
         <div class=".col-6 .col-sm-4">
@@ -27,31 +27,31 @@
                 Seleccionar Empleado
             </p>
 
-            @Html.DropDownListFor(model => model.cedulaEmp, new SelectList(""), "Seleccione un empleado", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.cedulaEmp, (IEnumerable<SelectListItem>)TempData["empleados"], "Seleccione un empleado", new { @class = "form-control" })
 
         </div>
-        
+
         <br />
         <input type="submit" value="Generar reporte" />
     </div>
 }
 
 <script>
-    $(document).ready(function () {
-        $("#codigoProy").change(function () {
-            var cod = $(this).val();
-            $.ajax({
-                type: "Post",
-                url: "/reportes/GetEmpList?codigo=" + cod,
-                contentType: "html",
-                success: function (response) {
-                    $("#cedulaEmp").empty();
-                    $("#cedulaEmp").append(response);
-                }
+        $(document).ready(function () {
+            $("#codigoProy").change(function () {
+                var cod = $(this).val();
+                $.ajax({
+                    type: "Post",
+                    url: "/reportes/GetEmpList?codigo=" + cod,
+                    contentType: "html",
+                    success: function (response) {
+                        $("#cedulaEmp").empty();
+                        $("#cedulaEmp").append(response);
+                    }
+                })
             })
-        })
-    });
-</script>
+        });
+    </script>
 
 @{
     if (TempData["req"] != null)

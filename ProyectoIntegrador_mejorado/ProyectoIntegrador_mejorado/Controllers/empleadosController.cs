@@ -183,6 +183,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
         }
-        
+
+        public List<empleados> Pass()//dispone la lista de proyectos para otros controladores
+        {
+            List<empleados> empleados = db.empleados.ToList();
+            return empleados;
+        }
     }
 }
