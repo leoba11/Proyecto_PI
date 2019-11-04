@@ -236,7 +236,7 @@
     <Compile Include="Models\proyectos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReportesModel.cs" />
+    <Compile Include="Models\StringModel.cs" />
     <Compile Include="Models\requerimientos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ProyectoIntegrador_mejorado.Models
 {
-    public class ReportesModel
+    public class StringModel
     {
         public string Nombre { get; set; }
     }

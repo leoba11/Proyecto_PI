@@ -17,7 +17,7 @@
 {
     if (TempData["reportes"] != null)
     {
-        @Html.DropDownList("Nombre", new SelectList(TempData["reportes"] as List<ProyectoIntegrador_mejorado.Models.ReportesModel>, "Nombre", "Nombre"), "----------")
+        @Html.DropDownList("Nombre", new SelectList(TempData["reportes"] as List<ProyectoIntegrador_mejorado.Models.StringModel>, "Nombre", "Nombre"), "----------")
     }
     @*boton para aceptar el reporte seleccionado y continuar*@
     <input type="submit" value="Seleccionar" />

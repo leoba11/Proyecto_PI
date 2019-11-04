@@ -17,10 +17,10 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            List<ReportesModel> reportes = new List<ReportesModel>();
-            reportes.Add(new ReportesModel { Nombre = "Requerimientos de desarrollador" });
-            reportes.Add(new ReportesModel { Nombre = "Conocimientos más requeridos" });
-            reportes.Add(new ReportesModel { Nombre = "Empleados disponibles entre fechas" });
+            List<StringModel> reportes = new List<StringModel>();
+            reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
+            reportes.Add(new StringModel { Nombre = "Conocimientos más requeridos" });
+            reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
             TempData["reportes"] = reportes;
             TempData.Keep();
 
@@ -34,7 +34,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         [HttpPost]
-        public ActionResult SelectReport(ReportesModel reporte)
+        public ActionResult SelectReport(StringModel reporte)
         {
             //invocar como ReportesModel
             TempData.Keep();
