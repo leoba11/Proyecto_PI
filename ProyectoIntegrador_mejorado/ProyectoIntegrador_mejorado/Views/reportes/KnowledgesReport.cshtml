@@ -34,7 +34,7 @@
 @using (Html.BeginForm("KnowledgesReport", "reportes", FormMethod.Post))
 {
 
-    <div class="modal-body row">
+    <div class="modal-body row" >
         <div class=".col-6 .col-sm-4">
             <p>
                 Fecha inicial
@@ -42,14 +42,7 @@
             @Html.EditorFor(model => model.Fecha1, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
         </div>
 
-        <div class=".col-6">
-            <p>
-                ...........
-            </p>
-        </div>
-
-
-        <div class=".col-6 .col-sm-4">
+        <div class=".col-6 .col-sm-4" style="margin-left:90px">
             <p>
                 Fecha final
             </p>
