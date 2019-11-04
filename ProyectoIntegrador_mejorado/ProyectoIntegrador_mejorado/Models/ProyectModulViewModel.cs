@@ -5,11 +5,10 @@ using System.Web;
 
 namespace ProyectoIntegrador_mejorado.Models
 {
-    public class FechasModel
+    public class ProyectModulViewModel
     {
-        
-        public DateTime Fecha1 { get; set; }
-        
-        public DateTime Fecha2 { get; set; }
+        public int codigoPK { get; set; }
+
+        public int idPK { get; set; }
     }
 }
