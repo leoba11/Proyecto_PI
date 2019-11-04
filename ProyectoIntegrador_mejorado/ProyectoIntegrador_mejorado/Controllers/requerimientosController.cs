@@ -215,6 +215,27 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return RedirectToAction("Lista");
         }
 
+
+
+        public bool ExistEmployee(string cedula)
+        {
+            //Se devuelve un bool indicando si el empleado tiene algun requerimiento asignado
+            TempData.Keep();
+            bool resp = false;
+
+            var listaReq = (from d in db.requerimientos
+                            where d.cedulaEmpleadoFK == cedula && d.estado != "Finalizado"
+                            select d).ToList();
+            if (listaReq != null)
+                resp = true;
+
+            return resp;
+        }
+
+
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

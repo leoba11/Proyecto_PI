@@ -160,9 +160,17 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 }
                 i++;
             }
+
+            /*se verifica que no tenga requerimientos asignados*/
+            bool tiene = new requerimientosController().ExistEmployee(id);
+
+            if (tiene != true)
+            {
+                /*se le quita el rol al empleado*/
+                new rolesController().EraseRol(codigo, id);
+            }
+
             
-            /*se le quita el rol al empleado*/
-            new rolesController().EraseRol(codigo, id);
 
             /*recargamos la vista de la lista actualizada*/
             string knowledge = TempData["temp"] as string;
