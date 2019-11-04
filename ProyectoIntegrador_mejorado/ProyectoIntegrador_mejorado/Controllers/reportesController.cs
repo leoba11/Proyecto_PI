@@ -56,6 +56,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
             //return RedirectToAction("SelectReport", "reportes");
         }
 
+        public ActionResult requerimientosDesarrollador()
+        {
+            TempData.Keep();
+            return View();
+        }
+
         //Método POST de la vista de reporte de empleados desocupados
         [HttpPost]
         public ActionResult EmployeesDates(FechasModel fechas)
@@ -74,6 +80,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return View();
             }
         }
+
+
 
         //Método GET de la vista de reporte de conocimientos
         public ActionResult KnowledgesReport()
@@ -95,6 +103,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
             else
             {
+
+                TempData.Keep();
+                TempData["empl"] = db.EmpleadosParaReporteFechas(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
+                TempData["fechas"] = fechas;
+
                 TempData.Keep();
                 return View();
             }

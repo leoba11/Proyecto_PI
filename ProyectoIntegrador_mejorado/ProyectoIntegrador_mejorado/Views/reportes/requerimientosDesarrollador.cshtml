@@ -1,7 +1,63 @@
 ﻿
+@model ProyectoIntegrador_mejorado.Models.FechasModel
+
 @{
     ViewBag.Title = "requerimientosDesarrollador";
 }
 
-<h2>requerimientosDesarrollador</h2>
+<h2>Requerimientos Desarrollador</h2>
+<br />
+<h4> Seleccionar proyecto </h4>
 
+@using (Html.BeginForm("Index", "modulos", FormMethod.Post))
+{
+    if (TempData["proyectos"] != null)
+    {
+        @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
+    }
+
+    <input type="submit" value="Seleccionar" />
+}
+<br />
+
+<h4> Seleccionar Empleado </h4>
+
+
+
+
+
+@{
+    if (TempData["empl"] != null)
+    {
+
+
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Requerimiento
+                </th>
+                <th>
+                    Nombre de Empleado
+                </th>
+                <th>
+                    Estado
+                </th>
+
+            </tr>
+
+            @foreach (var item in (TempData["empl"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
+            {
+
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.empleados.nombre</td>
+                    <td>@item.estado</td>
+
+                </tr>
+
+            }
+
+        </table>
+
+    }
+}
