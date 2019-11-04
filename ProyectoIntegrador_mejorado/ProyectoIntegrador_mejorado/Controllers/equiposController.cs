@@ -183,8 +183,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             /*se verifica que no tenga requerimientos asignados*/
             bool has = new requerimientosController().ExistEmployee(id);
+            bool end = new proyectosController().Ended(codigo);
 
-            if (has == false)
+            if (has == false && end == false)
             {
                 /*se le quita el rol al empleado*/
                 new rolesController().EraseRol(codigo, id);
