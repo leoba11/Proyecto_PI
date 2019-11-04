@@ -143,6 +143,16 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return employeesList;
         }
 
+        public List<empleados> GetFreeEmployeesNotInProyect(int codigoProyecto)
+        {
+            List<empleados> lis1 = db.empleados.Where(x => x.disponibilidad == true).ToList();
+            var list2 = GetEmployeeByProyect(codigoProyecto);
+            var employeesList = lis1.Except(list2).ToList();
+
+            return employeesList;
+        }
+
+
 
         public empleados GetEmployee(string cedula)
         {

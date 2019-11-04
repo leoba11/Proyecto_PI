@@ -40,6 +40,15 @@
                 $("#distrito").html(data[@Html.DisplayFor(model => model.distrito)]);
             }
         });
+
+        if (@Html.DisplayFor(model => model.disponibilidad) == false){
+            $("#disponibilidad").html("No disponible");
+        } else {
+            $("#disponibilidad").html("Disponible");
+        }
+
+
+
     });
 
 </script>
@@ -168,7 +177,7 @@
             </th>
 
             <td>
-                @Html.DisplayFor(model => model.disponibilidad)
+                <span id="disponibilidad"></span>
             </td>
         </tr>
     </table>
