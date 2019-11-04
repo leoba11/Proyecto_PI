@@ -146,7 +146,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public List<empleados> GetFreeEmployeesNotInProyect(int codigoProyecto)
         {
             List<empleados> lis1 = db.empleados.Where(x => x.disponibilidad == true).ToList();
-            var list2 = GetEmployeeByProyect(codigoProyecto);
+            var list2 = GetEveryEmployeeByProyect(codigoProyecto);
             var employeesList = lis1.Except(list2).ToList();
 
             return employeesList;
@@ -190,8 +190,20 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
             return listaEmpPr;
+        }
 
 
+        public List<empleados> GetEveryEmployeeByProyect(int codigo)
+        {
+            var listaEmpPr = (from d in db.empleados
+                              join f in db.roles
+                              on d.cedulaPK equals f.cedulaFK
+                              where f.codigoProyectoFK == codigo
+                              select d).ToList();
+
+
+
+            return listaEmpPr;
         }
 
         public List<empleados> Pass()//dispone la lista de proyectos para otros controladores
