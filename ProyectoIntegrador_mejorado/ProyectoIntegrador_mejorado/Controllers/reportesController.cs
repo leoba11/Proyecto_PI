@@ -130,6 +130,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
          */
         public ActionResult KnowledgesReport()
         {
+            TempData["conocimientos"] = null;
             TempData.Keep();
             return View();
         }

@@ -158,7 +158,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             var listaEmp = (from d in db.empleados
                             join f in db.conocimientos
                             on d.cedulaPK equals f.cedulaEmpleadoFK
-                            where f.conocimientoPK == conoc
+                            where f.conocimientoPK == conoc && d.disponibilidad == true
                             select d).ToList();
 
 
