@@ -28,6 +28,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //MOD: crea variables temporales para guardar la lista de empleados filtrados por conocimiento y por proyecto
         public ActionResult Lista(string conocimientoPK, string a)
         {
+            bool ended = false;
+            TempData["end"] = "no";
             TempData["temp"] = conocimientoPK;
             if (conocimientoPK != "todos")
             {
@@ -38,6 +40,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 if (TempData["proyecto"] != null)
                 {
+                    ended = new proyectosController().Ended(int.Parse(TempData["proyecto"].ToString()));
+                    if (ended == true)
+                        TempData["end"] = "si";
                     List<empleados> employeesFree = new empleadosController().GetFreeEmployeesNotInProyect(int.Parse(TempData["proyecto"].ToString()));
                     TempData["empleados"] = employeesFree;
                     
@@ -53,6 +58,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             ViewBag.know = conocimientoPK;
             if (TempData["proyecto"] != null)
             {
+                ended = new proyectosController().Ended(int.Parse(TempData["proyecto"].ToString()));
+                if (ended == true)
+                    TempData["end"] = "si";
+
+
                 List<empleados> employeesFree = new empleadosController().GetFreeEmployeesNotInProyect(int.Parse(TempData["proyecto"].ToString()));
                 TempData["empleados"] = employeesFree;
 
