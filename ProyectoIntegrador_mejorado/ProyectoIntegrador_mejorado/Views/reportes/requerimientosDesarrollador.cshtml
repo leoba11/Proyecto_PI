@@ -21,6 +21,7 @@
 
     </div>
 
+    <br />
 
     <div class=".col-6 .col-sm-4">
         <p>
@@ -40,7 +41,7 @@
 
 
 @{
-    if (TempData["empl"] != null)
+    if (TempData["req"] != null)
     {
 
 
@@ -58,7 +59,7 @@
 
             </tr>
 
-            @foreach (var item in (TempData["empl"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
+            @foreach (var item in (TempData["req"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
             {
 
                 <tr>
