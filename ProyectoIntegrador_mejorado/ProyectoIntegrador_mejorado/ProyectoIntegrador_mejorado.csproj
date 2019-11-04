@@ -193,6 +193,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ProyectModuloViewModel.cs" />
     <Compile Include="Models\clientes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -455,6 +456,7 @@
     <Content Include="Views\reportes\SelectReport.cshtml" />
     <Content Include="Views\reportes\requerimientosDesarrollador.cshtml" />
     <Content Include="Views\requerimientos\Lista.cshtml" />
+    <Content Include="Views\Shared\ModulsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
