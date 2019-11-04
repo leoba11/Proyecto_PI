@@ -213,6 +213,10 @@
           <Parameter Name="fecha2" Type="date" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="ObtenerRequerimientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProy" Type="int" Mode="In" />
+          <Parameter Name="cedulaEmp" Type="char" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -577,6 +581,14 @@
             <Parameter Name="fecha1" Mode="In" Type="DateTime" />
             <Parameter Name="fecha2" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="ObtenerRequerimientos" ReturnType="Collection(Gr02Proy1Model.ObtenerRequerimientos_Result)">
+            <Parameter Name="idProy" Mode="In" Type="Int32" />
+            <Parameter Name="cedulaEmp" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="cantidadRequerimientos" EntitySet="requerimientos" ReturnType="Collection(Gr02Proy1Model.requerimientos)">
+            <Parameter Name="idProy" Mode="In" Type="Int32" />
+            <Parameter Name="cedulaEmp" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="conocimientos_en_rango_Result">
           <Property Type="Int32" Name="Cantidad" Nullable="true" />
@@ -607,6 +619,44 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ObtenerRequerimientos_Result">
+          <Property Type="Int32" Name="codigoProyectoFK" Nullable="false" />
+          <Property Type="Int32" Name="idModuloFK" Nullable="false" />
+          <Property Type="Int32" Name="idPK" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="80" />
+          <Property Type="Int32" Name="complejidad" Nullable="false" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="cedulaEmpleadoFK" Nullable="false" MaxLength="9" />
+          <Property Type="DateTime" Name="fechaInicio" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="duracionEstimada" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="duracionDias" Nullable="true" />
+          <Property Type="Int32" Name="codigoPK" Nullable="false" />
+          <Property Type="String" Name="nombre1" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="fechaInicio1" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="fechaFinalEstimada" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="costoEstimado" Nullable="false" Precision="19" />
+          <Property Type="String" Name="objetivo" Nullable="true" />
+          <Property Type="String" Name="cedulaClienteFK" Nullable="false" MaxLength="9" />
+          <Property Type="Int32" Name="idEquipo" Nullable="false" />
+          <Property Type="DateTime" Name="fechaFinal" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="costoReal" Nullable="true" Precision="19" />
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="nombre2" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido2" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="edad" Nullable="true" />
+          <Property Type="DateTime" Name="fechaNacimiento" Nullable="false" />
+          <Property Type="String" Name="telefono" Nullable="false" />
+          <Property Type="String" Name="provincia" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="canton" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="distrito" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="correo" Nullable="true" />
+          <Property Type="String" Name="direccionDetallada" Nullable="true" />
+          <Property Type="Boolean" Name="disponibilidad" Nullable="false" />
+          <Property Type="Int32" Name="cantidadRequerimientos" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -774,6 +824,49 @@
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Gr02Proy1Model.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Gr02Proy1Model.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="EmpleadosParaReporteFechas" FunctionName="Gr02Proy1Model.Store.EmpleadosDesocupados" />
+          <FunctionImportMapping FunctionImportName="ObtenerRequerimientos" FunctionName="Gr02Proy1Model.Store.ObtenerRequerimientos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr02Proy1Model.ObtenerRequerimientos_Result">
+                <ScalarProperty Name="codigoProyectoFK" ColumnName="codigoProyectoFK" />
+                <ScalarProperty Name="idModuloFK" ColumnName="idModuloFK" />
+                <ScalarProperty Name="idPK" ColumnName="idPK" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cedulaEmpleadoFK" ColumnName="cedulaEmpleadoFK" />
+                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+                <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
+                <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
+                <ScalarProperty Name="duracionDias" ColumnName="duracionDias" />
+                <ScalarProperty Name="codigoPK" ColumnName="codigoPK" />
+                <ScalarProperty Name="nombre1" ColumnName="nombre1" />
+                <ScalarProperty Name="fechaInicio1" ColumnName="fechaInicio1" />
+                <ScalarProperty Name="fechaFinalEstimada" ColumnName="fechaFinalEstimada" />
+                <ScalarProperty Name="costoEstimado" ColumnName="costoEstimado" />
+                <ScalarProperty Name="objetivo" ColumnName="objetivo" />
+                <ScalarProperty Name="cedulaClienteFK" ColumnName="cedulaClienteFK" />
+                <ScalarProperty Name="idEquipo" ColumnName="idEquipo" />
+                <ScalarProperty Name="fechaFinal" ColumnName="fechaFinal" />
+                <ScalarProperty Name="costoReal" ColumnName="costoReal" />
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombre2" ColumnName="nombre2" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="canton" ColumnName="canton" />
+                <ScalarProperty Name="distrito" ColumnName="distrito" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="direccionDetallada" ColumnName="direccionDetallada" />
+                <ScalarProperty Name="disponibilidad" ColumnName="disponibilidad" />
+                <ScalarProperty Name="cantidadRequerimientos" ColumnName="cantidadRequerimientos" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="cantidadRequerimientos" FunctionName="Gr02Proy1Model.Store.ObtenerRequerimientos" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
