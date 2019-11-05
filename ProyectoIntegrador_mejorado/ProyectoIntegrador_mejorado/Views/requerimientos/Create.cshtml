@@ -14,6 +14,27 @@
     <div class="card">
         <div class="card-header">
             <h4>Administrador de requerimientos</h4>
+            @*para mostrar el proyecto actual como titulo*@
+            @if (TempData["proyecto"] != null && TempData["modulos"] != null)
+            {
+                <h5>
+
+                    Proyecto: @TempData["nombreProyecto"]
+                </h5>
+                <h6>
+
+                    Módulo: @TempData["nombreModulo"]
+                </h6>
+                <STYLE type="text/css">
+                    H2 {
+                        text-align: left
+                    }
+
+                    H5 {
+                        text-align: left
+                    }
+                </STYLE>
+            }
         </div>
         <div class="card-body cont">
             <div>

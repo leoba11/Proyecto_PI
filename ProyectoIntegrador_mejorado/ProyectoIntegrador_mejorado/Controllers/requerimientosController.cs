@@ -110,17 +110,33 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Create()
         {
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre");
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre");
-            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre");
+
+            //ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre");
+            //ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre");
+            //ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre");
+
             var estados = GetAllStates();
             var req = new requerimientos();
             // Set these states on the model. We need to do this because
             // only the selected value from the DropDownList is posted back, not the whole
             // list of states.
             req.estados = GetSelectListItems(estados);
+            TempData.Keep();
+            if (TempData["proyecto"] != null && TempData["modulos"] != null)
+            {
+                int codigo = int.Parse(TempData["proyecto"].ToString());
+                int idMod = int.Parse(TempData["modulos"].ToString());
 
-            return View(req);
+                ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre");
+                ViewBag.codigoProyectoFK = new SelectList(db.proyectos.Where(p => p.codigoPK == codigo), "codigoPK", "nombre");
+                ViewBag.idModuloFK = new SelectList(db.modulos.Where(p => p.idPK == idMod), "idPK", "nombre");
+                return View(req);
+            }
+            else
+            {
+                return RedirectToAction("Index", "requerimientos");
+            }
+            //return View(req);
         }
 
         // POST: requerimientos/Create
@@ -130,10 +146,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "codigoProyectoFK,idModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duracionEstimada,duracionDias,nombre")] requerimientos requerimientos)
         {
-
+           
             // Get all states again
             var estados = GetAllStates();
-
             // Set these states on the model. We need to do this because
             // only the selected value from the DropDownList is posted back, not the whole
             // list of states.
@@ -157,11 +172,20 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
                 return RedirectToAction("Lista");
             }
+            TempData.Keep();
+            if (TempData["proyecto"] != null && TempData["modulos"] != null)
+            {
+                int codigo = int.Parse(TempData["proyecto"].ToString());
+                int idMod = int.Parse(TempData["modulos"].ToString());
 
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
-            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
-            return View(requerimientos);
+                ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
+                ViewBag.codigoProyectoFK = new SelectList(db.proyectos.Where(p => p.codigoPK == codigo), "codigoPK", "nombre", requerimientos.codigoProyectoFK);
+                ViewBag.idModuloFK = new SelectList(db.modulos.Where(p => p.idPK == idMod), "idPK", "nombre", requerimientos.idModuloFK);
+                return View(requerimientos);
+            }
+            else {
+                return RedirectToAction("Index", "requerimientos");
+            }
         }
         // Just return a list of states - in a real-world application this would call
         // into data access layer to retrieve states from a database.
@@ -206,6 +230,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Edit(int? idProyecto, int? idModulo, int? id)
         {
+          
             if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -275,8 +300,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult DeleteConfirmed(int? idProyecto, int? idModulo, int? id)
         {
             requerimientos requerimientos = db.requerimientos.Find(idProyecto, idModulo, id);
-            db.requerimientos.Remove(requerimientos);
-            db.SaveChanges();
+            if (requerimientos.estado == "Cancelado")
+            {
+                db.requerimientos.Remove(requerimientos);
+                db.SaveChanges();
+            }
+           
             return RedirectToAction("Lista");
         }
 

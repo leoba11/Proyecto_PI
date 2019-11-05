@@ -12,6 +12,26 @@
 
 <div>
     <h4>Administrador de requerimientos</h4>
+    @if (TempData["proyecto"] != null && TempData["modulos"] != null)
+    {
+        <h5>
+
+            Proyecto: @TempData["nombreProyecto"]
+        </h5>
+        <h6>
+
+            Módulo: @TempData["nombreModulo"]
+        </h6>
+        <STYLE type="text/css">
+            H2 {
+                text-align: left
+            }
+
+            H5 {
+                text-align: left
+            }
+        </STYLE>
+    }
     <hr />
     <table class="table table-bordered">
         <tr>

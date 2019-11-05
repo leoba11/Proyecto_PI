@@ -7,6 +7,28 @@
 <h2>Eliminar</h2>
 
 <h3>Administrador de requerimientos</h3>
+@ViewBag.UnsuccessMessage
+
+@if (TempData["proyecto"] != null && TempData["modulos"] != null)
+{
+    <h5>
+
+        Proyecto: @TempData["nombreProyecto"]
+    </h5>
+    <h6>
+
+        Módulo: @TempData["nombreModulo"]
+    </h6>
+    <STYLE type="text/css">
+        H2 {
+            text-align: left
+        }
+
+        H5 {
+            text-align: left
+        }
+    </STYLE>
+}
 <div>
     @*Mensaje de confimacion para el usuario*@
     <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este módulo?</div>
@@ -133,10 +155,11 @@
         @Html.AntiForgeryToken()
 
         @*Botones de aceptar y regresar(cancelar) *@
-        <div class="form-actions no-color">
-            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
-            <a href="~/requerimientos/Lista" role="button" class="btn btn-danger"> Cancelar</a>
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Aceptar" class="btn btn-success" onclick="return confirm('Si el estado es diferente de «cancelado» no se realizará el cambio')" />&nbsp;
+        @*<input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;*@
+        <a href="~/requerimientos/Lista" role="button" class="btn btn-danger"> Cancelar</a>
+    </div>
     }
 </div>
 
