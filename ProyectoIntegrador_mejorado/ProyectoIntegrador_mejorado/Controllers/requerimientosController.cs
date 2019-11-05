@@ -113,7 +113,14 @@ namespace ProyectoIntegrador_mejorado.Controllers
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre");
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre");
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre");
-            return View();
+            var estados = GetAllStates();
+            var req = new requerimientos();
+            // Set these states on the model. We need to do this because
+            // only the selected value from the DropDownList is posted back, not the whole
+            // list of states.
+            req.estados = GetSelectListItems(estados);
+
+            return View(req);
         }
 
         // POST: requerimientos/Create
@@ -124,6 +131,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult Create([Bind(Include = "codigoProyectoFK,idModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duracionEstimada,duracionDias,nombre")] requerimientos requerimientos)
         {
 
+            // Get all states again
+            var estados = GetAllStates();
+
+            // Set these states on the model. We need to do this because
+            // only the selected value from the DropDownList is posted back, not the whole
+            // list of states.
+            requerimientos.estados= GetSelectListItems(estados);
 
             if (ModelState.IsValid)
             {
@@ -149,6 +163,44 @@ namespace ProyectoIntegrador_mejorado.Controllers
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
             return View(requerimientos);
         }
+        // Just return a list of states - in a real-world application this would call
+        // into data access layer to retrieve states from a database.
+        private IEnumerable<string> GetAllStates()
+        {
+            return new List<string>
+            {
+                
+                "No iniciado",
+                "Cancelado",
+                "Finalizado",
+                "En curso",
+            };
+        }
+
+        // This is one of the most important parts in the whole example.
+        // This function takes a list of strings and returns a list of SelectListItem objects.
+        // These objects are going to be used later in the SignUp.html template to render the
+        // DropDownList.
+        private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> elements)
+        {
+            // Create an empty list to hold result of the operation
+            var selectList = new List<SelectListItem>();
+
+            // For each string in the 'elements' variable, create a new SelectListItem object
+            // that has both its Value and Text properties set to a particular value.
+            // This will result in MVC rendering each item as:
+            //     <option value="State Name">State Name</option>
+            foreach (var element in elements)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = element,
+                    Text = element
+                });
+            }
+
+            return selectList;
+        }
 
         // GET: requerimientos/Edit/5
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
@@ -163,6 +215,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 return HttpNotFound();
             }
+            var estados = GetAllStates();
+           
+            // Set these states on the model. We need to do this because
+            // only the selected value from the DropDownList is posted back, not the whole
+            // list of states.
+            requerimientos.estados = GetSelectListItems(estados);
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
@@ -182,6 +240,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Lista");
             }
+            // Get all states again
+            var estados = GetAllStates();
+
+            // Set these states on the model. We need to do this because
+            // only the selected value from the DropDownList is posted back, not the whole
+            // list of states.
+            requerimientos.estados = GetSelectListItems(estados);
             ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
             ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
             ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);

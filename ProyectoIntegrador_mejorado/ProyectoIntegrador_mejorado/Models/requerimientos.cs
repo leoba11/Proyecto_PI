@@ -12,6 +12,7 @@ namespace ProyectoIntegrador_mejorado.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
     public partial class requerimientos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -66,6 +67,9 @@ namespace ProyectoIntegrador_mejorado.Models
         [Display(Name = "Días empleados")]
         public Nullable<int> duracionDias { get; set; }
 
+
+        // This property will hold all available states for selection
+        public IEnumerable<SelectListItem> estados { get; set; }
 
         public virtual empleados empleados { get; set; }
         public virtual modulos modulos { get; set; }

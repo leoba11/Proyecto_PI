@@ -53,17 +53,15 @@
                         @Html.ValidationMessageFor(model => model.complejidad, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-                <div class="form-group required text-nowrap">
-                    @Html.LabelFor(model => model.estado, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
+                @* State selection dropdown *@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-10">
-                        @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-                        @Html.TextBoxFor(model => model.estado, new { @class = "form-control", placeholder = "Estado", required = "required" })
+                        @Html.DropDownListFor(model => model.estado, Model.estados, "seleccione estado ", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
-
             <div>
 
                 <div class="form-group required text-nowrap">
