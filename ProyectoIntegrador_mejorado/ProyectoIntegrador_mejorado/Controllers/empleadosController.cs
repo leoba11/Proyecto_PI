@@ -211,5 +211,16 @@ namespace ProyectoIntegrador_mejorado.Controllers
             List<empleados> empleados = db.empleados.ToList();
             return empleados;
         }
+
+
+        public List<empleados> ExistEmail (string email)
+        {
+            var emp = (from d in db.empleados
+                       where d.correo == email
+                       select d).ToList();
+
+            return emp;
+        }
+
     }
 }

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador_mejorado.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
@@ -18,8 +19,27 @@ namespace ProyectoIntegrador_mejorado.Controllers
         // GET: proyectos
         public ActionResult Index()
         {
-            var proyectos = db.proyectos.Include(p => p.clientes);
-            return View(proyectos.ToList());
+            var user = User.Identity.GetUserName();
+            var emple = new empleadosController().ExistEmail(user);
+            var clien = new clientesController().ExistEmail(user);
+
+            if (emple.Count() > 0)   //es desarrollador
+            {
+                
+                var proyectos = db.proyectos.Include(p => p.clientes);
+                return View(proyectos.ToList());
+            }
+            else if (clien.Count() > 0) // es cliente
+            {
+                //var proyectos = db.proyectos.Include(p => p.clientes).Where(p => p.cedulaClienteFK == clien[0].cedulaPK);
+                var proyectos = db.proyectos.Include(p => p.clientes);
+                return View(proyectos.ToList());
+            }
+            else  //es jefe de desarrollo o soporte
+            {
+                var proyectos = db.proyectos.Include(p => p.clientes);
+                return View(proyectos.ToList());
+            }
         }
 
         // GET: proyectos/Details/5

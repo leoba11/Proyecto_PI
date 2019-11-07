@@ -125,6 +125,18 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public List<clientes> ExistEmail(string email)
+        {
+            var cli = (from d in db.clientes
+                          where d.correo == email
+                          select d).ToList();
+
+            return cli;
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
