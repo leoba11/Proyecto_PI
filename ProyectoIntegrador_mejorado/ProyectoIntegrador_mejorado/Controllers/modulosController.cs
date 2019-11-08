@@ -81,8 +81,19 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Create()
         {
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre");
-            return View();
+            var mod = new modulos();
+            TempData.Keep();
+            if (TempData["proyecto"] != null )
+            {
+                int codigo = int.Parse(TempData["proyecto"].ToString());
+
+                ViewBag.codigoProyectoFK = new SelectList(new proyectosController().PassByCode(codigo), "codigoPK", "nombre");
+                return View(mod);
+            }
+            else
+            {
+                return RedirectToAction("Index", "modulos");
+            }
         }
 
         // POST: modulos/Create
@@ -99,8 +110,17 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", modulos.codigoProyectoFK);
-            return View(modulos);
+            TempData.Keep();
+            if (TempData["proyecto"] != null )
+            {
+                int codigo = int.Parse(TempData["proyecto"].ToString());
+                ViewBag.codigoProyectoFK = new SelectList(new proyectosController().PassByCode(codigo), "codigoPK", "nombre", modulos.codigoProyectoFK);
+                return View(modulos);
+            }
+            else
+            {
+                return RedirectToAction("Index", "modulos");
+            }
         }
 
         // GET: modulos/Edit/5
@@ -116,9 +136,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "codigo", modulos.codigoProyectoFK);
-            ViewBag.idPK = new SelectList(db.modulos, "idPK", "id", modulos.idPK);
-            return View(modulos);
+            
+                ViewBag.idPK = new SelectList(db.modulos, "idPK", "id", modulos.idPK);
+                return View(modulos);
+            
+            
         }
 
         // POST: modulos/Edit/5
@@ -134,9 +156,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "codigo", modulos.codigoProyectoFK);
-            ViewBag.idPK = new SelectList(db.modulos, "idPK", "id", modulos.idPK);
-            return View(modulos);
+            
+               
+                ViewBag.idPK = new SelectList(db.modulos, "idPK", "id", modulos.idPK);
+                return View(modulos);
+            
+            
         }
 
         // GET: modulos/Delete/5
@@ -179,17 +204,23 @@ namespace ProyectoIntegrador_mejorado.Controllers
             List<modulos> modulos = db.modulos.ToList();
             return modulos;
         }
-        public modulos ModByCode(int codigoProyecto, int id)
+        public modulos ModByCode(int projectCode, int id)
         {
-            modulos mod = db.modulos.Find(codigoProyecto, id);
+            modulos mod = db.modulos.Find(projectCode, id);
             //TempData["proyectos"] = proyectos;
             //TempData.Keep();
             return mod;
         }
 
-        public List<modulos> PassByProyect(int codigo)//dispone la lista de modulos por proyecto
+        public List<modulos> PassByCode(int code)//dispone la lista de modulos según id
         {
-            List<modulos> modulos = db.modulos.Where(x => x.codigoProyectoFK == codigo).ToList();
+            List<modulos> modulos = db.modulos.Where(p => p.idPK == code).ToList();
+            return modulos;
+        }
+
+        public List<modulos> PassByProyect(int code)//dispone la lista de modulos por proyecto
+        {
+            List<modulos> modulos = db.modulos.Where(x => x.codigoProyectoFK == code).ToList();
             return modulos;
         }
 

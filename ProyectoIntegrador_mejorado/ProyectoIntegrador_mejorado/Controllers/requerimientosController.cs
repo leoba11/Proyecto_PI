@@ -127,9 +127,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 int codigo = int.Parse(TempData["proyecto"].ToString());
                 int idMod = int.Parse(TempData["modulos"].ToString());
 
-                ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre");
-                ViewBag.codigoProyectoFK = new SelectList(db.proyectos.Where(p => p.codigoPK == codigo), "codigoPK", "nombre");
-                ViewBag.idModuloFK = new SelectList(db.modulos.Where(p => p.idPK == idMod), "idPK", "nombre");
+                ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre");
+                ViewBag.codigoProyectoFK = new SelectList(new proyectosController().PassByCode(codigo), "codigoPK", "nombre");
+                ViewBag.idModuloFK = new SelectList(new modulosController().PassByCode(idMod), "idPK", "nombre");
                 return View(req);
             }
             else
@@ -178,9 +178,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 int codigo = int.Parse(TempData["proyecto"].ToString());
                 int idMod = int.Parse(TempData["modulos"].ToString());
 
-                ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
-                ViewBag.codigoProyectoFK = new SelectList(db.proyectos.Where(p => p.codigoPK == codigo), "codigoPK", "nombre", requerimientos.codigoProyectoFK);
-                ViewBag.idModuloFK = new SelectList(db.modulos.Where(p => p.idPK == idMod), "idPK", "nombre", requerimientos.idModuloFK);
+                ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
+                ViewBag.codigoProyectoFK = new SelectList(new proyectosController().PassByCode(codigo), "codigoPK", "nombre", requerimientos.codigoProyectoFK);
+                ViewBag.idModuloFK = new SelectList(new modulosController().PassByCode(idMod), "idPK", "nombre", requerimientos.idModuloFK);
                 return View(requerimientos);
             }
             else {
@@ -230,7 +230,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Edit(int? idProyecto, int? idModulo, int? id)
         {
-          
+            
             if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -241,15 +241,18 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return HttpNotFound();
             }
             var estados = GetAllStates();
-           
-            // Set these states on the model. We need to do this because
-            // only the selected value from the DropDownList is posted back, not the whole
-            // list of states.
-            requerimientos.estados = GetSelectListItems(estados);
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
-            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
-            return View(requerimientos);
+          
+                
+                requerimientos.estados = GetSelectListItems(estados);
+                ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre");
+                return View(requerimientos);
+            
+
+                // Set these states on the model. We need to do this because
+                // only the selected value from the DropDownList is posted back, not the whole
+                // list of states.
+               
+            
         }
 
         // POST: requerimientos/Edit/5
@@ -271,11 +274,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
             // Set these states on the model. We need to do this because
             // only the selected value from the DropDownList is posted back, not the whole
             // list of states.
-            requerimientos.estados = GetSelectListItems(estados);
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados.Where(p => p.disponibilidad == false), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
-            ViewBag.codigoProyectoFK = new SelectList(db.proyectos, "codigoPK", "nombre", requerimientos.codigoProyectoFK);
-            ViewBag.idModuloFK = new SelectList(db.modulos, "idPK", "nombre", requerimientos.idModuloFK);
-            return View(requerimientos);
+            
+                
+                requerimientos.estados = GetSelectListItems(estados);
+                ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK);
+                return View(requerimientos);
+            
+            
         }
 
         // GET: requerimientos/Delete/5

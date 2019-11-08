@@ -189,6 +189,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
             base.Dispose(disposing);
         }
 
+        //Despliega un proyecto específico para ser mostrado en lista
+        public List<proyectos> PassByCode(int code)
+        {
+            List<proyectos> projectList = db.proyectos.Where(p => p.codigoPK == code).ToList();
+            return projectList;    
+        }
+
         public List<proyectos> Pass()//dispone la lista de proyectos para otros controladores
         {
             List<proyectos> proyectos = db.proyectos.ToList();
