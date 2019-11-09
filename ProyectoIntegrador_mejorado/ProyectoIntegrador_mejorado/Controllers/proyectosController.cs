@@ -23,7 +23,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             var emple = new empleadosController().ExistEmail(user);
             var clien = new clientesController().ExistEmail(user);
 
-            if (emple.Count() > 0)   //es desarrollador
+            if (emple.Count() > 0)   //es empleado
             {
                 
                 var proyectos = db.proyectos.Include(p => p.clientes);
@@ -31,8 +31,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
             else if (clien.Count() > 0) // es cliente
             {
+                //Obtenemos al cliente segun el username dela bd clientes
+                var existe = db.clientes.Where(w => w.correo == user);
+                // buscamos un proyecto asignado al cliente pero ahora segun su cedula
+                var proyectos = db.proyectos.Where(p => existe.Any(w => w.cedulaPK == p.cedulaClienteFK));
                 //var proyectos = db.proyectos.Include(p => p.clientes).Where(p => p.cedulaClienteFK == clien[0].cedulaPK);
-                var proyectos = db.proyectos.Include(p => p.clientes);
+                //var proyectos = db.proyectos.Include(p => p.clientes);
                 return View(proyectos.ToList());
             }
             else  //es jefe de desarrollo o soporte
