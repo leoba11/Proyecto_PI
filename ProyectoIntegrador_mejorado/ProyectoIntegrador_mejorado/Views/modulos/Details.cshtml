@@ -7,6 +7,7 @@
 @*Subtitulo *@
 <h2>Detalles de módulo</h2>
 
+
 @*Botones de crear y eliminar modulo especifico en el que se esta *@
 <div class="botones">
     <a href="@Url.Action("Edit", new { codProyecto = Model.codigoProyectoFK, id = Model.idPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>&nbsp;
@@ -14,6 +15,23 @@
 </div>
 <div>
     <h4>Administrador módulos</h4>
+    @*para mostrar el proyecto actual como titulo*@
+    @if (TempData["proyecto"] != null)
+    {
+        <h5>
+
+            Proyecto: @TempData["nombreProyecto"]
+        </h5>
+        <STYLE type="text/css">
+            H2 {
+                text-align: left
+            }
+
+            H5 {
+                text-align: left
+            }
+        </STYLE>
+    }
     <hr />
     <table class="table table-bordered">
         <tr>

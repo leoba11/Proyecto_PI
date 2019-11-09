@@ -1,13 +1,32 @@
 ﻿@model ProyectoIntegrador_mejorado.Models.modulos
 
 @{
-    ViewBag.Title = "Delete";
+                /**/
+
+                ViewBag.Title = "Delete";
 }
 
 @*Titulo*@
 <h2>Eliminar</h2>
 @*Subtitulo*@
 <h3>Administrador módulos</h3>
+@*para mostrar el proyecto actual como titulo*@
+@if (TempData["proyecto"] != null)
+{
+    <h5>
+
+        Proyecto: @TempData["nombreProyecto"]
+    </h5>
+    <STYLE type="text/css">
+        H2 {
+            text-align: left
+        }
+
+        H5 {
+            text-align: left
+        }
+    </STYLE>
+}
 <div>
     @*Mensaje de confimacion para el usuario*@
     <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este módulo?</div>

@@ -94,6 +94,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Details(int? idProyecto, int? idModulo, int? id)
         {
+            TempData.Keep();
             if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -134,7 +135,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "requerimientos");
+                return RedirectToAction("Lista");
             }
             //return View(req);
         }
@@ -157,19 +158,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             if (ModelState.IsValid)
             {
                 db.requerimientos.Add(requerimientos);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (System.Data.SqlClient.SqlException)
-                {
-                    return RedirectToAction("Index", "requerimientos");
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction("Index", "requerimientos");
-                }
-
+                db.SaveChanges();
                 return RedirectToAction("Lista");
             }
             TempData.Keep();
@@ -184,7 +173,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return View(requerimientos);
             }
             else {
-                return RedirectToAction("Index", "requerimientos");
+                return RedirectToAction("Lista");
             }
         }
         // Just return a list of states - in a real-world application this would call
@@ -230,7 +219,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Edit(int? idProyecto, int? idModulo, int? id)
         {
-            
+            TempData.Keep();
             if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -262,6 +251,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "codigoProyectoFK,idModuloFK,idPK,descripcion,complejidad,estado,cedulaEmpleadoFK,fechaInicio,fechaFin,duracionEstimada,duracionDias,nombre")] requerimientos requerimientos)
         {
+            TempData.Keep();
             if (ModelState.IsValid)
             {
                 db.Entry(requerimientos).State = EntityState.Modified;
@@ -287,6 +277,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Delete(int? idProyecto, int? idModulo, int? id)
         {
+            TempData.Keep();
             if (idProyecto == null || idModulo == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -330,10 +321,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             return resp;
         }
-
-
-
-
 
         protected override void Dispose(bool disposing)
         {

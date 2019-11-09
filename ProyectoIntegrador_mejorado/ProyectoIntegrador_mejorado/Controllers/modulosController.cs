@@ -65,6 +65,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Details(int? codProyecto, int? id)
         {
+            TempData.Keep();
             if (codProyecto == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,7 +93,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "modulos");
+                return RedirectToAction("Lista", "modulos");
             }
         }
 
@@ -107,7 +108,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 db.modulos.Add(modulos);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Lista");
             }
 
             TempData.Keep();
@@ -119,7 +120,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "modulos");
+                return RedirectToAction("Lista", "modulos");
             }
         }
 
@@ -127,6 +128,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Edit(int? codProyecto, int? id)
         {
+            TempData.Keep();
             if (codProyecto == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -150,11 +152,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "codigoProyectoFK,idPK,nombre,descripcion")] modulos modulos)
         {
+            TempData.Keep();
             if (ModelState.IsValid)
             {
                 db.Entry(modulos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Lista");
             }
             
                
@@ -168,6 +171,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Delete(int? codProyecto, int? id)
         {
+            TempData.Keep();
             if (codProyecto == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -188,7 +192,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             modulos modulos = db.modulos.Find(codProyecto, id);
             db.modulos.Remove(modulos);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Lista");
         }
 
         protected override void Dispose(bool disposing)
