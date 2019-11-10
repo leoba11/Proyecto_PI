@@ -1,14 +1,21 @@
-﻿@model ProyectoIntegrador_mejorado.Models.requerimientos
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 09/11/19
+    // Este código corresponde la vista de details
+    // Este código en su mayoría fue autogenerado.
+    //------------------------------------------------------------------------------*@
+@model ProyectoIntegrador_mejorado.Models.requerimientos
 
 @{
     ViewBag.Title = "Details";
 }
-
+@*Título de la vista*@
 <h2>Detalles de requerimiento</h2>
+@*Botones para editar y eliminar*@
 <div class="botones">
 
     <a href="@Url.Action("Edit", new { idProyecto = Model.codigoProyectoFK, idModulo = Model.idModuloFK, id = Model.idPK })"><i class="far fa-edit fa-2x" style="color:dodgerblue"></i></a>&nbsp;
-    @if (Model.estado == "Cancelado")
+    @if (Model.estado == "Cancelado") //solo si está cancelado el estado del requerimeinto , se renderiza el boyón de eliminar
     {
         <a href="@Url.Action("Delete", new {  idProyecto = Model.codigoProyectoFK, idModulo = Model.idModuloFK, id = Model.idPK })"><i class="far fa-trash-alt fa-2x" style="color:red"></i></a>;
     }
@@ -17,7 +24,9 @@
 </div>
 
 <div>
+    @*subtítulo de la vista*@
     <h4>Administrador de requerimientos</h4>
+    @*Título de la proyecto y módulo actual*@
     @if (TempData["proyecto"] != null && TempData["modulos"] != null)
     {
         <h5>
@@ -39,6 +48,7 @@
         </STYLE>
     }
     <hr />
+    @*Despliegue de atributos del requerimeinto específicos*@
     <table class="table table-bordered">
         <tr>
             <th>
@@ -153,20 +163,9 @@
 
         </tr>
 
-        @*<tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.modulos.nombre)
-                </th>
-
-                <td>
-                    @Html.DisplayFor(model => model.modulos.nombre)
-                </td>
-
-            </tr>*@
-
-
     </table>
 </div>
+@*Botón de regresar a la pantalla de listados*@
 <div>
     <a href="~/requerimientos/Lista" role="button" class="btn btn-secondary"> Regresar</a>
 </div>

@@ -1,4 +1,10 @@
-﻿@model ProyectoIntegrador_mejorado.Models.modulos
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 09/11/19
+    // Este código corresponde la vista de editar un módulo
+    //------------------------------------------------------------------------------
+*@
+@model ProyectoIntegrador_mejorado.Models.modulos
 
 @{
     ViewBag.Title = "Edit";
@@ -14,51 +20,51 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    @*Subitulo de la vista*@
-    <h4>Administrador módulos</h4>
-    @*para mostrar el proyecto actual como titulo*@
-    @if (TempData["proyecto"] != null)
-    {
-        <h5>
+    <div class="form-horizontal">
+        @*Subitulo de la vista*@
+        <h4>Administrador módulos</h4>
+        @*para mostrar el proyecto actual como titulo*@
+        @if (TempData["proyecto"] != null)
+        {
+            <h5>
 
-            Proyecto: @TempData["nombreProyecto"]
-        </h5>
-        <STYLE type="text/css">
-            H2 {
-                text-align: left
-            }
+                Proyecto: @TempData["nombreProyecto"]
+            </h5>
+            <STYLE type="text/css">
+                H2 {
+                    text-align: left
+                }
 
-            H5 {
-                text-align: left
-            }
-        </STYLE>
-    }
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.codigoProyectoFK)
-    @Html.HiddenFor(model => model.idPK)
+                H5 {
+                    text-align: left
+                }
+            </STYLE>
+        }
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.codigoProyectoFK)
+        @Html.HiddenFor(model => model.idPK)
 
 
-    <div class="form-group required text-nowrap">
-        @Html.LabelFor(model => model.nombre, "Nombre módulo", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-            @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", placeholder = "nombre", required = "required" })
-            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+        <div class="form-group required text-nowrap">
+            @Html.LabelFor(model => model.nombre, "Nombre módulo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
+                @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", placeholder = "nombre", required = "required" })
+                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group required text-nowrap">
-        @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
-            @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required", @rows = 5 })
-            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+        <div class="form-group required text-nowrap">
+            @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*Acá es para hacer que a fuerzas el usuario ingrese un valor *@
+                @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "descripción", required = "required", @rows = 5 })
+                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+            </div>
         </div>
+
+
     </div>
-
-
-</div>
     @*Aviso de campo obligatorio*@
     <label class="control-label col-md-2"><span style="color:red">*</span> Campo obligatorio</label>
     @*Botones de aceptar y cancelar *@

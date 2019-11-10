@@ -1,104 +1,105 @@
-﻿@model IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>
-    @{
-        ViewBag.Title = "Lista";
-    }
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 09/11/19
+    // Este código corresponde la vista del listado de requerimientos
+    // Este código en su mayoría fue autogenerado.
+    //------------------------------------------------------------------------------*@
+@model IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>
+@{
+    ViewBag.Title = "Lista";
+}
+@*Titulo de la vista*@
+<h2>Requerimientos</h2>
+@*para mostrar el proyecto y modulo  actual como titulo*@
+@if (TempData["proyecto"] != null && TempData["modulos"] != null)
+{
+    <h5>
 
-    <h2>Requerimientos</h2>
-    @*para mostrar el proyecto actual como titulo*@
-    @if (TempData["proyecto"] != null && TempData["modulos"] != null)
-    {
-        <h5>
+        Proyecto: @TempData["nombreProyecto"]
+    </h5>
+    <h6>
 
-            Proyecto: @TempData["nombreProyecto"]
-        </h5>
-        <h6>
+        Módulo: @TempData["nombreModulo"]
+    </h6>
+    <STYLE type="text/css">
+        H2 {
+            text-align: left
+        }
 
-            Módulo: @TempData["nombreModulo"]
-        </h6>
-        <STYLE type="text/css">
-            H2 {
-                text-align: left
-            }
+        H5 {
+            text-align: left
+        }
+    </STYLE>
+}
 
-            H5 {
-                text-align: left
-            }
-        </STYLE>
-    }
+@*Barra buscadora*@
+<input class="form-control" id="userInput" type="text" placeholder="Buscar en requerimientos">
+<br />
+@*Listado de los atributos importantes de requerimientos*@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
 
-    <input class="form-control" id="userInput" type="text" placeholder="Buscar en requerimientos">
-    <br />
+                @Html.DisplayNameFor(model => model.nombre)
 
-    <table class="table table-striped">
-        <thead>
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.empleados.nombre)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th>
+                @*Botón de crear*@
+                <a href="~/requerimientos/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="myTableReq">
+
+        @*For para desplegar las tuplas de la tabla*@
+        @foreach (var item in TempData["requerimientos"] as List<ProyectoIntegrador_mejorado.Models.requerimientos>)
+        {
             <tr>
-                <th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
 
-                    @Html.DisplayNameFor(model => model.nombre)
+                <td>
+                    @Html.DisplayFor(modelItem => item.empleados.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.estado)
+                </td>
 
-                </th>
+                <td>
+                    @*Aquí se colocan los iconos para cada tupla de la tabla
+                        Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
+                        Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
+                    *@
 
-                <th>
-                    @Html.DisplayNameFor(model => model.empleados.nombre)
-                </th>
+                    @*bótón para ver detalles de cada una de las tuplas*@
+                    <a href="@Url.Action("Details", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.estado)
-                </th>
-                <th>
-                    @*Botón de crear*@
-                    <a href="~/requerimientos/Create" role="button" class="btn btn-success float-right "><i class="fas fa-plus-circle"></i> Crear</a>
-                </th>
 
-                <th></th>
+                </td>
             </tr>
-        </thead>
-        <tbody id="myTableReq">
+        }
 
-            @*For para desplegar las tublas de la tabla*@
-            @foreach (var item in TempData["requerimientos"] as List<ProyectoIntegrador_mejorado.Models.requerimientos>)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.nombre)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.empleados.nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.estado)
-                    </td>
-
-                    <td>
-                        @*Aquí se colocan los iconos para cada tupla de la tabla
-                            Para obtener más icónos ver: https://mdbootstrap.com/docs/jquery/content/icons-list/
-                            Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
-                        *@
-
-
-                        <a href="@Url.Action("Details", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
-
-
-                    </td>
-
-                    @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK }) |
-                            @Html.ActionLink("Details", "Details", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK }) |
-                            @Html.ActionLink("Delete", "Delete", new { idProyecto = item.codigoProyectoFK, idModulo = item.idModuloFK, id = item.idPK })
-                        </td>*@
-                </tr>
-            }
-
-    </table>
-    @*Script de Jquery para filtar elementos de la tabla*@
-    <script>
-        $(document).ready(function () {
-            $("#userInput").on("keyup", function () {
-                var value1 = $(this).val().toLowerCase();
-                $("#myTableReq tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1)
-                });
+</table>
+@*Script de Jquery para filtar elementos de la tabla*@
+<script>
+    $(document).ready(function () {
+        $("#userInput").on("keyup", function () {
+            var value1 = $(this).val().toLowerCase();
+            $("#myTableReq tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1)
             });
         });
-    </script>
+    });
+</script>

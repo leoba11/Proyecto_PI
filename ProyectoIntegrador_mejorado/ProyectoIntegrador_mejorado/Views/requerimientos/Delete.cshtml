@@ -1,14 +1,20 @@
-﻿@model ProyectoIntegrador_mejorado.Models.requerimientos
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 09/11/19
+    // Este código corresponde la vista de delete
+    // Este código en su mayoría fue autogenerado.
+    //------------------------------------------------------------------------------*@
+@model ProyectoIntegrador_mejorado.Models.requerimientos
 
 @{
     ViewBag.Title = "Delete";
 }
-
+@*Título de la vista*@
 <h2>Eliminar</h2>
-
+@*subtítulo de la vista*@
 <h3>Administrador de requerimientos</h3>
 @ViewBag.UnsuccessMessage
-
+@*Título del proyecto y módulo seleccionados*@
 @if (TempData["proyecto"] != null && TempData["modulos"] != null)
 {
     <h5>
@@ -34,7 +40,7 @@
     <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este módulo?</div>
     <hr />
     <table class="table table-bordered">
-
+        @*Despliegue de atributos del requerimiento específico*@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.nombre)
@@ -137,16 +143,6 @@
 
         </tr>
 
-        @*<tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.modulos.nombre)
-                </th>
-
-                <td>
-                    @Html.DisplayFor(model => model.modulos.nombre)
-                </td>
-
-            </tr>*@
 
     </table>
 
@@ -155,13 +151,14 @@
         @Html.AntiForgeryToken()
 
         @*Botones de aceptar y regresar(cancelar) *@
-    <div class="form-actions no-color">
-        <input type="submit" value="Aceptar" onclick="myFunction()" class="btn btn-success" /> &nbsp;
-        <a href="~/requerimientos/Lista" role="button" class="btn btn-danger"> Cancelar</a>
-    </div>
+        <div class="form-actions no-color">
+            <input type="submit" value="Aceptar" onclick="myFunction()" class="btn btn-success" /> &nbsp;
+            <a href="~/requerimientos/Lista" role="button" class="btn btn-danger"> Cancelar</a>
+        </div>
     }
 </div>
 
+@*Funcion que hace que se depliegue un popup inidcando que la eliminación fue exitosa*@
 <script>
     function myFunction() {
         alert("¡Requerimiento borrado exitosamente!");

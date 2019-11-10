@@ -1,9 +1,15 @@
-﻿@model ProyectoIntegrador_mejorado.Models.modulos
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 09/11/19
+    // Este código corresponde la vista de delete
+    // Este código en su mayoría fue autogenerado.
+    //------------------------------------------------------------------------------*@
+@model ProyectoIntegrador_mejorado.Models.modulos
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete";
 }
 
 @*Titulo*@
@@ -31,6 +37,7 @@
     @*Mensaje de confimacion para el usuario*@
     <div class="p-3 mb-2 bg-danger text-white">¿Está seguro que desea eliminar este módulo?</div>
     <hr />
+    @*Despleigue de los atributos que pertenecen a la tabla junto con sus valores *@
     <table class="table table-bordered">
         <tr>
             <th>
@@ -72,6 +79,7 @@
     }
 </div>
 
+@*Funcion que hace que se depliegue un popup inidcando que la eliminación fue exitosa*@ 
 <script>
     function myFunction() {
         alert("¡Módulo borrado exitosamente!");

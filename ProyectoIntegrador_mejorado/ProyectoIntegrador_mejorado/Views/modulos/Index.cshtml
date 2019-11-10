@@ -1,9 +1,18 @@
-﻿@model IEnumerable<ProyectoIntegrador_mejorado.Models.modulos>
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 09/11/19
+    // Este código corresponde la vista de selección de proyecto.
+    //------------------------------------------------------------------------------
+*@
+@model IEnumerable<ProyectoIntegrador_mejorado.Models.modulos>
 
 @{
+    /**/
+
     ViewBag.Title = "Seleccionar proyecto";
 }
 
+*@* Aquí se incluyen los links de los scripts que fueron ocupados*@
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
@@ -18,8 +27,10 @@
 {
     if (TempData["proyectos"] != null)
     {
+        @*Dropdown de selección de proyecto*@
         @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
     }
 
+    @*Botón de seleccionar para pasar a la siguiente pantalla*@
     <input type="submit" value="Seleccionar" />
 }

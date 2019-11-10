@@ -1,9 +1,15 @@
-﻿@model ProyectoIntegrador_mejorado.Models.modulos
+﻿@*//------------------------------------------------------------------------------
+// @author: María José Aguilar Barboza B60115
+// @Date: 09/11/19
+// Este código corresponde la vita de lista de módulos
+// Este código en su mayoría fue autogenerado.
+//------------------------------------------------------------------------------*@
+@model ProyectoIntegrador_mejorado.Models.modulos
 @{
     ViewBag.Title = "Lista";
 }
 
-@*Esta vista desplega todos los módulos relacionados con el proyecto que el uusario previamente selecciono*@
+@*Esta vista desplega todos los módulos relacionados con el proyecto que el usario previamente selecciono*@
 
 @*Título de la ventana*@
 <h2>Módulos</h2>
@@ -52,7 +58,7 @@
         </tr>
     </thead>
     <tbody id="myTableMod">
-        @*For para desplegar las tublas de la tabla*@
+        @*For para desplegar las tuplas de la tabla*@
         @foreach (var item in TempData["modulos"] as List<ProyectoIntegrador_mejorado.Models.modulos>)
         {
             <tr>
@@ -72,7 +78,7 @@
                         Para obtener más colores ver: https://mdbootstrap.com/docs/jquery/css/colors/
                     *@
 
-
+                    *@* Botón de detalles para cada tupla*@
                     <a href="@Url.Action("Details", new { codProyecto = item.codigoProyectoFK, id = item.idPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
 
 

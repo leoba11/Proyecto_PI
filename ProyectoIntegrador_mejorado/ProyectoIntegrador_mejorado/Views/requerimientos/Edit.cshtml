@@ -1,9 +1,15 @@
-﻿@model ProyectoIntegrador_mejorado.Models.requerimientos
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 09/11/19
+    // Este código corresponde la vista de edit
+    // Este código en su mayoría fue autogenerado.
+    //------------------------------------------------------------------------------*@
+@model ProyectoIntegrador_mejorado.Models.requerimientos
 
 @{
     ViewBag.Title = "Edit";
 }
-
+@*Título de la vista*@
 <h2>Modificar requerimiento</h2>
 
 @using (Html.BeginForm())
@@ -13,7 +19,9 @@
 
     <div class="card">
         <div class="card-header">
+            @*subtítulo de la vista*@
             <h4>Administrador de requerimientos</h4>
+            @*Título de proyecto y modulo actual*@
             @if (TempData["proyecto"] != null && TempData["modulos"] != null)
             {
                 <h5>
@@ -35,6 +43,7 @@
                 </STYLE>
             }
         </div>
+        @*Listado de todos los atributos editables*@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.codigoProyectoFK)
 
@@ -43,23 +52,6 @@
         @Html.HiddenFor(model => model.idPK)
         <div class="card-body cont">
             <div>
-
-                @*<div class="form-group required text-nowrap">
-                        @Html.LabelFor(model => model.codigoProyectoFK, "Proyecto", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DropDownList("codigoProyectoFK", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.codigoProyectoFK, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group required text-nowrap">
-                        @Html.LabelFor(model => model.idModuloFK, "Módulo", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DropDownList("idModuloFK", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.idModuloFK, "", new { @class = "text-danger" })
-                        </div>
-                    </div>*@
-
 
                 <div class="form-group required text-nowrap">
                     @Html.LabelFor(model => model.nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })

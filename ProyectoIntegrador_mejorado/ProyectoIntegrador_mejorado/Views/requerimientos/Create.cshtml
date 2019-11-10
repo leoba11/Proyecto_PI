@@ -1,9 +1,16 @@
-﻿@model ProyectoIntegrador_mejorado.Models.requerimientos
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 09/11/19
+    // Este código corresponde la vista de create
+    // Este código en su mayoría fue autogenerado.
+    //------------------------------------------------------------------------------*@
+@model ProyectoIntegrador_mejorado.Models.requerimientos
 
 @{
     ViewBag.Title = "Create";
 }
 
+@*Título de la vista*@
 <h2>Crear un requerimiento</h2>
 
 @using (Html.BeginForm())
@@ -14,7 +21,7 @@
     <div class="card">
         <div class="card-header">
             <h4>Administrador de requerimientos</h4>
-            @*para mostrar el proyecto actual como titulo*@
+            @*para mostrar el proyecto y modulo actual como titulo*@
             @if (TempData["proyecto"] != null && TempData["modulos"] != null)
             {
                 <h5>
@@ -70,11 +77,12 @@
                 <div class="form-group required text-nowrap">
                     @Html.LabelFor(model => model.complejidad, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
+                        @*para mostrar el proyecto actual como titulo*@
                         @Html.EditorFor(model => model.complejidad, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                         @Html.ValidationMessageFor(model => model.complejidad, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @* State selection dropdown *@
+                @* Dropdown de selección de estado del requerimiento *@
                 <div class="form-group">
                     @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-10">
@@ -96,6 +104,7 @@
                 <div class="form-group required text-nowrap">
                     @Html.LabelFor(model => model.fechaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
+                        @*para forzar al usuario a ingresar el datoo y además desplegar fecha con formato específico*@
                         @Html.EditorFor(model => model.fechaInicio, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
                         @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
                     </div>
@@ -104,6 +113,7 @@
                 <div class="form-group required text-nowrap">
                     @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
+                        @*para forzar al usuario a ingresar el dato y además desplegar fecha con formato específico*@
                         @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
                         @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
                     </div>
@@ -112,6 +122,7 @@
                 <div class="form-group  text-nowrap">
                     @Html.LabelFor(model => model.fechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
+                        @*para  desplegar fecha con formato específico*@
                         @Html.EditorFor(model => model.fechaFin, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd") } })
                         @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-danger" })
                     </div>

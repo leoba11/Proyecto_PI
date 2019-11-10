@@ -1,4 +1,9 @@
-﻿@model ProyectoIntegrador_mejorado.Models.ProyectModuloViewModel
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 09/11/19
+    // Este código corresponde la vista de seleccion de proyecto y módulo
+    //------------------------------------------------------------------------------*@
+@model ProyectoIntegrador_mejorado.Models.ProyectModuloViewModel
 
 @{
     ViewBag.Title = "Seleccionar proyecto mod";
@@ -9,27 +14,34 @@
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
 
-@*Aca es para hacer que el usuario seleccione el poryecto del que desea ver módulos*@
+@*Aca es para hacer que el usuario seleccione el poryecto y módulo del que desea ver requerimeintos*@
 @*Título de la ventana*@
+@*subtítulo de la ventana*@
 <h2>Requerimientos</h2>
+
+@*Título de seleccionar proyecto*@
 <h4> Seleccionar proyecto </h4>
 
 @using (Html.BeginForm("Index", "requerimientos", FormMethod.Post))
 {
     if (ViewBag.ProyectList != null)
     {
+        @*Dropdown de selección de proyecto*@
         @Html.DropDownListFor(model => model.codigoPK, ViewBag.ProyectList as SelectList, "----------", new { @class = "form-control" })
 
     }
     <h5>  </h5>
+    @*Título de seleccionar modulo*@
     <h5> Seleccionar módulo </h5>
+    @*Dropdown de selección de modulo vinculado con el proyecto previamente seleccionado*@
     @Html.DropDownListFor(model => model.idPK, new SelectList(""), "----------", new { @class = "form-control" })
 
     <h2> </h2>
+    @*Botón de seleccionar*@
     <input type="submit" value="Seleccionar" />
 }
 
-
+@*Script para hacer el dropdown en cascada*@
 <script>
     $(document).ready(function () {
         $("#codigoPK").change(function () {
@@ -44,14 +56,6 @@
                 }
             })
 
-
-            @*
-            $.get("/requerimientos/GetModulList", { codigoProyecto: $("#codigoPK").val() }, function (data) {
-                $("#idPK").empty();
-                $.each(data, function (index, row) {
-                    $("#idPK").append("<option value= '" + row.idpk + +"'>" + row.nombre + "</option>")
-                });
-            });*@
         })
     });
 </script>
