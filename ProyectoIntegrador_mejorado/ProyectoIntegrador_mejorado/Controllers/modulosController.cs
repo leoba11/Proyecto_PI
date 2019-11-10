@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using ProyectoIntegrador_mejorado.Models;
 //------------------------------------------------------------------------------
 // @author: María José Aguilar Barboza B60115
@@ -23,11 +24,36 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //Esta método es llamado para desplegar el dropdown de selección del proyecto al cual se le quiere consultar sus módulos
         public ActionResult Index()
         {
-            //Aquí se seleccionan solo los módulos relacionados con el proyecto que el usuario previamente seleccionó
-            List<proyectos> proyectos = new proyectosController().Pass();
-            TempData["proyectos"] = proyectos; //estos proyectos son guardados en esta variable de datos temporales
-            TempData.Keep(); //se le pide mantener los datos temporales
-            return View(); //se despliega la vista
+            var user = User.Identity.GetUserName();
+            var emple = new empleadosController().ExistEmail(user);
+            var clien = new clientesController().ExistEmail(user);
+
+            if (emple.Count() > 0)   //es empleado
+            {
+                var cedula = emple[0].cedulaPK;
+                var proyectos = new proyectosController().ProyectsByEmployee(cedula);
+                TempData["proyectos"] = proyectos;
+                TempData.Keep();
+                return View();
+            }
+            else if (clien.Count() > 0) // es cliente
+            {
+                //Se obtiene la cedula del cliente
+                var cedula = clien[0].cedulaPK;
+                // buscamos un proyecto asignado al cliente pero ahora segun su cedula
+                var proyectos = new proyectosController().ProyectsByClient(cedula);
+                TempData["proyectos"] = proyectos;
+                TempData.Keep();
+                return View();
+            }
+            else  //es jefe de desarrollo o soporte
+            {
+                List<proyectos> proyectos = new proyectosController().Pass();
+                TempData["proyectos"] = proyectos;
+                TempData.Keep();
+                return View();
+            }
+            
         }
 
         [HttpPost]

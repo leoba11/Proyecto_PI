@@ -247,5 +247,22 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return proyectos;
         }
 
+        public List<proyectos> ProyectsByClient(string cedula)
+        {
+            var proyectos = (from d in db.proyectos
+                             where d.cedulaClienteFK == cedula
+                             select d).ToList();
+            return proyectos;
+        }
+
+        public List<proyectos> ProyectsByEmployee(string cedula)
+        {
+            var proyectos = (from d in db.proyectos
+                             join f in db.roles
+                             on d.codigoPK equals f.codigoProyectoFK
+                             where f.cedulaFK == cedula
+                             select d).ToList();
+            return proyectos;
+        }
     }
 }
