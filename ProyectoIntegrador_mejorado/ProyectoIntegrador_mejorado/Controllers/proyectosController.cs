@@ -30,7 +30,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             if (emple.Count() > 0)   //es empleado
             {
+                //Se obtiene la cedula del empleado
                 var cedula = emple[0].cedulaPK;
+                //se buscan los proyectos donde participa el empleado con la cedula
                 var proyectos = (from d in db.proyectos
                                  join f in db.roles
                                  on d.codigoPK equals f.codigoProyectoFK
@@ -218,6 +220,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             List<proyectos> proyectos = db.proyectos.ToList();
             return proyectos;
         }
+
         public proyectos ProjectByCode(int cod)
         {
             proyectos proy = db.proyectos.Find(cod);
@@ -226,6 +229,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return proy;
         }
 
+        /*
+         * Efecto: devuelve un bool indicando si el proyecto tiene fecha de finalizacion
+         * Requiere: NA
+         * Modifica: NA
+         */
         public bool Ended(int cod)
         {
             bool resp = false;
@@ -237,6 +245,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return resp;
         }
 
+        /*
+         * Efecto: devuelve los proyectos que lidero un empleado
+         * Requiere: NA
+         * Modifica: NA
+         */
         public List<proyectos> GetLidetedProyects(string cedula)
         {
             var proyectos = (from d in db.proyectos
@@ -247,5 +260,32 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return proyectos;
         }
 
+        /*
+         * Efecto: devuelve los proyectos de un cliente
+         * Requiere: NA
+         * Modifica: NA
+         */
+        public List<proyectos> ProyectsByClient(string cedula)
+        {
+            var proyectos = (from d in db.proyectos
+                             where d.cedulaClienteFK == cedula
+                             select d).ToList();
+            return proyectos;
+        }
+
+        /*
+         * Efecto: devuelve los proyectos en que participa un empleado
+         * Requiere: NA
+         * Modifica: NA
+         */
+        public List<proyectos> ProyectsByEmployee(string cedula)
+        {
+            var proyectos = (from d in db.proyectos
+                             join f in db.roles
+                             on d.codigoPK equals f.codigoProyectoFK
+                             where f.cedulaFK == cedula
+                             select d).ToList();
+            return proyectos;
+        }
     }
 }

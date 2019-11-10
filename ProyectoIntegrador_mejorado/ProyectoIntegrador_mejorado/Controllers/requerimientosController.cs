@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
@@ -19,11 +20,51 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //Esta método es llamado para desplegar el dropdown de selección del proyecto y módulo al cual se le quiere consultar sus requerimientos
         public ActionResult Index()
         {
+
+            var user = User.Identity.GetUserName();
+            var emple = new empleadosController().ExistEmail(user);
+            var clien = new clientesController().ExistEmail(user);
+
+            if (emple.Count() > 0)   //es empleado
+            {
+                var cedula = emple[0].cedulaPK;
+                //se buscan los proyectos donde participa el empleado con la cedula
+                var proyectos = new proyectosController().ProyectsByEmployee(cedula);
+                ViewBag.ProyectList = new SelectList(proyectos, "codigoPK", "nombre");
+                TempData["proyectos"] = proyectos;
+                TempData.Keep();
+                return View();
+            }
+            else if (clien.Count() > 0) // es cliente
+            {
+                //Se obtiene la cedula del cliente
+                var cedula = clien[0].cedulaPK;
+                // buscamos un proyecto asignado al cliente pero ahora segun su cedula
+                var proyectos = new proyectosController().ProyectsByClient(cedula);
+                ViewBag.ProyectList = new SelectList(proyectos, "codigoPK", "nombre");
+                TempData["proyectos"] = proyectos;
+                TempData.Keep();
+                return View();
+            }
+            else  //es jefe de desarrollo o soporte
+            {
+                List<proyectos> proyectos = new proyectosController().Pass();
+                ViewBag.ProyectList = new SelectList(proyectos, "codigoPK", "nombre");
+                TempData["proyectos"] = proyectos;
+                TempData.Keep();
+                return View();
+            }
+
+
+
+
+            /*
+
             List<proyectos> proyectos = new proyectosController().Pass(); //se comunica con el controlador de proyectos para que le la lista de proyectos
             ViewBag.ProyectList = new SelectList(proyectos, "codigoPK", "nombre"); //contiene la lista de proyectos
             TempData["proyectos"] = proyectos; //se almacena en esa variable de datos temporales el proyecto seleccionado
             TempData.Keep();//se le pide mantener esos datos temporales
-            return View(); //se envía a la vista
+            return View(); //se envía a la vista*/
         }
         [HttpPost]
         public ActionResult Index(proyectos proyectito, modulos modulito)
@@ -41,6 +82,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 }
                 catch (NullReferenceException)
                 {
+                    TempData.Keep(); //se le solicita mantener los datos nuevamente
                     return RedirectToAction("Index", "requerimientos");//si ocurre error se redirige a página de selección
                 }
 
@@ -60,6 +102,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             List<modulos> modulos = new modulosController().PassByProyect(codigoProyecto);//se comunica con el controlador de módulos para que pase el listado de módulos de acuerdo al proyecto
             ViewBag.Moduls = new SelectList(modulos, "idPK", "nombre"); //ese listado se guarda en esta "vista"
 
+            TempData.Keep(); //se le solicita mantener los datos nuevamente
             return PartialView("ModulsPartial"); //se devuelve estos valores obtenidos a la vista parcial
         }
 
@@ -294,7 +337,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             bool resp = false;
 
             var listaReq = (from d in db.requerimientos
-                            where d.cedulaEmpleadoFK == cedula && (d.estado != "Finalizado" || d.estado != "Cancelado")
+                            where d.cedulaEmpleadoFK == cedula && (d.estado != "Finalizado" && d.estado != "Cancelado")
                             select d).Count(); //se realiza la busqueda de aquellos requerimientos que no estén finalizados ni cacelados 
             if (listaReq != 0) //si su resultado es difetente de 0
                 resp = true; //queire decir que hay un empleado asignado

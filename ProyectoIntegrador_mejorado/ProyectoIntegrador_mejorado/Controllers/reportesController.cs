@@ -13,7 +13,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
     {
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
 
-        // GET: reportes
+        //EFE: crea la lista para el dropdownlistde reportes
+        //REQ: NA
+        //MOD: crea la lista para el dropdownlistde reportes
         [HttpGet]
         public ActionResult Index()
         {
@@ -27,12 +29,18 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return RedirectToAction("SelectReport", "reportes");
         }
 
+        //EFE: redirige a la vista de seleccion de reporte
+        //REQ: entrar como redireccion de index
+        //MOD: NA
         public ActionResult SelectReport()
         {
             TempData.Keep();
             return View();
         }
 
+        //EFE: comprueba si el valor elegido en el dropdownlist es valido y redirige a la vista correspondiente
+        //REQ: entrar como redireccion de la vista de seleccionar proyecto
+        //MOD: NA
         [HttpPost]
         public ActionResult SelectReport(StringModel reporte)
         {
@@ -48,11 +56,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("SelectReport", "reportes");
         }
 
-        /*
-         * Efecto: Request GET de EmployeesDates
-         * Requiere: NA
-         * Modifica: NA
-         */
+        //EFE: redirige a la vista del reporte de empleados disponibles entre fechas
+        //REQ: NA
+        //MOD: NA
         public ActionResult EmployeesDates()
         {
             TempData.Keep();
