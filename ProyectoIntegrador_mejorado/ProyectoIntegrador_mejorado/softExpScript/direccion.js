@@ -8,6 +8,7 @@
             for (key in data) {
                 html += "<option value='" + key + "'>" + data[key] + "</option>";
             }
+            $('#provincia').empty();
             $("#provincia").append(html);
         }
     });
