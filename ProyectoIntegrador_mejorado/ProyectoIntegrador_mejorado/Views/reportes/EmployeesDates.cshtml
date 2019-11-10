@@ -37,7 +37,7 @@
 </script>
 
 
-
+@*Campo de texto para seleccionar las fechas para el reporte*@
 @using (Html.BeginForm("EmployeesDates", "reportes", FormMethod.Post))
 {
 
@@ -81,7 +81,7 @@
 
 
 
-
+@*si ya se tiene la lista de empleados se despliega en pantalla*@
 @{
     if (TempData["empl"] != null)
     {

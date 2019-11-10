@@ -294,7 +294,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             bool resp = false;
 
             var listaReq = (from d in db.requerimientos
-                            where d.cedulaEmpleadoFK == cedula && (d.estado != "Finalizado" || d.estado != "Cancelado")
+                            where d.cedulaEmpleadoFK == cedula && (d.estado != "Finalizado" && d.estado != "Cancelado")
                             select d).Count(); //se realiza la busqueda de aquellos requerimientos que no estén finalizados ni cacelados 
             if (listaReq != 0) //si su resultado es difetente de 0
                 resp = true; //queire decir que hay un empleado asignado
