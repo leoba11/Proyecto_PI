@@ -9,49 +9,46 @@
 <br />
 
 
+
+@*Título de seleccionar proyecto*@
+<h5> Seleccionar proyecto </h5>
+
 @using (Html.BeginForm("requerimientosDesarrollador", "reportes", FormMethod.Post))
 {
-    <div class="modal-body ">
-        <div class=".col-6 .col-sm-4">
-            <p>
-                Seleccionar Proyecto
-            </p>
+    if (ViewBag.proyectos != null)
+    {
+        @*Dropdown de selección de proyecto*@
+        @Html.DropDownListFor(model => model.codigoProy, ViewBag.proyectos as SelectList, "----------", new { @class = "form-control" })
 
-            @Html.DropDownListFor(model => model.codigoProy, (IEnumerable<SelectListItem>)TempData["proyectos"], "Seleccione un proyecto", new { @class = "form-control" })
-        </div>
+    }
+    <br />
+    @*Título de seleccionar modulo*@
+    <h5> Seleccionar empleado </h5>
+    @*Dropdown de selección de modulo vinculado con el proyecto previamente seleccionado*@
+    @Html.DropDownListFor(model => model.cedulaEmp, new SelectList(""), "----------", new { @class = "form-control" })
 
-        <br />
-
-        <div class=".col-6 .col-sm-4">
-            <p>
-                Seleccionar Empleado
-            </p>
-
-            @Html.DropDownListFor(model => model.cedulaEmp, (IEnumerable<SelectListItem>)TempData["empleados"], "Seleccione un empleado", new { @class = "form-control" })
-
-        </div>
-
-        <br />
-        <input type="submit" value="Generar reporte" />
-    </div>
+    <br />
+    @*Botón de seleccionar*@
+    <input type="submit" value="Generar reporte" />
 }
 
+
 <script>
-        $(document).ready(function () {
-            $("#codigoProy").change(function () {
-                var cod = $(this).val();
-                $.ajax({
-                    type: "Post",
-                    url: "/reportes/GetEmpList?codigo=" + cod,
-                    contentType: "html",
-                    success: function (response) {
-                        $("#cedulaEmp").empty();
-                        $("#cedulaEmp").append(response);
-                    }
-                })
+    $(document).ready(function () {
+        $("#codigoProy").change(function () {
+            var cod = $(this).val();
+            $.ajax({
+                type: "Post",
+                url: "/reportes/GetEmpList?codigoProyecto=" + cod,
+                contentType: "html",
+                success: function (response) {
+                    $("#cedulaEmp").empty();
+                    $("#cedulaEmp").append(response);
+                }
             })
-        });
-    </script>
+        })
+    });
+</script>
 
 @{
     if (TempData["req"] != null)
@@ -63,9 +60,7 @@
                 <th>
                     Requerimiento
                 </th>
-                <th>
-                    Nombre de Empleado
-                </th>
+
                 <th>
                     Estado
                 </th>
@@ -77,7 +72,7 @@
 
                 <tr>
                     <td>@item.nombre</td>
-                    <td>@item.empleados.nombre</td>
+
                     <td>@item.estado</td>
 
                 </tr>

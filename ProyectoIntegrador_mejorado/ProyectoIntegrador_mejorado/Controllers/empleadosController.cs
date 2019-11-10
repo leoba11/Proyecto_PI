@@ -226,5 +226,10 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return emp;
         }
 
+        public empleados EmpByCode(int projectCode, string cedula)
+        {
+            empleados empl = db.empleados.Find(projectCode, cedula); //se obtiene el empleado con el código de proyecto y propio, proporcionado en parámetros
+            return empl; //se devuelve ese empleado
+        }
     }
 }

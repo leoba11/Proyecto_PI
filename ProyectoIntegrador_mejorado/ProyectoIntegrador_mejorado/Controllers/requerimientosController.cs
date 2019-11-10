@@ -21,7 +21,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             List<proyectos> proyectos = new proyectosController().Pass(); //se comunica con el controlador de proyectos para que le la lista de proyectos
             ViewBag.ProyectList = new SelectList(proyectos, "codigoPK", "nombre"); //contiene la lista de proyectos
-            TempData["proyectos"] = proyectos; //se alacena en esa variable de datos temporales el proyecto seleccionado
+            TempData["proyectos"] = proyectos; //se almacena en esa variable de datos temporales el proyecto seleccionado
             TempData.Keep();//se le pide mantener esos datos temporales
             return View(); //se envía a la vista
         }
