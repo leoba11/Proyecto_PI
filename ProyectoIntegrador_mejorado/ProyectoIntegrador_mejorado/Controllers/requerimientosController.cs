@@ -20,6 +20,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //Esta método es llamado para desplegar el dropdown de selección del proyecto y módulo al cual se le quiere consultar sus requerimientos
         public ActionResult Index()
         {
+
             var user = User.Identity.GetUserName();
             var emple = new empleadosController().ExistEmail(user);
             var clien = new clientesController().ExistEmail(user);
@@ -27,6 +28,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             if (emple.Count() > 0)   //es empleado
             {
                 var cedula = emple[0].cedulaPK;
+                //se buscan los proyectos donde participa el empleado con la cedula
                 var proyectos = new proyectosController().ProyectsByEmployee(cedula);
                 ViewBag.ProyectList = new SelectList(proyectos, "codigoPK", "nombre");
                 TempData["proyectos"] = proyectos;
@@ -80,6 +82,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 }
                 catch (NullReferenceException)
                 {
+                    TempData.Keep(); //se le solicita mantener los datos nuevamente
                     return RedirectToAction("Index", "requerimientos");//si ocurre error se redirige a página de selección
                 }
 
@@ -99,6 +102,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             List<modulos> modulos = new modulosController().PassByProyect(codigoProyecto);//se comunica con el controlador de módulos para que pase el listado de módulos de acuerdo al proyecto
             ViewBag.Moduls = new SelectList(modulos, "idPK", "nombre"); //ese listado se guarda en esta "vista"
 
+            TempData.Keep(); //se le solicita mantener los datos nuevamente
             return PartialView("ModulsPartial"); //se devuelve estos valores obtenidos a la vista parcial
         }
 

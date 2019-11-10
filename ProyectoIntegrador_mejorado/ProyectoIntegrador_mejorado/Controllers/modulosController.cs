@@ -30,7 +30,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             if (emple.Count() > 0)   //es empleado
             {
+                //Se obtiene la cedula del empleado
                 var cedula = emple[0].cedulaPK;
+                //se buscan los proyectos donde participa el empleado con la cedula
                 var proyectos = new proyectosController().ProyectsByEmployee(cedula);
                 TempData["proyectos"] = proyectos;
                 TempData.Keep();
