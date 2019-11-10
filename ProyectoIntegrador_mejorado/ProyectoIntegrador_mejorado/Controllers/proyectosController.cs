@@ -25,8 +25,19 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             if (emple.Count() > 0)   //es empleado
             {
-                
-                var proyectos = db.proyectos.Include(p => p.clientes);
+                var cedula = emple[0].cedulaPK;
+                //var rolesList = new rolesController().getEmployeeRolesList(cedula);
+
+                //crear lista de proyectos
+                //var proyectos = db.proyectos.Where(p => rolesList.Any(w => w.codigoProyectoFK == p.codigoPK));
+                var proyectos = (from d in db.proyectos
+                                  join f in db.roles
+                                  on d.codigoPK equals f.codigoProyectoFK
+                                  where f.cedulaFK == cedula
+                                 select d).ToList();
+
+
+
                 return View(proyectos.ToList());
             }
             else if (clien.Count() > 0) // es cliente
@@ -39,7 +50,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 //var proyectos = db.proyectos.Include(p => p.clientes);
                 return View(proyectos.ToList());
             }
-            else  //es jefe de desarrollo o soporte
+            else  //es jefe de desarrollo o soporte, creo que seria necesario revisar el rol para verificar
             {
                 var proyectos = db.proyectos.Include(p => p.clientes);
                 return View(proyectos.ToList());
