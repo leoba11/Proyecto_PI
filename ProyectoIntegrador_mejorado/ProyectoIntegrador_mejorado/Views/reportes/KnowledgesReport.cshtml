@@ -9,7 +9,7 @@
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
-<h2>Conocimientos requeridos en un rango de fechas</h2>
+<h2>Frecuencia requerida de conocimientos entre fechas</h2>
 
 <script>
     $(document).ready(function () {
@@ -34,7 +34,7 @@
 @using (Html.BeginForm("KnowledgesReport", "reportes", FormMethod.Post))
 {
     /* campos para ingresar fecha inicial y final */
-    <div class="modal-body row" >
+    <div class="modal-body row">
         <div class=".col-6 .col-sm-4">
             <p>
                 Fecha inicial
@@ -52,6 +52,12 @@
         </div>
     </div>
     <input type="submit" value="Generar reporte" />
+    if (ViewBag.alert)
+    {
+        <br />
+        <br />
+        <div class="p-3 mb-2 required bg-danger text-white">@ViewBag.alertMessage</div>
+    }
 }
 
 <br />
@@ -64,7 +70,7 @@
         <table class="table table-responsive-md">
             <tr>
                 <th>
-                    Cantidad de veces requerido
+                    Frecuencia requerida
                 </th>
                 <th>
                     Conocimiento

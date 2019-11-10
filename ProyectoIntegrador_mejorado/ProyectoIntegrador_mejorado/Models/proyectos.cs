@@ -47,6 +47,7 @@ namespace ProyectoIntegrador_mejorado.Models
         [Display(Name = "Cédula de cliente")]
         public string cedulaClienteFK { get; set; }
         [Display(Name = "ID de equipo")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public Nullable<int> idEquipo { get; set; }
         [Display(Name = "Fecha final")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
