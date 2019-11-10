@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ProyectoIntegrador_mejorado.Models;
 namespace ProyectoIntegrador_mejorado.Controllers
 {
+    //Metodo limitado a estos Roles
     [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
     public class equiposController : Controller
     {

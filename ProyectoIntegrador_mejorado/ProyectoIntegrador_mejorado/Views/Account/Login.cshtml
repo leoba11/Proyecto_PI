@@ -4,6 +4,7 @@
     ViewBag.Title = "Iniciar sesión";
 }
 
+@*Titulo*@
 <h2>Inicia Sesión</h2>
 <div class="row">
     <div class="col-md-8">
@@ -14,6 +15,7 @@
                 @* <h4>Use una cuenta local para iniciar sesión.</h4> *@
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @*Campo para ingresar username con formato de Correo electronico*@
                 <div class="form-group required">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
@@ -21,6 +23,7 @@
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                @*Campo para ingresar password del ussername ingresado en el campo anterior*@
                 <div class="form-group required">
                     @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
@@ -28,6 +31,7 @@
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                @*Checkbox para recordar inicio de sesion*@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
@@ -36,6 +40,7 @@
                         </div>
                     </div>
                 </div>
+                @*Botones Iniciar Sesio - Nuevo Usuario*@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Iniciar sesión" class="btn btn-outline-primary" />

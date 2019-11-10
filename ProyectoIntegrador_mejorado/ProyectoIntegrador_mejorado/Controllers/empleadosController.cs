@@ -10,6 +10,7 @@ using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
+    //Metodo limitado a estos Roles
     [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
     public class empleadosController : Controller
     {
@@ -37,6 +38,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: empleados/Create
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Create()
         {
@@ -68,6 +70,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: empleados/Edit/5
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Edit(string cedulaPk)
         {
@@ -100,6 +103,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: empleados/Delete/5
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Delete(string cedulaPk)
         {

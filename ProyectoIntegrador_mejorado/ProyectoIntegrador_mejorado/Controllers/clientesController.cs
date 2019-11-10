@@ -10,6 +10,7 @@ using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
+    //Metodo limitado a estos Roles
     [Authorize(Roles = "Soporte, JefeDesarrollo, Desarrollador, Lider")]
     public class clientesController : Controller
     {
@@ -38,6 +39,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: clientes/Create
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Create()
         {

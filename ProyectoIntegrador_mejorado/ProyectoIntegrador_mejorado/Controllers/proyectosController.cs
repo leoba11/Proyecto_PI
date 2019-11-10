@@ -19,6 +19,10 @@ namespace ProyectoIntegrador_mejorado.Controllers
         // GET: proyectos
         public ActionResult Index()
         {
+            /*Para relacionar la persona loggeada con su respectiva instancia en la bd,
+             * con esto sabemos a que Rol pertenece
+             * y facilitamos el acceso correspondiente con los condicionales de abajo
+             */
             var user = User.Identity.GetUserName();
             var emple = new empleadosController().ExistEmail(user);
             var clien = new clientesController().ExistEmail(user);
@@ -47,6 +51,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: proyectos/Details/5
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Details(int? id)
         {
@@ -68,6 +73,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: proyectos/Create
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Create()
         {
@@ -100,6 +106,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: proyectos/Edit/5
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Edit(int? id)
         {
@@ -153,6 +160,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: proyectos/Delete/5
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo")]
         public ActionResult Delete(int? id)
         {

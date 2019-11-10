@@ -62,6 +62,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
         // GET: modulos/Details/5
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
         public ActionResult Details(int? codProyecto, int? id)
         {
@@ -79,6 +80,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: modulos/Create
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Create()
         {
@@ -125,6 +127,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: modulos/Edit/5
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Edit(int? codProyecto, int? id)
         {
@@ -168,6 +171,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: modulos/Delete/5
+        //Metodo limitado a estos Roles
         [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
         public ActionResult Delete(int? codProyecto, int? id)
         {

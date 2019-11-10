@@ -18,10 +18,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        //Constructor
         public AccountController()
         {
         }
 
+        //Constructor
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;

@@ -7,20 +7,19 @@
 
 <ul class="nav navbar-nav navbar-right">
     <li>
-        @*@Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", Style = "color:White;" }) *@
+        @*Para desplegar el username de la persona loggeada actualmente en el sistema*@
         <span class="label align-self-sm-baseline">@User.Identity.GetUserName()</span>
     </li>
+    @*Cerrar Sesion*@
     <li><a href="javascript:document.getElementById('logoutForm').submit()" class="btn">&nbsp;<i class="fas fa-sign-out-alt fa-lg" style="color:white"></i></a></li>
 </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        @* <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", Style = "color:White;" })</li>
-        <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", Style = "color:White;" })</li>
-        *@
-        <a class="nav-item nav-link" href="~/Account/Login">Iniciar Sesión</a>
-        <a class="nav-item nav-link" href="~/Account/Register">Registrarse</a>
-    </ul>
+<ul class="nav navbar-nav navbar-right">
+    @*Links para Iniciar Sesion y Registrarse en al navbar*@
+    <a class="nav-item nav-link" href="~/Account/Login">Iniciar Sesión</a>
+    <a class="nav-item nav-link" href="~/Account/Register">Registrarse</a>
+</ul>
 }
