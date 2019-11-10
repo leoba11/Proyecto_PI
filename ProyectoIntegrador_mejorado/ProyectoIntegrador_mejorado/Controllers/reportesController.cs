@@ -114,11 +114,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
             else
             {
+                //TempData.Keep();
                 return View();
             }
-            //TempData.Keep();
-            //TempData["req"] = db.cantidadReq(modelo.codigoProy, modelo.cedulaEmp).AsEnumerable();
-            //return View();
         }
 
         public ActionResult GetEmpList(int codigoProyecto)
