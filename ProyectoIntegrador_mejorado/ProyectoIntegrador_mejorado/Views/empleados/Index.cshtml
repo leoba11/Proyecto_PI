@@ -45,31 +45,34 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.cedulaPK)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.apellido1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.apellido2)
-                </td>
+            if (item.cedulaPK != "000000000")
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cedulaPK)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.apellido1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.apellido2)
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.fechaNacimiento)
-                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fechaNacimiento)
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.disponibilidad)
-                </td>
-                <td>
-                    <a href="@Url.Action("Details", new { cedulaPk = item.cedulaPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
-                </td>
-            </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.disponibilidad)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", new { cedulaPk = item.cedulaPK })"><i class="fas fa-info-circle fa-lg" style="color:steelblue"></i></a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>

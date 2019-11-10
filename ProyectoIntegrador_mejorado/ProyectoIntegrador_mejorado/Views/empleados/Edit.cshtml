@@ -23,8 +23,17 @@
         </div>
         <div class="card-body cont">
             <div>
+                
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.cedulaPK)
+
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.cedulaPK, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
+                        @Html.ValidationMessageFor(model => model.cedulaPK, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
                 <div class="form-group required">
                     @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -51,14 +60,6 @@
                 </div>
 
                 <div class="form-group required">
-                    @Html.LabelFor(model => model.edad, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.edad, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.edad, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group required">
                     @Html.LabelFor(model => model.fechaNacimiento, htmlAttributes: new { @class = "control-label col-md-6" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd") } })
@@ -79,7 +80,7 @@
                 <div class="form-group required">
                     @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.provincia, Enumerable.Empty<SelectListItem>(), "-- Select Name --", new { @class = "form-control", onchange = "getCanton()" })
+                        @Html.DropDownListFor(model => model.provincia, Enumerable.Empty<SelectListItem>(), "-- Seleccione provincia --", new { @class = "form-control", onchange = "getCanton()" })
                         @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -87,7 +88,7 @@
                 <div class="form-group required">
                     @Html.LabelFor(model => model.canton, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.canton, Enumerable.Empty<SelectListItem>(), "-- Select Name --", new { @class = "form-control", onchange = "getDistrict()" })
+                        @Html.DropDownListFor(model => model.canton, Enumerable.Empty<SelectListItem>(), "-- Seleccione Canton --", new { @class = "form-control", onchange = "getDistrict()" })
                         @Html.ValidationMessageFor(model => model.canton, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -95,7 +96,7 @@
                 <div class="form-group required">
                     @Html.LabelFor(model => model.distrito, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.distrito, Enumerable.Empty<SelectListItem>(), "-- Select Name --", new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.distrito, Enumerable.Empty<SelectListItem>(), "-- Seleccione Distrito --", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.distrito, "", new { @class = "text-danger" })
                     </div>
                 </div>
