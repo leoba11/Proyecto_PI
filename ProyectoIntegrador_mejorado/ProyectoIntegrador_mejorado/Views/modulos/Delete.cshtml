@@ -66,8 +66,14 @@
         @Html.AntiForgeryToken()
         @*Botones de aceptar y regresar(cancelar) *@
         <div class="form-actions no-color">
-            <input type="submit" value="Aceptar" class="btn btn-success" /> &nbsp;
+            <input type="submit" value="Aceptar" onclick="myFunction()" class="btn btn-success" /> &nbsp;
             <a href="~/modulos/Lista" role="button" class="btn btn-danger"> Cancelar</a>
         </div>
     }
 </div>
+
+<script>
+    function myFunction() {
+        alert("¡Módulo borrado exitosamente!");
+    }
+</script>

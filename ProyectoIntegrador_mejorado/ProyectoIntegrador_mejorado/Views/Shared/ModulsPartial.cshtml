@@ -1,6 +1,8 @@
 ﻿<option value=""> ---------- </option>
+@*Esta vista parcial corresponde al dropdown en casacada con el proyecto y módulo*@
 @if (ViewBag.Moduls != null)
 {
+    //aquí se despliegan los módulos de acuerdo al proyecto seleccionado
     foreach (var item in ViewBag.Moduls)
     {
         <option value="@item.Value">@item.Text</option>
