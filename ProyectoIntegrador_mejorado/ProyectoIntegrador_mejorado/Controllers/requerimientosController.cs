@@ -314,7 +314,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             bool resp = false;
 
             var listaReq = (from d in db.requerimientos
-                            where d.cedulaEmpleadoFK == cedula && (d.estado != "Finalizado" || d.estado != "Cancelado")
+                            where d.cedulaEmpleadoFK == cedula && (d.estado != "Finalizado" && d.estado != "Cancelado")
                             select d).Count();
             if (listaReq != 0)
                 resp = true;

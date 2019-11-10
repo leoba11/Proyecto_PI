@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador_mejorado.Models;
+using Microsoft.AspNet.Identity;
 namespace ProyectoIntegrador_mejorado.Controllers
 {
     //Metodo limitado a estos Roles
-    [Authorize(Roles = "Soporte, JefeDesarrollo, Lider")]
+    [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
     public class equiposController : Controller
     {
         //EFE: trae los datos necesarios para equipos y llama el metodo para seleccionar el proyecto
@@ -15,12 +16,29 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //MOD: crea variables temporales para guardar los empleados libres, los proyectos y la lista de conocimientos
         public ActionResult Index()
         {
-            List<proyectos> proyectos = new proyectosController().Pass();
-            List<string> conocimientos = new conocimientosController().PassKnowledge();
-            TempData["proyectos"] = proyectos;
-            TempData["conocimientos"] = conocimientos;
-            TempData.Keep();
-            return RedirectToAction("SelectProject", "equipos");
+            var user = User.Identity.GetUserName();
+            var emple = new empleadosController().ExistEmail(user);
+
+
+            if (emple.Count() > 0)   //es empleado
+            {
+                var cedula = emple[0].cedulaPK;
+                List<proyectos> proyectos = new proyectosController().GetLidetedProyects(cedula);
+                List<string> conocimientos = new conocimientosController().PassKnowledge();
+                TempData["proyectos"] = proyectos;
+                TempData["conocimientos"] = conocimientos;
+                TempData.Keep();
+                return RedirectToAction("SelectProject", "equipos");
+            }
+            else
+            {
+                List<proyectos> proyectos = new proyectosController().Pass();
+                List<string> conocimientos = new conocimientosController().PassKnowledge();
+                TempData["proyectos"] = proyectos;
+                TempData["conocimientos"] = conocimientos;
+                TempData.Keep();
+                return RedirectToAction("SelectProject", "equipos");
+            }
         }
 
 

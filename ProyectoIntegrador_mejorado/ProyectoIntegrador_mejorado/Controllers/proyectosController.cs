@@ -17,6 +17,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
 
         // GET: proyectos
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador, Cliente")]
         public ActionResult Index()
         {
             /*Para relacionar la persona loggeada con su respectiva instancia en la bd,
@@ -29,8 +30,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             if (emple.Count() > 0)   //es empleado
             {
-                
-                var proyectos = db.proyectos.Include(p => p.clientes);
+                var cedula = emple[0].cedulaPK;
+                var proyectos = (from d in db.proyectos
+                                 join f in db.roles
+                                 on d.codigoPK equals f.codigoProyectoFK
+                                 where f.cedulaFK == cedula
+                                 select d).ToList();
                 return View(proyectos.ToList());
             }
             else if (clien.Count() > 0) // es cliente
@@ -52,7 +57,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
         // GET: proyectos/Details/5
         //Metodo limitado a estos Roles
-        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador, Cliente")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -232,6 +237,15 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return resp;
         }
 
+        public List<proyectos> GetLidetedProyects(string cedula)
+        {
+            var proyectos = (from d in db.proyectos
+                             join f in db.roles
+                             on d.codigoPK equals f.codigoProyectoFK
+                             where f.cedulaFK == cedula && f.rol == "Líder"
+                             select d).ToList();
+            return proyectos;
+        }
 
     }
 }
