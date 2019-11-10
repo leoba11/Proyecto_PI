@@ -17,6 +17,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
 
         // GET: proyectos
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador, Cliente")]
         public ActionResult Index()
         {
             var user = User.Identity.GetUserName();
@@ -50,7 +51,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 //var proyectos = db.proyectos.Include(p => p.clientes);
                 return View(proyectos.ToList());
             }
-            else  //es jefe de desarrollo o soporte, creo que seria necesario revisar el rol para verificar
+            else  //es jefe de desarrollo o soporte
             {
                 var proyectos = db.proyectos.Include(p => p.clientes);
                 return View(proyectos.ToList());
@@ -58,7 +59,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         // GET: proyectos/Details/5
-        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
+        [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador, Cliente")]
         public ActionResult Details(int? id)
         {
             if (id == null)
