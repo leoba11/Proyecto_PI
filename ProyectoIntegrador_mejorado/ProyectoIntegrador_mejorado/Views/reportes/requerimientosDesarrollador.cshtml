@@ -9,7 +9,7 @@
 </h2>
 <br />
 
-
+@* Form con valores para utilizar el sp *@
 @using (Html.BeginForm("requerimientosDesarrollador", "reportes", FormMethod.Post))
 {
     <div class="modal-body ">
@@ -37,6 +37,7 @@
     </div>
 }
 
+@*Script para hacer el dropdown en cascada*@
 <script>
     $(document).ready(function () {
         $("#codigoProy").change(function () {

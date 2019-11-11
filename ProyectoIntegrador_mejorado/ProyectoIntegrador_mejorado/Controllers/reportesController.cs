@@ -91,9 +91,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpPost]
         public ActionResult requerimientosDesarrollador(FechasModel modelo)
         {
-            TempData.Keep();
-            TempData["req"] = db.cantidadReq(modelo.codigoProy, modelo.cedulaEmp).AsEnumerable();
-            return View();
+            TempData.Keep(); // Para mantener los datos
+            TempData["req"] = db.cantidadReq(modelo.codigoProy, modelo.cedulaEmp).AsEnumerable(); // Proc almacenado para traer los requerimientos del empleado
+            return View(); // Regresar a la vista
         }
 
         public ActionResult GetEmpList(int codigoProyecto)
