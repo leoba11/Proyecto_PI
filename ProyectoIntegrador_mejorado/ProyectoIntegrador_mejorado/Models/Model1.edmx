@@ -46,6 +46,7 @@
           <Property Name="direccionDetallada" Type="varchar(max)" />
           <Property Name="disponibilidad" Type="bit" Nullable="false" />
           <Property Name="cantidadRequerimientos" Type="int" />
+          <Property Name="fechaContratacion" Type="date" />
         </EntityType>
         <EntityType Name="modulos">
           <Key>
@@ -335,6 +336,7 @@
           <NavigationProperty Name="requerimientos" Relationship="Self.FK_cedula_Empleado" FromRole="empleados" ToRole="requerimientos" />
           <NavigationProperty Name="roles" Relationship="Self.FK_cedulaEmpleado" FromRole="empleados" ToRole="roles" />
           <Property Name="cantidadRequerimientos" Type="Int32" />
+          <Property Name="fechaContratacion" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="modulos">
           <Key>
@@ -691,6 +693,7 @@
           <EntitySetMapping Name="empleados">
             <EntityTypeMapping TypeName="Gr02Proy1Model.empleados">
               <MappingFragment StoreEntitySet="empleados">
+                <ScalarProperty Name="fechaContratacion" ColumnName="fechaContratacion" />
                 <ScalarProperty Name="cantidadRequerimientos" ColumnName="cantidadRequerimientos" />
                 <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />

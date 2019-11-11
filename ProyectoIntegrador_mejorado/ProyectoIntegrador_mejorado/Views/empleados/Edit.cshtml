@@ -23,7 +23,7 @@
         </div>
         <div class="card-body cont">
             <div>
-                
+
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.cedulaPK)
 
@@ -64,6 +64,14 @@
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd") } })
                         @Html.ValidationMessageFor(model => model.fechaNacimiento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.fechaContratacion, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fechaContratacion, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd") } })
+                        @Html.ValidationMessageFor(model => model.fechaContratacion, "", new { @class = "text-danger" })
                     </div>
                 </div>
 

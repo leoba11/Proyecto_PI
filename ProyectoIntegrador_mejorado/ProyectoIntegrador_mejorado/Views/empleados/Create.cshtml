@@ -65,6 +65,14 @@
                 </div>
 
                 <div class="form-group required">
+                    @Html.LabelFor(model => model.fechaContratacion, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fechaContratacion, new { htmlAttributes = new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd") } })
+                        @Html.ValidationMessageFor(model => model.fechaContratacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group required">
                     @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
