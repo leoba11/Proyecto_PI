@@ -5,7 +5,7 @@
 }
 
 <h2>
-    Consultar Requerimientos de un Desarrollador
+    Consultar Cantidad de Requerimientos de un Desarrollador
 </h2>
 <br />
 
@@ -20,40 +20,12 @@
 
             @Html.DropDownListFor(model => model.codigoProy, (IEnumerable<SelectListItem>)TempData["proyectos"], "Seleccione un proyecto", new { @class = "form-control" })
         </div>
-
-        <br />
-
-        <div class=".col-6 .col-sm-4">
-            <p>
-                Seleccionar Empleado
-            </p>
-
-            @Html.DropDownListFor(model => model.cedulaEmp, (IEnumerable<SelectListItem>)TempData["empleados"], "Seleccione un empleado", new { @class = "form-control" })
-
-        </div>
-
+      
         <br />
         <input type="submit" value="Generar reporte" />
     </div>
 }
 
-@*Script para hacer el dropdown en cascada*@
-<script>
-    $(document).ready(function () {
-        $("#codigoProy").change(function () {
-            var cod = $(this).val();
-            $.ajax({
-                type: "Post",
-                url: "/reportes/GetEmpList?codigoProyecto=" + cod,
-                contentType: "html",
-                success: function (response) {
-                    $("#cedulaEmp").empty();
-                    $("#cedulaEmp").append(response);
-                }
-            })
-        })
-    });
-</script>
 
 @{
     if (TempData["req"] != null)
@@ -63,23 +35,23 @@
         <table class="table table-responsive-md">
             <tr>
                 <th>
-                    Requerimiento
+                    Nombre de Empleado
                 </th>
 
                 <th>
-                    Estado
+                    Cantidad requerimientos asignados
                 </th>
 
             </tr>
 
-            @foreach (var item in (TempData["req"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
+            @foreach (var item in (TempData["req"] as IEnumerable<ProyectoIntegrador_mejorado.Models.empleados>))
             {
 
-                <tr>
-                    <td>@item.nombre</td>
-                    <td>@item.estado</td>
+            <tr>
+                <td>@item.nombre</td>
+                <td>@item.cantidadRequerimientos</td>
 
-                </tr>
+            </tr>
 
             }
 

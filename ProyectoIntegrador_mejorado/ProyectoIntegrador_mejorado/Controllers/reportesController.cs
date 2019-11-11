@@ -92,7 +92,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult requerimientosDesarrollador(FechasModel modelo)
         {
             TempData.Keep(); // Para mantener los datos
-            TempData["req"] = db.cantidadReq(modelo.codigoProy, modelo.cedulaEmp).AsEnumerable(); // Proc almacenado para traer los requerimientos del empleado
+            TempData["req"] = new empleadosController().GetEmployeeByProyect(modelo.codigoProy);
             return View(); // Regresar a la vista
         }
 

@@ -23,6 +23,10 @@ textarea {
     max-width: 280px;
 }
 
+.cont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 
 .bot {
     text-align: center;
