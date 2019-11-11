@@ -188,7 +188,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
         }
 
-
+        //devuelve los desarrolladores de un proyecto
         public List<empleados> GetEmployeeByProyect(int codigo)
         {
             var listaEmpPr = (from d in db.empleados
@@ -202,7 +202,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return listaEmpPr;
         }
 
-
+        //devuelve todos los empleados que participaron en un proyecto
         public List<empleados> GetEveryEmployeeByProyect(int codigo)
         {
             var listaEmpPr = (from d in db.empleados
@@ -222,7 +222,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return empleados;
         }
 
-
+        //devuelve el empleado con este correo
         public List<empleados> ExistEmail (string email)
         {
             var emp = (from d in db.empleados
@@ -232,10 +232,25 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return emp;
         }
 
+        //devuelve el empleado, segun la cedula
         public empleados EmpByCode(int projectCode, string cedula)
         {
             empleados empl = db.empleados.Find(projectCode, cedula); //se obtiene el empleado con el código de proyecto y propio, proporcionado en parámetros
             return empl; //se devuelve ese empleado
+        }
+
+        //devuelve los empleados de un proyecto y el comodin
+        public List<empleados> GetEmployeeByProyectWithNA(int codigo)
+        {
+            var listaEmpPr = (from d in db.empleados
+                              join f in db.roles
+                              on d.cedulaPK equals f.cedulaFK
+                              where d.cedulaPK == "000000000" || (f.codigoProyectoFK == codigo && f.rol != "Líder")
+                              select d).ToList();
+
+
+
+            return listaEmpPr;
         }
     }
 }

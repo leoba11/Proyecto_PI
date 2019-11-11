@@ -163,7 +163,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 int codigo = int.Parse(TempData["proyecto"].ToString());//se obtiene el código de proyecto
                 int idMod = int.Parse(TempData["modulos"].ToString());//se botiene el código de módulo
 
-                ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre"); //se comunica con el controlador de empleados para que solo se muestren los empleados disponibles
+                ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetEmployeeByProyectWithNA(codigo), "cedulaPK", "nombre"); //se comunica con el controlador de empleados para que solo se muestren los empleados disponibles
                 ViewBag.codigoProyectoFK = new SelectList(new proyectosController().PassByCode(codigo), "codigoPK", "nombre");//se comunica con el controlador de proyectos, para que solo se mueste el proyecto en el que se está
                 ViewBag.idModuloFK = new SelectList(new modulosController().PassByCode(idMod), "idPK", "nombre");//se comunica con el controlador de módulos para que solo muestre el módulo  en el que se está
                 return View(req); //se manda todo eso a la vista
@@ -202,7 +202,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 int codigo = int.Parse(TempData["proyecto"].ToString()); //se obtiene el código del proyecto
                 int idMod = int.Parse(TempData["modulos"].ToString()); //se obtiene el código del módulo
 
-                ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK); //se seleccionan solo los empleados disponibles
+                ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetEmployeeByProyectWithNA(codigo), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK); //se seleccionan solo los empleados disponibles
                 ViewBag.codigoProyectoFK = new SelectList(new proyectosController().PassByCode(codigo), "codigoPK", "nombre", requerimientos.codigoProyectoFK); //se selecciona solo el proyecto actual
                 ViewBag.idModuloFK = new SelectList(new modulosController().PassByCode(idMod), "idPK", "nombre", requerimientos.idModuloFK);//se selecciona solo el módulo actual
                 return View(requerimientos); //se envía eso a la vista
@@ -265,9 +265,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return HttpNotFound(); //página de error
             }
             var estados = GetAllStates(); //se obtienen de nuevo todos los estados de un requerimiento (esto se hace para el el dropdown sea editable)
-
+            var codigo = idProyecto ?? default(int);
             requerimientos.estados = GetSelectListItems(estados); //se vuelven a setear en el módelo
-            ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre"); //hace que sólo se muestren los empelados que están disponibles
+            ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetEmployeeByProyectWithNA(codigo), "cedulaPK", "nombre"); //hace que sólo se muestren los empelados que están disponibles
             return View(requerimientos);//se manda a la vista 
         }
 
@@ -290,7 +290,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             var estados = GetAllStates();
 
             requerimientos.estados = GetSelectListItems(estados); //se setean los estados en el modelo
-            ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetFreeEmployees(), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK); //solo permite que se muestren los empelados disponibles
+            ViewBag.cedulaEmpleadoFK = new SelectList(new empleadosController().GetEmployeeByProyectWithNA(requerimientos.codigoProyectoFK), "cedulaPK", "nombre", requerimientos.cedulaEmpleadoFK); //solo permite que se muestren los empelados disponibles
             return View(requerimientos); //se devuelve a la vista
 
 
