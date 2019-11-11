@@ -53,6 +53,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cedulaEmpleadoFK,conocimientoPK")] conocimientos conocimientos)
         {
+            if (db.conocimientos.Any(x => x.conocimientoPK == conocimientos.conocimientoPK) && db.conocimientos.Any(x => x.cedulaEmpleadoFK == conocimientos.cedulaEmpleadoFK) )
+            {
+                ModelState.AddModelError("conocimientoPK", "No se puede agregar mas de una vez el mismo conocimiento");
+                ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", conocimientos.cedulaEmpleadoFK);
+                return View(conocimientos);
+            }
 
             if (ModelState.IsValid)
             {
@@ -61,7 +67,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("Index", new { id = conocimientos.cedulaEmpleadoFK });
             }
 
-            ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", conocimientos.cedulaEmpleadoFK);
+            //ViewBag.cedulaEmpleadoFK = new SelectList(db.empleados, "cedulaPK", "nombre", conocimientos.cedulaEmpleadoFK);
             return View(conocimientos);
         }
 

@@ -15,7 +15,7 @@
     <div class="card-header">
         <h4>Administrador de conocimientos</h4>
     </div>
-    <div class="card-body cont">
+    <div class="card-body ">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.cedulaEmpleadoFK, htmlAttributes: new { @class = "control-label col-md-6" })
@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group required">
-            @Html.LabelFor(model => model.conocimientoPK, htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.conocimientoPK, htmlAttributes: new { @class = "control-label col-md-6" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.conocimientoPK, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
                 @Html.ValidationMessageFor(model => model.conocimientoPK, "", new { @class = "text-danger" })
