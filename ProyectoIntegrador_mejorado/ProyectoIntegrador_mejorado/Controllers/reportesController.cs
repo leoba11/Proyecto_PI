@@ -160,6 +160,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult KnowledgesReport()
         {
             TempData["conocimientos"] = null;
+            ViewBag.alert = false;
             TempData.Keep();
             return View();
         }
@@ -175,22 +176,24 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             if (fechas.Fecha1 != null && fechas.Fecha2 != null)
             {
+                ViewBag.alert = false;
                 if (fechas.Fecha1 <= fechas.Fecha2)
                 {
                     TempData.Keep();
-                    TempData["conocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
+                    TempData["conocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).ToList();
                     TempData["fechas"] = fechas;
                     return View();
                 }
                 else
                 {
-
+                    ViewBag.alert = true;
+                    ViewBag.alertMessage = "La fecha inicial debe ser menor a la fecha final.";
                     return View();
                 }
             }
             else
             {
-                TempData.Keep();
+                TempData["conocimientos"] = null;
                 return View();
             }
         }
