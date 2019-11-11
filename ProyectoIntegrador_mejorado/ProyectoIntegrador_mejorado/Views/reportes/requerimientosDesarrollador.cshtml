@@ -1,37 +1,40 @@
-﻿
-@model ProyectoIntegrador_mejorado.Models.FechasModel
+﻿@model ProyectoIntegrador_mejorado.Models.FechasModel
 
 @{
     ViewBag.Title = "requerimientosDesarrollador";
 }
 
-<h2>Consultar Requerimientos de un Desarrollador</h2>
+<h2>
+    Consultar Requerimientos de un Desarrollador
+</h2>
 <br />
 
 
-
-@*Título de seleccionar proyecto*@
-<h5> Seleccionar proyecto </h5>
-
 @using (Html.BeginForm("requerimientosDesarrollador", "reportes", FormMethod.Post))
 {
-    if (ViewBag.proyectos != null)
-    {
-        @*Dropdown de selección de proyecto*@
-        @Html.DropDownListFor(model => model.codigoProy, ViewBag.proyectos as SelectList, "----------", new { @class = "form-control" })
+    <div class="modal-body ">
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Seleccionar Proyecto
+            </p>
 
-    }
+            @Html.DropDownListFor(model => model.codigoProy, (IEnumerable<SelectListItem>)TempData["proyectos"], "Seleccione un proyecto", new { @class = "form-control" })
+        </div>
 
-    <br />
-    @*Título de seleccionar modulo*@
-    <h5> Seleccionar empleado </h5>
-    @*Dropdown de selección de modulo vinculado con el proyecto previamente seleccionado*@
-    @Html.DropDownListFor(model => model.cedulaEmp, new SelectList(""), "----------", new { @class = "form-control" })
+        <br />
 
-    <br />
-    @*Botón de seleccionar*@
-    <input type="submit" value="Generar reporte" />
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Seleccionar Empleado
+            </p>
 
+            @Html.DropDownListFor(model => model.cedulaEmp, (IEnumerable<SelectListItem>)TempData["empleados"], "Seleccione un empleado", new { @class = "form-control" })
+
+        </div>
+
+        <br />
+        <input type="submit" value="Generar reporte" />
+    </div>
 }
 
 <script>
@@ -73,7 +76,6 @@
 
                 <tr>
                     <td>@item.nombre</td>
-
                     <td>@item.estado</td>
 
                 </tr>

@@ -73,14 +73,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
          */
         public ActionResult requerimientosDesarrollador()
         {
-
-            //List<empleados> empleados = new empleadosController().Pass();
-            //ViewBag.empleados = new SelectList(empleados, "cedulaPK", "nombre");
-            //TempData["empleados"] = new SelectList(empleados, "cedulaPK", "nombre");
-
             List<proyectos> proyectos = new proyectosController().Pass();
-            ViewBag.proyectos = new SelectList(proyectos, "codigoPK", "nombre");
+            List<empleados> empleados = new empleadosController().Pass();
+            //ViewBag.proyectos = new SelectList(proyectos, "codigoPK", "nombre");
+            //ViewBag.empleados = new SelectList(empleados, "cedulaPK", "nombre");
             TempData["proyectos"] = new SelectList(proyectos, "codigoPK", "nombre");
+            TempData["empleados"] = new SelectList(empleados, "cedulaPK", "nombre");
             TempData.Keep();
             return View();
         }
@@ -91,32 +89,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
          * Modifica: NA
          */
         [HttpPost]
-        public ActionResult requerimientosDesarrollador(proyectos proy, empleados emp)
+        public ActionResult requerimientosDesarrollador(FechasModel modelo)
         {
-            if(proy.codigoPK != 0 && emp.cedulaPK != null)
-            {
-                TempData["proyecto"] = proy.codigoPK; //se obtiene el código del proyecto
-                TempData["nombreProyecto"] = new proyectosController().ProjectByCode(int.Parse(TempData["proyecto"].ToString())).nombre; //se obtiene el nombre a partir del código anterior
-                TempData["empleados"] = emp.cedulaPK;//se obtiene el código del empleado
-
-                try
-                {//se comunica con el controlador de empleados para que le pase los nombres de empleado asociados con el proyecto y cedula de empleado seleccioando
-                    TempData["nombreEmpleado"] = new empleadosController().EmpByCode(int.Parse(TempData["proyecto"].ToString()), TempData["empleados"].ToString()).nombre;
-                }
-                catch (NullReferenceException)
-                {
-                    return RedirectToAction("requerimientosDesarrollador", "reportes");//si ocurre error se redirige a página de selección
-                }
-
-                TempData.Keep(); //se le solicita mantener los datos nuevamente
-                TempData["req"] = db.cantidadReq(proy.codigoPK, emp.cedulaPK).AsEnumerable();
-                return View();
-            }
-            else
-            {
-                //TempData.Keep();
-                return View();
-            }
+            TempData.Keep();
+            TempData["req"] = db.cantidadReq(modelo.codigoProy, modelo.cedulaEmp).AsEnumerable();
+            return View();
         }
 
         public ActionResult GetEmpList(int codigoProyecto)
