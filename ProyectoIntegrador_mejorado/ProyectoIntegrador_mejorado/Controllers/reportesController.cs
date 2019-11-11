@@ -23,6 +23,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
             reportes.Add(new StringModel { Nombre = "Conocimientos más requeridos" });
             reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
+            reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
             TempData["reportes"] = reportes;
             TempData.Keep();
 
@@ -52,6 +53,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("KnowledgesReport", "reportes");
             else if (reporte.Nombre == "Empleados disponibles entre fechas")
                 return RedirectToAction("EmployeesDates", "reportes");
+            else if (reporte.Nombre == "Estado requerimientos de desarrollador")
+                return RedirectToAction("EmployeeRequirements", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
@@ -174,6 +177,52 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return View();
             }
         }
+
+
+
+
+        //EFE: redirige a la vista del reporte de estado de requerimientos para un desarrollador
+        //REQ: NA
+        //MOD: NA
+        public ActionResult EmployeeRequirements()
+        {
+            /*si el usuario es empleado, mostrar de una vez su vista*/
+
+
+            /*si es jefe de desarrollo o soporte*/
+            TempData["empleados"] = new empleadosController().Pass();
+            TempData.Keep();
+            return View();
+            //return RedirectToAction("SelectReport", "reportes");
+        }
+
+
+        /*
+         * Efecto: Request POST de EmployeeRequirements
+         * Requiere: fecha inicial y final
+         * Modifica: NA
+         */
+        [HttpPost]
+        public ActionResult EmployeeRequirements(empleados empleado)
+        {
+            if (empleado.cedulaPK != null)
+            {
+                TempData["requerimientos"] = new requerimientosController().GetRequirementsByEmployee(empleado.cedulaPK);
+                TempData.Keep();
+                return View();
+            }
+            else
+            {
+
+                TempData.Keep();
+                return View();
+            }
+        }
+
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {

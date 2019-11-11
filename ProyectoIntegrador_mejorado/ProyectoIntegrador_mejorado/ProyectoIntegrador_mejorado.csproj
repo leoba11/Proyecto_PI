@@ -457,6 +457,7 @@
     <Content Include="Views\reportes\requerimientosDesarrollador.cshtml" />
     <Content Include="Views\requerimientos\Lista.cshtml" />
     <Content Include="Views\Shared\ModulsPartial.cshtml" />
+    <Content Include="Views\reportes\EmployeeRequirements.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

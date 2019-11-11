@@ -355,5 +355,15 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //devuelve un lista con los requerimientos asignados a un desarrollador
+        public List<requerimientos> GetRequirementsByEmployee(string cedula)
+        {
+            var listaReq = (from d in db.requerimientos
+                            where d.cedulaEmpleadoFK == cedula
+                            select d).ToList();
+            return listaReq;
+        }
+
     }
 }

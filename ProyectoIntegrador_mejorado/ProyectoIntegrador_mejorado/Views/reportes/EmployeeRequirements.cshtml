@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Estado del desarrollo de requerimientos asignados a un desarrollador";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+<h2>Estado del desarrollo de requerimientos asignados a un desarrollador</h2>
+<br />
+
+
+
+@*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
+@using (Html.BeginForm("EmployeeRequirements", "reportes", FormMethod.Post))
+{
+    <p>Seleccione un empleado</p>
+    if (TempData["empleados"] != null)
+    {
+        @Html.DropDownList("cedulaPK", new SelectList(TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>, "cedulaPK", "nombre"), "----------")
+    }
+    @*boton para aceptar el proyecto seleccionado y continuar*@
+    <input type="submit" value="Seleccionar" />
+}
+
+
+<br />
+<br />
+
+
+
+@*si ya se tiene la lista de empleados se despliega en pantalla*@
+@{
+    if (TempData["requerimientos"] != null)
+    {
+
+
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Estado
+                </th>
+
+            </tr>
+
+            @foreach (var item in (TempData["requerimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
+            {
+
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.estado</td>
+
+                </tr>
+
+            }
+
+        </table>
+
+    }
+}
+
