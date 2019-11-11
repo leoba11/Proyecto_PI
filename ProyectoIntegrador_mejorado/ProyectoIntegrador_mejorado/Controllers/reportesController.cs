@@ -191,6 +191,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             /*si es jefe de desarrollo o soporte*/
             TempData["empleados"] = new empleadosController().Pass();
+            TempData["requerimientos"] = null;
+            TempData["empSelect"] = null;
             TempData.Keep();
             return View();
             //return RedirectToAction("SelectReport", "reportes");
@@ -207,6 +209,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             if (empleado.cedulaPK != null)
             {
+                TempData["empSelect"] = new empleadosController().GetEmployee(empleado.cedulaPK);
                 TempData["requerimientos"] = new requerimientosController().GetRequirementsByEmployee(empleado.cedulaPK);
                 TempData.Keep();
                 return View();

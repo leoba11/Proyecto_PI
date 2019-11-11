@@ -27,7 +27,14 @@
 
 <br />
 <br />
+@if (TempData["empSelect"] != null)
+{
+    <p>
+        Empleado:
+        @((TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
 
+    </p>
+}
 
 
 @*si ya se tiene la lista de empleados se despliega en pantalla*@
