@@ -365,5 +365,37 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return listaReq;
         }
 
+        public List<ProyectTimesModel> GetTotalTimes()
+        {
+            var lista = db.requerimientos.Select(x => new ProyectTimesModel
+            {
+                codigoProy = x.codigoProyectoFK,
+                tiempoEstimado = DbFunctions.DiffDays(x.fechaInicio, x.duracionEstimada),
+                tiempoReal = DbFunctions.DiffDays(x.fechaInicio, x.fechaFin)
+            }).ToList();
+
+            /*
+             var lista = db.requerimientos.GroupBy(z => z.codigoProyectoFK).Select(x => new ProyectTimesModel
+            {
+                codigoProy = x.codigoProyectoFK,
+                tiempoEstimado = DbFunctions.DiffDays(x.fechaInicio, x.duracionEstimada),
+                tiempoReal = DbFunctions.DiffDays(x.fechaInicio, x.fechaFin)
+            }).ToList();
+            */
+
+            /*
+            var lista = db.requerimientos.Include("proyectos").GroupBy(e => e.codigoProyectoFK).Select(y => new ProyectTimesModel
+            {
+                codigoProy = y.Key,
+                tiempoEstimado = y. - y.fechaInicio,
+                tiempoReal = y.fechaFin - y.fechaInicio
+            }).ToList();*/
+
+
+
+            return lista;
+
+
+        }
     }
 }

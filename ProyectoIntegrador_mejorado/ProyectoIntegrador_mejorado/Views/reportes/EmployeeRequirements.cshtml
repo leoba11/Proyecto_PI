@@ -49,6 +49,15 @@
                     Nombre
                 </th>
                 <th>
+                    Fecha de inicio
+                </th>
+                <th>
+                    Fecha final estimada
+                </th>
+                <th>
+                    Fecha de finalización
+                </th>
+                <th>
                     Estado
                 </th>
 
@@ -57,11 +66,14 @@
             @foreach (var item in (TempData["requerimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
             {
 
-                <tr>
-                    <td>@item.nombre</td>
-                    <td>@item.estado</td>
+        <tr>
+            <td>@item.nombre</td>
+            <td>@item.fechaInicio</td>
+            <td>@item.duracionEstimada</td>
+            <td>@item.fechaFin</td>
+            <td>@item.estado</td>
 
-                </tr>
+        </tr>
 
             }
 

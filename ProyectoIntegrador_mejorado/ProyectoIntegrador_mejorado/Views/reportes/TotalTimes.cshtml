@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "TotalTimes";
+}
+
+<h2>Tiempo estimado y real por proyecto para completar los requerimientos</h2>
+
+<br />
+<br />
+
+@*si ya se tiene la lista de empleados se despliega en pantalla*@
+@{
+    if (TempData["proyectos"] != null)
+    {
+
+
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Proyecto
+                </th>
+                <th>
+                    Tiempo estimado total
+                </th>
+                <th>
+                    Tiempo real total
+                </th>
+
+            </tr>
+
+            @foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
+            {
+
+                <tr>
+                    @*sacar el nombre del proyecto, con el codigo*@
+                    <td>@item.codigoProy</td>
+                    <td>@item.tiempoEstimado</td> 
+                    <td>@item.tiempoReal</td> 
+
+                </tr>
+
+            }
+
+        </table>
+
+    }
+}
+

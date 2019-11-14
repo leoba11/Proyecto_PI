@@ -16,6 +16,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //EFE: crea la lista para el dropdownlistde reportes
         //REQ: NA
         //MOD: crea la lista para el dropdownlistde reportes
+
+
+
+
+        //filtrar que se muestra en el dropdownlist, segun el usuario
+
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -24,6 +31,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             reportes.Add(new StringModel { Nombre = "Conocimientos más requeridos" });
             reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
             reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
+            reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
             TempData["reportes"] = reportes;
             TempData.Keep();
 
@@ -55,6 +63,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("EmployeesDates", "reportes");
             else if (reporte.Nombre == "Estado requerimientos de desarrollador")
                 return RedirectToAction("EmployeeRequirements", "reportes");
+            else if (reporte.Nombre == "Tiempos totales por proyecto")
+                return RedirectToAction("TotalTimes", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
@@ -223,6 +233,16 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
 
+        public ActionResult TotalTimes()
+        {
+            /*si el usuario es empleado, mostrar de una vez su vista*/
+
+
+            /*si es jefe de desarrollo o soporte*/
+            TempData["proyectos"] = new requerimientosController().GetTotalTimes();
+            TempData.Keep();
+            return View();
+        }
 
 
 
