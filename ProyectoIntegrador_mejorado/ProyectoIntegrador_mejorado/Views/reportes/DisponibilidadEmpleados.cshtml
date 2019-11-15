@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "DisponibilidadEmpleados";
+}
+
+<h2>Disponibilidad de Desarrolladores </h2>
+
+
+
+<br />
+<br />
+@{if (TempData["empDisponibles"] != null && TempData["empOcupados"] != null)
+    {
+
+        <h4>Desarrolladores disponibles</h4>
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Nombre de los empleados disponibles
+                </th>
+
+
+            </tr>
+
+            @foreach (var item in (TempData["empDisponibles"] as IEnumerable<ProyectoIntegrador_mejorado.Models.empleados>))
+            {
+
+                <tr>
+                    @*sacar el nombre del proyecto, con el codigo*@
+                    <td>@item.nombre @item.apellido1 @item.apellido2</td>
+
+
+                </tr>
+
+            }
+
+        </table>
+
+        <h4>Desarrolladores asignados</h4>
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Nombre del empleado asignado
+                </th>
+                <th>
+                    Nombre del proyecto
+                </th>
+                <th>
+                    Fecha inicio
+                </th>
+                <th>
+                    Fecha final estimada
+                </th>
+
+
+            </tr>
+
+            @foreach (var item in (TempData["empOcupados"] as IEnumerable<ProyectoIntegrador_mejorado.Models.DisponibilidadEmpleadosModel>))
+            {
+
+            <tr>
+                @*sacar el nombre del proyecto, con el codigo*@
+                <td>@item.nombreEmpleado @item.apellido1Empleado @item.apellido2Empleado </td>
+
+                <td> @item.nombreProyecto</td>
+
+                <td> @item.fechaIniciopry</td>
+
+                <td> @item.fechaEstimadapry</td>
+
+
+            </tr>
+
+            }
+
+        </table>
+
+    }
+}

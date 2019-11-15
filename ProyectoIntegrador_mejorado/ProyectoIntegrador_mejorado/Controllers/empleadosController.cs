@@ -216,6 +216,32 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return listaEmpPr;
         }
 
+        public List<DisponibilidadEmpleadosModel> GetEmployeeBusyProject()
+        {
+            var lista = (from d in db.empleados
+                         join f in db.roles
+                         on d.cedulaPK equals f.cedulaFK
+                         join pr in db.proyectos
+                         on f.codigoProyectoFK equals pr.codigoPK
+                         where f.rol != "Líder" && pr.fechaFinal != null
+                         orderby pr.fechaFinalEstimada descending
+                         select new DisponibilidadEmpleadosModel()
+                         {
+                             codigoProy = pr.codigoPK,
+                             nombreProyecto = pr.nombre,
+                             nombreEmpleado = d.nombre,
+                             apellido1Empleado = d.apellido1,
+                             apellido2Empleado = d.apellido2,
+                             fechaIniciopry = pr.fechaInicio,
+                             fechaEstimadapry = pr.fechaFinalEstimada
+                         }).Distinct().ToList();
+
+
+
+
+            return lista;
+        }
+
         public List<empleados> Pass()//dispone la lista de proyectos para otros controladores
         {
             List<empleados> empleados = db.empleados.ToList();
