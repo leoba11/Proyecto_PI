@@ -320,26 +320,27 @@ namespace ProyectoIntegrador_mejorado.Controllers
             
             /*si es jefe de desarrollo o soporte*/
             TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();
-            TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject();
+            //TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject();
 
-            //var user = User.Identity.GetUserName();
-            //var emple = new empleadosController().ExistEmail(user);
-            ///*si el usuario es empleado, mostrar de una vez su vista*/
-            //if (emple.Count() > 0)   //es empleado
-            //{
-            //    //obteniendo la cedula del empleado
-            //    var cedula = emple[0].cedulaPK;
-            //    TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(cedula);
-            //    TempData.Keep();
-                
-            //}
-            //else { //es jefe de desarrollo/soporte 
+            var user = User.Identity.GetUserName();
+            var emple = new empleadosController().ExistEmail(user);
+            /*si el usuario es empleado, mostrar de una vez su vista*/
+            if (emple.Count() > 0)   //es empleado
+            {
+                //obteniendo la cedula del empleado
+                var cedula = emple[0].cedulaPK;
+                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(cedula);
+                TempData.Keep();
 
-            //    TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(null);
-            //    TempData.Keep();
-            //}
+            }
+            else
+            { //es jefe de desarrollo/soporte 
 
-                
+                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(null);
+                TempData.Keep();
+            }
+
+
             return View();
         }
 
