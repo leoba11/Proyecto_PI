@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
@@ -26,16 +27,43 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            List<StringModel> reportes = new List<StringModel>();
-            reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
-            reportes.Add(new StringModel { Nombre = "Conocimientos más requeridos" });
-            reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
-            reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
-            reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
-            reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
-            TempData["reportes"] = reportes;
-            TempData.Keep();
+            var user = User.Identity.GetUserName();
+            var emple = new empleadosController().ExistEmail(user);
 
+            if (emple.Count() > 0)   //es empleado, mostrar los reportes disponibles para los lideres
+            {
+                //obteniendo la cedula del empleado
+                var cedula = emple[0].cedulaPK;
+
+                List<StringModel> reportes = new List<StringModel>();
+                reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
+                reportes.Add(new StringModel { Nombre = "Conocimientos más requeridos" });
+                reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
+                reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
+                reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
+                reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
+                TempData["reportes"] = reportes;
+                TempData.Keep();
+
+
+                // ajustar para mostrar solo los correpondientes
+
+
+
+
+            }
+            else   // es de soporte o el jefe de desarrollo, desplegar todos los reportes
+            {
+                List<StringModel> reportes = new List<StringModel>();
+                reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
+                reportes.Add(new StringModel { Nombre = "Conocimientos más requeridos" });
+                reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
+                reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
+                reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
+                reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
+                TempData["reportes"] = reportes;
+                TempData.Keep();
+            }
             return RedirectToAction("SelectReport", "reportes");
         }
 
@@ -242,25 +270,47 @@ namespace ProyectoIntegrador_mejorado.Controllers
          */
         public ActionResult TotalTimes()
         {
+            var user = User.Identity.GetUserName();
+            var emple = new empleadosController().ExistEmail(user);
             /*si el usuario es empleado, mostrar de una vez su vista*/
-
-
-            /*si es jefe de desarrollo o soporte*/
-            TempData["proyectos"] = new requerimientosController().GetTotalTimes();
-            foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
+            if (emple.Count() > 0)   //es empleado
             {
-                var proyecto  = new proyectosController().ProjectByCode(item.codigoProy);
-                if (proyecto.fechaFinal != null)
+                //obteniendo la cedula del empleado
+                var cedula = emple[0].cedulaPK;
+                TempData["proyectos"] = new requerimientosController().GetTotalTimes(cedula);
+                foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
                 {
-                    item.terminado = false;
+                    var proyecto = new proyectosController().ProjectByCode(item.codigoProy);
+                    if (proyecto.fechaFinal != null)
+                    {
+                        item.terminado = false;
+                    }
+                    else
+                    {
+                        item.terminado = true;
+                    }
+                    item.nombreProyecto = proyecto.nombre;
                 }
-                else
-                {
-                    item.terminado = true;
-                }
-                item.nombreProyecto = proyecto.nombre;
+                TempData.Keep();
             }
-            TempData.Keep();
+            else   // es de soporte o el jefe de desarrollo
+            {
+                TempData["proyectos"] = new requerimientosController().GetTotalTimes(null);
+                foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
+                {
+                    var proyecto = new proyectosController().ProjectByCode(item.codigoProy);
+                    if (proyecto.fechaFinal != null)
+                    {
+                        item.terminado = false;
+                    }
+                    else
+                    {
+                        item.terminado = true;
+                    }
+                    item.nombreProyecto = proyecto.nombre;
+                }
+                TempData.Keep();
+            }
             return View();
         }
 

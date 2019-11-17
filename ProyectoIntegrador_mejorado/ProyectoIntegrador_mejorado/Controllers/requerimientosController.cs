@@ -365,23 +365,45 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return listaReq;
         }
 
-        public List<ProyectTimesModel> GetTotalTimes()
+        public List<ProyectTimesModel> GetTotalTimes(string cedula)
         {
-            
-
-
-            IEnumerable<ProyectTimesModel> lista =
-            from a in db.requerimientos
-            join p in db.proyectos
-            on a.codigoProyectoFK equals p.codigoPK
-            orderby a.codigoProyectoFK ascending
-            group a by a.codigoProyectoFK into x
-            select new ProyectTimesModel
+            if (cedula != null) //es un empleado
             {
-                codigoProy = x.Key,
-                tiempoEstimado = x.Sum(b => DbFunctions.DiffDays(b.fechaInicio, b.duracionEstimada)),
-                tiempoReal = x.Sum(b => b.duracionDias)
-            };
+                IEnumerable<ProyectTimesModel> lista =
+                from a in db.requerimientos
+                join r in db.roles
+                on a.codigoProyectoFK equals r.codigoProyectoFK
+                where r.cedulaFK == cedula && r.rol == "Líder"
+                orderby a.codigoProyectoFK ascending
+                group a by a.codigoProyectoFK into x
+                select new ProyectTimesModel
+                {
+                    codigoProy = x.Key,
+                    tiempoEstimado = x.Sum(b => DbFunctions.DiffDays(b.fechaInicio, b.duracionEstimada)),
+                    tiempoReal = x.Sum(b => b.duracionDias)
+                }
+                ;
+
+                return lista.ToList();
+            }
+            else  //es de soporte o el jefe de desarrollo
+            {
+                IEnumerable<ProyectTimesModel> lista =
+                from a in db.requerimientos
+                orderby a.codigoProyectoFK ascending
+                group a by a.codigoProyectoFK into x
+                select new ProyectTimesModel
+                {
+                    codigoProy = x.Key,
+                    tiempoEstimado = x.Sum(b => DbFunctions.DiffDays(b.fechaInicio, b.duracionEstimada)),
+                    tiempoReal = x.Sum(b => b.duracionDias)
+                };
+
+                return lista.ToList();
+            }
+
+
+            
 
 
             /*
@@ -458,8 +480,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }).ToList();*/
 
 
-
-            return lista.ToList();
 
 
         }
