@@ -8,7 +8,7 @@
 <br />
 <br />
 
-@*si ya se tiene la lista de empleados se despliega en pantalla*@
+@*si ya se tiene la lista de proyectos se despliega en pantalla*@
 @{
     if (TempData["proyectos"] != null)
     {
@@ -25,6 +25,9 @@
                 <th>
                     Tiempo real total
                 </th>
+                <th>
+                    Estado
+                </th>
 
             </tr>
 
@@ -33,9 +36,16 @@
 
                 <tr>
                     @*sacar el nombre del proyecto, con el codigo*@
-                    <td>@item.codigoProy</td>
+                    <td>@item.nombreProyecto</td> 
                     <td>@item.tiempoEstimado</td> 
                     <td>@item.tiempoReal</td> 
+                    @if(item.terminado == true)
+                    {
+                        <td>Finalizado</td>
+                    }
+                    else {
+                        <td>En curso</td>
+                    }
 
                 </tr>
 

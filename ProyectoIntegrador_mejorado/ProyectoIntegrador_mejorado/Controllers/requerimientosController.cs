@@ -367,6 +367,72 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
         public List<ProyectTimesModel> GetTotalTimes()
         {
+            
+
+
+            IEnumerable<ProyectTimesModel> lista =
+            from a in db.requerimientos
+            join p in db.proyectos
+            on a.codigoProyectoFK equals p.codigoPK
+            orderby a.codigoProyectoFK ascending
+            group a by a.codigoProyectoFK into x
+            select new ProyectTimesModel
+            {
+                codigoProy = x.Key,
+                tiempoEstimado = x.Sum(b => DbFunctions.DiffDays(b.fechaInicio, b.duracionEstimada)),
+                tiempoReal = x.Sum(b => b.duracionDias)
+            };
+
+
+            /*
+            IEnumerable<ProyectTimesModel> lista =
+            from a in db.requerimientos
+            join p in db.proyectos
+            on a.codigoProyectoFK equals p.codigoPK
+            orderby p.nombre ascending
+            group p by new
+            {
+                a.codigoProyectoFK,
+                p.nombre,
+                duracionEs = DbFunctions.DiffDays(a.fechaInicio, a.duracionEstimada),
+                duracionRealTotal = (a.duracionDias)
+            } into x
+            select new ProyectTimesModel
+            {
+                codigoProy = x.Key.codigoProyectoFK,
+                nombreProyecto = x.Key.nombre,
+                tiempoEstimado = x.Sum(b => x.Key.duracionEs),
+                tiempoReal = x.Sum(b => x.Key.duracionRealTotal)
+            };*/
+
+
+            /*List<ProyectTimesModel> lista =
+            from a in db.requerimientos
+            join p in db.proyectos
+            on a.codigoProyectoFK equals p.codigoPK
+            orderby p.nombre ascending
+            group a by new
+            {
+                a.codigoProyectoFK,
+                p.nombre,
+                a.duracionEstimada,
+                a.fechaFin
+            } into x
+            select new ProyectTimesModel
+            {
+                codigoProy = x.Key.codigoProyectoFK,
+                nombreProyecto = x.Key.nombre,
+                tiempoEstimado = DbFunctions.DiffDays(x.Key.fechaInicio, x.duracionEstimada),
+                tiempoReal = DbFunctions.DiffDays(x.fechaInicio, x.fechaFin)
+            };
+*/
+
+
+
+
+            /*
+
+
             var lista = db.requerimientos.Select(x => new ProyectTimesModel
             {
                 codigoProy = x.codigoProyectoFK,
@@ -393,7 +459,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
 
-            return lista;
+            return lista.ToList();
 
 
         }

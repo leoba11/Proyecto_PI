@@ -235,7 +235,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
         }
 
-
+        /*
+         * EFE: verifica si el usuario es desarrollaro o jefe de desarrollo y le presenta los datos de los proyectos correspondientes
+         * REQ: NA
+         * MOD: busca el nombre del proyecto y lo agrega
+         */
         public ActionResult TotalTimes()
         {
             /*si el usuario es empleado, mostrar de una vez su vista*/
@@ -243,6 +247,19 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             /*si es jefe de desarrollo o soporte*/
             TempData["proyectos"] = new requerimientosController().GetTotalTimes();
+            foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
+            {
+                var proyecto  = new proyectosController().ProjectByCode(item.codigoProy);
+                if (proyecto.fechaFinal != null)
+                {
+                    item.terminado = false;
+                }
+                else
+                {
+                    item.terminado = true;
+                }
+                item.nombreProyecto = proyecto.nombre;
+            }
             TempData.Keep();
             return View();
         }

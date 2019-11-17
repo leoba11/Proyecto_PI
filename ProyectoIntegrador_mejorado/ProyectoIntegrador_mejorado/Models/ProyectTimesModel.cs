@@ -15,5 +15,7 @@ namespace ProyectoIntegrador_mejorado.Models
         public int? tiempoEstimado { get; set; }
 
         public int? tiempoReal { get; set; }
+
+        public bool terminado { get; set; }
     }
 }
