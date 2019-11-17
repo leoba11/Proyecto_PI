@@ -28,7 +28,7 @@ namespace ProyectoIntegrador_mejorado.Models
         [Required(ErrorMessage = "Este campo es requerido")]
         public string descripcion { get; set; }
 
-        [RegularExpression(@"^[0-9]+", ErrorMessage = "Complejidad es un número")]
+        [RegularExpression(@"^[0-4]+", ErrorMessage = "Complejidad es un número del 1 al 4")]
         [Display(Name = "Complejidad")]
         [Required(ErrorMessage = "Este campo es requerido")]
         public int complejidad { get; set; }

@@ -13,7 +13,7 @@ namespace ProyectoIntegrador_mejorado.Models
     public class DisponibilidadEmpleadosModel
     {
         //para almacenar el código del proyecto en el que el desarrollador está participando
-        public int codigoProy { get; set; }
+        public Nullable<int> codigoProy { get; set; }
 
         //para almacenar el nombre del proyecto en el que el desarrollador está participando
         public string nombreProyecto { get; set; }
@@ -23,13 +23,14 @@ namespace ProyectoIntegrador_mejorado.Models
         public string apellido1Empleado { get; set; }
         public string apellido2Empleado { get; set; }
 
+
         //para almacenar la fecha de inicio del proyecto en el que el desarrollador está participando
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime  fechaIniciopry { get; set; }
+        public Nullable<DateTime> fechaIniciopry { get; set; }
 
         //para almacenar la fecha final estimada del proyecto en el que el desarrollador está participando
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime fechaEstimadapry { get; set; }
+        public Nullable<DateTime> fechaEstimadapry { get; set; }
 
 
     }

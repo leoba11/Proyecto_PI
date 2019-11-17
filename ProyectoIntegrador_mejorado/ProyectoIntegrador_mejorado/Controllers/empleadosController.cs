@@ -225,7 +225,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                          on d.cedulaPK equals f.cedulaFK
                          join pr in db.proyectos
                          on f.codigoProyectoFK equals pr.codigoPK
-                         where f.rol != "Líder" && pr.fechaFinal != null //aquí es para asegurarse que solo se devulven los desarrolladores y que sean de los proyectos que aún no han terminado
+                         where ((f.rol != "Líder" && d.disponibilidad == false && pr.fechaFinal == null)) //aquí es para asegurarse que solo se devulven los desarrolladores y que sean de los proyectos que aún no han terminado
                          orderby pr.fechaFinalEstimada descending
                          select new DisponibilidadEmpleadosModel()
                          {
