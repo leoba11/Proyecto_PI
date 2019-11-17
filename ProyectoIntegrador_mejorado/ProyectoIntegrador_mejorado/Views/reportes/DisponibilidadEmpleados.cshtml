@@ -1,43 +1,55 @@
-﻿
+﻿@*//------------------------------------------------------------------------------
+    // @author: María José Aguilar Barboza B60115
+    // @Date: 16/11/19
+    // Este código corresponde al reporte de desarrolladores disponibles
+    //------------------------------------------------------------------------------*@
 @{
     ViewBag.Title = "DisponibilidadEmpleados";
 }
 
+@*Despliegue de título*@
 <h2>Disponibilidad de Desarrolladores </h2>
 
 
 
 <br />
+@*Informacion para la busqueda*@
+<p>Escriba en la barra para buscar algún desarrollador</p>
+<input class="form-control" id="userInput" type="text" placeholder="Buscar..">
+<br />
 <br />
 @{if (TempData["empDisponibles"] != null && TempData["empOcupados"] != null)
     {
-
+        @*Despliegue de título*@
         <h4>Desarrolladores disponibles</h4>
+        @*Tabla que despliega los desarrolladores libres/ que no están asignados*@
         <table class="table table-responsive-md">
             <tr>
                 <th>
-                    Nombre de los empleados disponibles
+                    Nombre de los desarrolladores disponibles
                 </th>
 
 
             </tr>
+            <tbody id="myTableMod">
+                @foreach (var item in (TempData["empDisponibles"] as IEnumerable<ProyectoIntegrador_mejorado.Models.empleados>))
+                {
 
-            @foreach (var item in (TempData["empDisponibles"] as IEnumerable<ProyectoIntegrador_mejorado.Models.empleados>))
-            {
-
-                <tr>
-                    @*sacar el nombre del proyecto, con el codigo*@
-                    <td>@item.nombre @item.apellido1 @item.apellido2</td>
+                    <tr>
+                        @*Se depliegan los atributos de los desarrolladores libres*@
+                        <td>@item.nombre @item.apellido1 @item.apellido2</td>
 
 
-                </tr>
+                    </tr>
 
-            }
+                }
+            </tbody>
 
         </table>
-
+        @*Tabla que despliega los desarrolladores ocupados/ asignados en algun poryecto aun no finalizado*@
+        @*Despliegue de título*@
         <h4>Desarrolladores asignados</h4>
-        <table class="table table-responsive-md">
+        <table class="table table-responsive-md ">
             <tr>
                 <th>
                     Nombre del empleado asignado
@@ -48,32 +60,44 @@
                 <th>
                     Fecha inicio
                 </th>
-                <th>
+                <th data-sortinitialorder="desc">
                     Fecha final estimada
                 </th>
 
 
             </tr>
+            <tbody id="myTableMod">
+                @foreach (var item in (TempData["empOcupados"] as IEnumerable<ProyectoIntegrador_mejorado.Models.DisponibilidadEmpleadosModel>))
+                {
 
-            @foreach (var item in (TempData["empOcupados"] as IEnumerable<ProyectoIntegrador_mejorado.Models.DisponibilidadEmpleadosModel>))
-            {
+                    <tr>
+                        @*desplegamos los atributos para el desarrollador asignado*@
+                        <td>@item.nombreEmpleado @item.apellido1Empleado @item.apellido2Empleado </td>
 
-            <tr>
-                @*sacar el nombre del proyecto, con el codigo*@
-                <td>@item.nombreEmpleado @item.apellido1Empleado @item.apellido2Empleado </td>
+                        <td> @item.nombreProyecto</td>
 
-                <td> @item.nombreProyecto</td>
-
-                <td> @item.fechaIniciopry</td>
-
-                <td> @item.fechaEstimadapry</td>
+                        <td> @Html.DisplayFor(modelItem => item.fechaIniciopry)</td>
 
 
-            </tr>
+                        <td>@Html.DisplayFor(modelItem => item.fechaEstimadapry) </td>
 
-            }
+                    </tr>
 
+                }
+            </tbody>
         </table>
 
     }
 }
+
+@*Script de Jquery para filtar elementos de la tablas*@
+<script>
+    $(document).ready(function () {
+        $("#userInput").on("keyup", function () {
+            var value1 = $(this).val().toLowerCase();
+            $("#myTableMod tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1)
+            });
+        });
+    });
+</script>

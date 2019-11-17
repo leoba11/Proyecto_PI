@@ -32,7 +32,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
             reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
             reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
-            reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados" });
+            reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
             TempData["reportes"] = reportes;
             TempData.Keep();
 
@@ -66,7 +66,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("EmployeeRequirements", "reportes");
             else if (reporte.Nombre == "Tiempos totales por proyecto")
                 return RedirectToAction("TotalTimes", "reportes");
-            else if (reporte.Nombre == "Disponibilidad de empleados")
+            else if (reporte.Nombre == "Disponibilidad de desarrolladores")
                 return RedirectToAction("DisponibilidadEmpleados", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
