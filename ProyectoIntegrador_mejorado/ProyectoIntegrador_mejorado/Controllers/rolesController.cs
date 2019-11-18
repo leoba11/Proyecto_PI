@@ -181,5 +181,22 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return null;
             return rol.cedulaFK;
         }
+
+        public bool idLiderNow(string cedula)
+        {
+            bool resp = false;
+            List<roles> lista = (from r in db.roles
+                                 join p in db.proyectos
+                                 on r.codigoProyectoFK equals p.codigoPK
+                                 where (r.cedulaFK == cedula && r.rol == "Líder" && p.fechaFinal == null)
+                                 select r
+                                 ).ToList();
+            if (lista.Count > 0)
+            {
+                resp = true;
+            }
+
+            return resp;
+        }
     }
 }
