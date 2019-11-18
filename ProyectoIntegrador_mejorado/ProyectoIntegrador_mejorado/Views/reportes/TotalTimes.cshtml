@@ -26,8 +26,18 @@
                     Tiempo real total
                 </th>
                 <th>
+                    Diferencia
+                </th>
+                <th>
                     Estado
                 </th>
+                @if (TempData["usuarioEsJefe"] != null)
+                {
+                    <th>
+                        Lider
+                    </th>
+                }
+                
 
             </tr>
 
@@ -39,12 +49,17 @@
                     <td>@item.nombreProyecto</td> 
                     <td>@item.tiempoEstimado</td> 
                     <td>@item.tiempoReal</td> 
+                    <td>@(item.tiempoReal - item.tiempoEstimado)</td> 
                     @if(item.terminado == true)
                     {
                         <td>Finalizado</td>
                     }
                     else {
                         <td>En curso</td>
+                    }
+                    @if (TempData["usuarioEsJefe"] != null)
+                    {
+                        <td>@item.lider</td> 
                     }
 
                 </tr>

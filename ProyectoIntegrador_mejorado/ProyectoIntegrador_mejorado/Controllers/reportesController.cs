@@ -240,7 +240,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //MOD: NA
         public ActionResult EmployeeRequirements()
         {
-            /*si el usuario es empleado, mostrar de una vez su vista*/
+            /*si el usuario es empleado y no lider, mostrar de una vez su vista*/
+
+
+
+            /*si el usuario es empleado y lider, mostrar de una vez su vista*/
 
 
             /*si es jefe de desarrollo o soporte*/
@@ -283,6 +287,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
          */
         public ActionResult TotalTimes()
         {
+            TempData["usuarioEsJefe"] = null;
             var user = User.Identity.GetUserName();
             var emple = new empleadosController().ExistEmail(user);
             /*si el usuario es empleado, mostrar de una vez su vista*/
@@ -308,10 +313,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
             }
             else   // es de soporte o el jefe de desarrollo
             {
+                TempData["usuarioEsJefe"] = "si";
                 TempData["proyectos"] = new requerimientosController().GetTotalTimes(null);
                 foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
                 {
                     var proyecto = new proyectosController().ProjectByCode(item.codigoProy);
+                    var liderId = new rolesController().getLiderId(item.codigoProy);
+                    var lider = new empleadosController().GetEmployee(liderId);
                     if (proyecto.fechaFinal != null)
                     {
                         item.terminado = false;
@@ -321,6 +329,10 @@ namespace ProyectoIntegrador_mejorado.Controllers
                         item.terminado = true;
                     }
                     item.nombreProyecto = proyecto.nombre;
+                    if (lider != null)
+                    {
+                        item.lider = lider.nombre + " " + lider.apellido1 + " " + lider.apellido2;
+                    }
                 }
                 TempData.Keep();
             }

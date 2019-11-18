@@ -17,5 +17,7 @@ namespace ProyectoIntegrador_mejorado.Models
         public int? tiempoReal { get; set; }
 
         public bool terminado { get; set; }
+
+        public string lider { get; set; }
     }
 }
