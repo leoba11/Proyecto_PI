@@ -9,7 +9,7 @@ using ProyectoIntegrador_mejorado.Models;
 
 namespace ProyectoIntegrador_mejorado.Controllers
 {
-    [Authorize(Roles = "Soporte, JefeDesarrollo, Lider, Desarrollador")]
+    [Authorize]
     public class reportesController : Controller
     {
         private Gr02Proy1Entities db = new Gr02Proy1Entities();
@@ -29,6 +29,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             var user = User.Identity.GetUserName();
             var emple = new empleadosController().ExistEmail(user);
+            var clien = new clientesController().ExistEmail(user);
 
             if (emple.Count() > 0)   //es empleado, mostrar los reportes disponibles para los lideres
             {
@@ -51,6 +52,18 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
 
+            }
+            else if (clien.Count() > 0)     //es cliente, mostrar los reportes disponibles para los clientes
+            {
+                List<StringModel> reportes = new List<StringModel>();
+                reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
+                reportes.Add(new StringModel { Nombre = "Conocimientos más requeridos" });
+                reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
+                reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
+                reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
+                reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
+                TempData["reportes"] = reportes;
+                TempData.Keep();
             }
             else   // es de soporte o el jefe de desarrollo, desplegar todos los reportes
             {
