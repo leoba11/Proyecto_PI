@@ -217,7 +217,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         //Devuelve los desarrolladores que están asignados actualmente a un proyecto
-        public List<DisponibilidadEmpleadosModel> GetEmployeeBusyProject(string cedula)
+        public List<DisponibilidadEmpleadosModel> GetEmployeeBusyProject(string cedula, int proyecto)
         {  //pongo cédula arriba
             if (cedula != null) //es un empleado
             {
@@ -226,7 +226,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                                                                     on d.cedulaPK equals f.cedulaFK
                                                                     join pr in db.proyectos
                                                                     on f.codigoProyectoFK equals pr.codigoPK
-                                                                    where ((f.cedulaFK == cedula && f.rol != "Líder" && d.disponibilidad == false && pr.fechaFinal == null)) //aquí es para asegurarse que solo se devulven los desarrolladores y que sean de los proyectos que aún no han terminado
+                                                                    where ((f.codigoProyectoFK == proyecto && f.rol != "Líder" && d.disponibilidad == false && pr.fechaFinal == null)) //aquí es para asegurarse que solo se devulven los desarrolladores y que sean de los proyectos que aún no han terminado
                                                                     orderby pr.fechaFinalEstimada descending
                                                                     select new DisponibilidadEmpleadosModel()
                                                                     {

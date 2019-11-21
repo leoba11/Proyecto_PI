@@ -339,29 +339,35 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Soporte, JefeDesarrollo,Lider")]
+        //[Authorize(Roles = "Soporte, JefeDesarrollo,Lider")]
         public ActionResult DisponibilidadEmpleados()
         {
-            
-            /*si es jefe de desarrollo o soporte*/
-            TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();
-            //TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject();
 
+            //limpio los datos 
+            TempData["empDisponibles"] = null;
+            TempData["empOcupados"] = null;
+            TempData["pryActual"] = null;
             var user = User.Identity.GetUserName();
             var emple = new empleadosController().ExistEmail(user);
+            //obteniendo la cedula del empleado
+            
             /*si el usuario es empleado, mostrar de una vez su vista*/
             if (emple.Count() > 0)   //es empleado
             {
-                //obteniendo la cedula del empleado
                 var cedula = emple[0].cedulaPK;
-                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(cedula);
-                TempData.Keep();
-
+                bool esLider = new rolesController().idLiderNow(cedula);
+                if (esLider == true) {
+                    TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();
+                    var proy = new proyectosController().GetLiderProyectoActual(cedula);
+                    TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(cedula,proy[0].codigoPK);
+                    TempData.Keep();
+                }
+                
             }
             else
             { //es jefe de desarrollo/soporte 
-
-                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(null);
+                TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();
+                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(null, 0);
                 TempData.Keep();
             }
 
