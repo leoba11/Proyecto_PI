@@ -12,33 +12,52 @@
 
 
 
-@*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
-@using (Html.BeginForm("EmployeeRequirements", "reportes", FormMethod.Post))
+
+@if (TempData["rol"] as string == "boss")
 {
-    <p>Seleccione un empleado</p>
-    if (TempData["empleados"] != null)
+
+
+    @*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
+    using (Html.BeginForm("EmployeeRequirements2", "reportes", FormMethod.Post))
     {
-        @Html.DropDownList("cedulaPK", new SelectList(TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>, "cedulaPK", "nombre"), "----------")
+        <p>Seleccione un proyecto</p>
+        if (TempData["proyectos"] != null)
+        {
+            @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
+        }
+        @*boton para aceptar el proyecto seleccionado y continuar*@
+        <input type="submit" value="Seleccionar" />
     }
-    @*boton para aceptar el proyecto seleccionado y continuar*@
-    <input type="submit" value="Seleccionar" />
-}
 
 
-<br />
-<br />
-@if (TempData["empSelect"] != null)
-{
-    <p>
-        Empleado:
-        @((TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
-
-    </p>
-}
 
 
-@*si ya se tiene la lista de empleados se despliega en pantalla*@
-@{
+
+    using (Html.BeginForm("EmployeeRequirements", "reportes", FormMethod.Post))
+    {
+        <p>Seleccione un empleado</p>
+        if (TempData["empleados"] != null)
+        {
+            @Html.DropDownList("cedulaPK", new SelectList(TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>, "cedulaPK", "nombre"), "----------")
+        }
+        @*boton para aceptar el proyecto seleccionado y continuar*@
+        <input type="submit" value="Seleccionar" />
+    }
+
+
+    <br />
+    <br />
+    if (TempData["empSelect"] != null)
+    {
+        <p>
+            Empleado:
+            @((TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
+
+        </p>
+    }
+
+
+    @*si ya se tiene la lista de empleados se despliega en pantalla*@
     if (TempData["requerimientos"] != null)
     {
 
@@ -66,14 +85,14 @@
             @foreach (var item in (TempData["requerimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
             {
 
-        <tr>
-            <td>@item.nombre</td>
-            <td>@item.fechaInicio</td>
-            <td>@item.duracionEstimada</td>
-            <td>@item.fechaFin</td>
-            <td>@item.estado</td>
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.fechaInicio</td>
+                    <td>@item.duracionEstimada</td>
+                    <td>@item.fechaFin</td>
+                    <td>@item.estado</td>
 
-        </tr>
+                </tr>
 
             }
 
@@ -81,4 +100,22 @@
 
     }
 }
+else if (TempData["rol"] as string == "lider")
+{
+
+
+
+
+
+}
+else if (TempData["rol"] as string == "desarrollador")
+{
+
+}
+
+
+
+
+
+
 

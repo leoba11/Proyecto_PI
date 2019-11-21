@@ -241,16 +241,20 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult EmployeeRequirements()
         {
             /*si el usuario es empleado y no lider, mostrar de una vez su vista*/
-
+            TempData["rol"] = "desarrollador";
 
 
             /*si el usuario es empleado y lider, mostrar de una vez su vista*/
+            TempData["rol"] = "lider";
 
 
             /*si es jefe de desarrollo o soporte*/
+            TempData["rol"] = "boss";
             TempData["empleados"] = new empleadosController().Pass();
             TempData["requerimientos"] = null;
             TempData["empSelect"] = null;
+            List<proyectos> proyectos = new proyectosController().Pass();
+            TempData["proyectos"] = proyectos;
             TempData.Keep();
             return View();
             //return RedirectToAction("SelectReport", "reportes");
@@ -277,6 +281,29 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
                 TempData.Keep();
                 return View();
+            }
+        }
+
+        /*
+         * Efecto: Request POST de EmployeeRequirements
+         * Requiere: fecha inicial y final
+         * Modifica: NA
+         */
+        [HttpPost]
+        public ActionResult EmployeeRequirements2(proyectos proyecto)
+        {
+            if (proyecto.codigoPK != 0)
+            {
+                TempData["proyectoSeleccionado"] = proyecto;
+                TempData["requerimientos"] = new requerimientosController().GetRequirementsByProyect(proyecto.codigoPK);
+                TempData.Keep();
+                return RedirectToAction("EmployeeRequirements", "reportes");
+            }
+            else
+            {
+
+                TempData.Keep();
+                return RedirectToAction("EmployeeRequirements", "reportes");
             }
         }
 
