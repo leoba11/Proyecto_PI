@@ -8,66 +8,98 @@
 <br />
 <br />
 
+@*Informacion para la busqueda*@
+@if (TempData["usuarioEsJefe"] != null)
+{
+    <p>Escriba algo en la barra para buscar en la tabla algún proyecto</p>
+    <input class="form-control" id="userInput" type="text" placeholder="Buscar..">
+    <br />
+}
+
+
+
+
+
 @*si ya se tiene la lista de proyectos se despliega en pantalla*@
 @{
     if (TempData["proyectos"] != null)
     {
 
-
-        <table class="table table-responsive-md">
-            <tr>
-                <th>
-                    Proyecto
-                </th>
-                <th>
-                    Tiempo estimado total
-                </th>
-                <th>
-                    Tiempo real total
-                </th>
-                <th>
-                    Diferencia
-                </th>
-                <th>
-                    Estado
-                </th>
-                @if (TempData["usuarioEsJefe"] != null)
-                {
-                    <th>
-                        Lider
-                    </th>
-                }
-                
-
-            </tr>
-
-            @foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
-            {
-
+        @*Tabla para el despliegue de tuplas*@
+        <table class="table table-striped">
+            @*Encabezado de la tabla*@
+            <thead>
                 <tr>
-                    @*sacar el nombre del proyecto, con el codigo*@
-                    <td>@item.nombreProyecto</td> 
-                    <td>@item.tiempoEstimado</td> 
-                    <td>@item.tiempoReal</td> 
-                    <td>@(item.tiempoReal - item.tiempoEstimado)</td> 
-                    @if(item.terminado == true)
-                    {
-                        <td>Finalizado</td>
-                    }
-                    else {
-                        <td>En curso</td>
-                    }
+                    <th>
+                        Proyecto
+                    </th>
+                    <th>
+                        Tiempo estimado total
+                    </th>
+                    <th>
+                        Tiempo real total
+                    </th>
+                    <th>
+                        Diferencia
+                    </th>
+                    <th>
+                        Estado
+                    </th>
                     @if (TempData["usuarioEsJefe"] != null)
                     {
-                        <td>@item.lider</td> 
+                        <th>
+                            Lider
+                        </th>
                     }
-
                 </tr>
+            </thead>
+            <tbody id="myTableMod">
+                @*For para desplegar las tuplas de la tabla*@
+                @foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
+                {
 
-            }
+                    <tr>
+                        @*sacar el nombre del proyecto, con el codigo*@
+                        <td>@item.nombreProyecto</td>
+                        <td>@item.tiempoEstimado</td>
+                        <td>@item.tiempoReal</td>
+                        <td>@(item.tiempoReal - item.tiempoEstimado)</td>
+                        @if (item.terminado == true)
+                        {
+                            <td>Finalizado</td>
+                        }
+                        else
+                        {
+                            <td>En curso</td>
+                        }
+                        @if (TempData["usuarioEsJefe"] != null)
+                        {
+                            <td>@item.lider</td>
+
+                        }
+
+                    </tr>
+
+                }
+            </tbody>
 
         </table>
+
 
     }
 }
 
+
+
+
+@*Script de Jquery para filtar elementos de la tabla*@
+<script>
+    $(document).ready(function () {
+        $("#userInput").on("keyup", function () {
+            var value1 = $(this).val().toLowerCase();
+            $("#myTableMod tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1)
+            });
+        });
+    });
+</script>

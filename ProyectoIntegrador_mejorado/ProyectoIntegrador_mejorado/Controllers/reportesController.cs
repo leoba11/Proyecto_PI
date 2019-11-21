@@ -244,16 +244,20 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult EmployeeRequirements()
         {
             /*si el usuario es empleado y no lider, mostrar de una vez su vista*/
-
+            TempData["rol"] = "desarrollador";
 
 
             /*si el usuario es empleado y lider, mostrar de una vez su vista*/
+            TempData["rol"] = "lider";
 
 
             /*si es jefe de desarrollo o soporte*/
+            TempData["rol"] = "boss";
             TempData["empleados"] = new empleadosController().Pass();
             TempData["requerimientos"] = null;
             TempData["empSelect"] = null;
+            List<proyectos> proyectos = new proyectosController().Pass();
+            TempData["proyectos"] = proyectos;
             TempData.Keep();
             return View();
             //return RedirectToAction("SelectReport", "reportes");
@@ -280,6 +284,29 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
                 TempData.Keep();
                 return View();
+            }
+        }
+
+        /*
+         * Efecto: Request POST de EmployeeRequirements
+         * Requiere: fecha inicial y final
+         * Modifica: NA
+         */
+        [HttpPost]
+        public ActionResult EmployeeRequirements2(proyectos proyecto)
+        {
+            if (proyecto.codigoPK != 0)
+            {
+                TempData["proyectoSeleccionado"] = proyecto;
+                TempData["requerimientos"] = new requerimientosController().GetRequirementsByProyect(proyecto.codigoPK);
+                TempData.Keep();
+                return RedirectToAction("EmployeeRequirements", "reportes");
+            }
+            else
+            {
+
+                TempData.Keep();
+                return RedirectToAction("EmployeeRequirements", "reportes");
             }
         }
 
@@ -342,29 +369,35 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Soporte, JefeDesarrollo,Lider")]
+        //[Authorize(Roles = "Soporte, JefeDesarrollo,Lider")]
         public ActionResult DisponibilidadEmpleados()
         {
-            
-            /*si es jefe de desarrollo o soporte*/
-            TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();
-            //TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject();
 
+            //limpio los datos 
+            TempData["empDisponibles"] = null;
+            TempData["empOcupados"] = null;
+            TempData["pryActual"] = null;
             var user = User.Identity.GetUserName();
             var emple = new empleadosController().ExistEmail(user);
+            //obteniendo la cedula del empleado
+            
             /*si el usuario es empleado, mostrar de una vez su vista*/
             if (emple.Count() > 0)   //es empleado
             {
-                //obteniendo la cedula del empleado
                 var cedula = emple[0].cedulaPK;
-                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(cedula);
-                TempData.Keep();
-
+                bool esLider = new rolesController().idLiderNow(cedula);
+                if (esLider == true) {
+                    TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();
+                    var proy = new proyectosController().GetLiderProyectoActual(cedula);
+                    TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(cedula,proy[0].codigoPK);
+                    TempData.Keep();
+                }
+                
             }
             else
             { //es jefe de desarrollo/soporte 
-
-                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(null);
+                TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();
+                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(null, 0);
                 TempData.Keep();
             }
 

@@ -260,6 +260,16 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return proyectos;
         }
 
+        public List<proyectos> GetLiderProyectoActual(string cedula)
+        {
+            var proyectos = (from d in db.proyectos
+                             join f in db.roles
+                             on d.codigoPK equals f.codigoProyectoFK
+                             where(( f.cedulaFK == cedula && f.rol == "Líder" ) && d.fechaFinal == null)
+                             select d).ToList();
+            return proyectos;
+        }
+
         /*
          * Efecto: devuelve los proyectos de un cliente
          * Requiere: NA

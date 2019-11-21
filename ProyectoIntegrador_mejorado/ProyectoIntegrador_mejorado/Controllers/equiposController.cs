@@ -70,6 +70,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 }
                 else
                 {
+                    ViewBag.know = "----------";
                     TempData.Keep();
                     return RedirectToAction("Index", "equipos");
                 }

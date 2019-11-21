@@ -115,7 +115,6 @@
 }
 
 
-
 <STYLE type="text/css">
     #linea {
         text-align: center
@@ -153,7 +152,8 @@
 
             <tbody id="sortable" style="cursor:pointer;">
                 <!-- listar los desarrolladores disponibles-->
-                @if (ViewBag.know != "----------" && TempData["empleadosK"].ToString() != "")
+                debbuger
+                @if (ViewBag.know != null && ViewBag.know != "----------" && TempData["empleadosK"].ToString() != "")
                 {
                     foreach (var item in TempData["empleadosK"] as List<ProyectoIntegrador_mejorado.Models.empleados>)
                     {

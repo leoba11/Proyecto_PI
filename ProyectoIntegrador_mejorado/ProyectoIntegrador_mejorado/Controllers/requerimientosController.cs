@@ -365,6 +365,17 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return listaReq;
         }
 
+
+        //devuelve un lista con los requerimientos asignados a un desarrollador
+        public List<requerimientos> GetRequirementsByProyect(int codigo)
+        {
+            var listaReq = (from d in db.requerimientos
+                            where d.codigoProyectoFK == codigo
+                            select d).ToList();
+            return listaReq;
+        }
+
+
         public List<ProyectTimesModel> GetTotalTimes(string cedula)
         {
             if (cedula != null) //es un empleado
