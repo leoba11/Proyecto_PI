@@ -9,7 +9,9 @@
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
-<h2>Frecuencia requerida de conocimientos entre fechas</h2>
+<h2>
+    Cantidad de desarrolladores con conocimientos específicos y promedio de su antigüedad en la empresa
+</h2>
 
 <script>
     $(document).ready(function () {
@@ -33,31 +35,17 @@
 
 @using (Html.BeginForm("KnowledgesReport", "reportes", FormMethod.Post))
 {
-    /* campos para ingresar fecha inicial y final */
+    /* dropdown-list para seleccionar conocimiento */
     <div class="modal-body row">
         <div class=".col-6 .col-sm-4">
             <p>
-                Fecha inicial
+                Conocimiento
             </p>
-            @Html.EditorFor(model => model.Fecha1, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-        </div>
-
-        <div class=".col-6 .col-sm-4" style="margin-left:90px">
-            <p>
-                Fecha final
-            </p>
-
-            @Html.EditorFor(model => model.Fecha2, new { htmlAttributes = new { @class = "form-control date2", @readonly = true } })
-
+            //@Html.DropDownList("cedulaPK", new SelectList(TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>, "cedulaPK", "nombre"), "----------")
+            //@Html.EditorFor(model => model.conocimiento, (IEnumerable<SelectList>)TempData["conocimientos"], "Seleccione un conocimiento", new { @class = "form-control" })
         </div>
     </div>
     <input type="submit" value="Generar reporte" />
-    if (ViewBag.alert)
-    {
-        <br />
-        <br />
-        <div class="p-3 mb-2 required bg-danger text-white">@ViewBag.alertMessage</div>
-    }
 }
 
 <br />
@@ -65,24 +53,27 @@
 
 @* si el bucket de conocimientos no es vacío se despliega table con los valores devueltos por el procedimiento almacenado *@
 @{
-    if (TempData["conocimientos"] != null)
+    if (TempData["reporteConocimientos"] != null)
     {
         <table class="table table-responsive-md">
             <tr>
                 <th>
-                    Frecuencia requerida
-                </th>
-                <th>
                     Conocimiento
                 </th>
-
+                <th>
+                    Cantidad de desarrolladores
+                </th>
+                <th>
+                    Promedio de antigüedad
+                </th>
             </tr>
 
-            @foreach (var item in (TempData["conocimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.conocimientos_en_rango_Result>))
+            @foreach (var item in (TempData["reporteConocimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ReporteConocimientos_Result>))
             {
                 <tr>
-                    <td>@item.Cantidad</td>
-                    <td>@item.Conocimiento</td>
+                    @*<td>@item.Conocimiento</td>
+                    <td>@item.CantidadDesarrolladores</td>
+                    <td>@item.PromedioAntiguedad</td>*@
                 </tr>
             }
         </table>

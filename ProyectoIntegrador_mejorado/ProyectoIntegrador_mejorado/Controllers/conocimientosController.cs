@@ -113,15 +113,19 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             var KnowList = (from d in db.conocimientos
                             select d.conocimientoPK).Distinct().ToList();
-
-
-
+            
             return KnowList;
+        }
 
-
-
-
-            //return conocimientos;
+        /*
+         * Efecto: Retorna lista de conocimientos
+         * Requiere: NA
+         * Modifica: NA
+         */
+        public List<conocimientos> Pass()
+        {
+            List<conocimientos> conocimientos = db.conocimientos.OrderBy(d => d.cedulaEmpleadoFK).GroupBy(d => d.conocimientoPK).SelectMany(g => g).ToList();
+            return conocimientos;
         }
     }
 }

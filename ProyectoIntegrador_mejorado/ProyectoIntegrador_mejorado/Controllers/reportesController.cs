@@ -193,8 +193,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
          */
         public ActionResult KnowledgesReport()
         {
-            TempData["conocimientos"] = null;
-            ViewBag.alert = false;
+            List<conocimientos> knowledges = new conocimientosController().Pass();
+            TempData["conocimientos"] = new SelectList(knowledges, "conocimientoPK", "conocimientoPK");
             TempData.Keep();
             return View();
         }
@@ -208,28 +208,31 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpPost]
         public ActionResult KnowledgesReport(FechasModel fechas)
         {
-            if (fechas.Fecha1 != null && fechas.Fecha2 != null)
-            {
-                ViewBag.alert = false;
-                if (fechas.Fecha1 <= fechas.Fecha2)
-                {
-                    TempData.Keep();
-                    TempData["conocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).ToList();
-                    TempData["fechas"] = fechas;
-                    return View();
-                }
-                else
-                {
-                    ViewBag.alert = true;
-                    ViewBag.alertMessage = "La fecha inicial debe ser menor a la fecha final.";
-                    return View();
-                }
-            }
-            else
-            {
-                TempData["conocimientos"] = null;
-                return View();
-            }
+            TempData.Keep();
+            //TempData["reporteConocimientos"] = db.ReporteConocimientos(fechas.conocimiento).ToList();
+            return View();
+            //if (fechas.Fecha1 != null && fechas.Fecha2 != null)
+            //{
+            //    ViewBag.alert = false;
+            //    if (fechas.Fecha1 <= fechas.Fecha2)
+            //    {
+            //        TempData.Keep();
+            //        TempData["reporteConocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).ToList();
+            //        TempData["fechas"] = fechas;
+            //        return View();
+            //    }
+            //    else
+            //    {
+            //        ViewBag.alert = true;
+            //        ViewBag.alertMessage = "La fecha inicial debe ser menor a la fecha final.";
+            //        return View();
+            //    }
+            //}
+            //else
+            //{
+            //    TempData["conocimientos"] = null;
+            //    return View();
+            //}
         }
 
 

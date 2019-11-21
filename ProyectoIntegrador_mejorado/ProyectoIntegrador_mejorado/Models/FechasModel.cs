@@ -18,5 +18,8 @@ namespace ProyectoIntegrador_mejorado.Models
 
         /* Atributo de modelo para manejar cédula de empleado en el reporte que se requiera */
         public string cedulaEmp { get; set; }
+
+        /* Atributo de modelo para manejar conocimiento en el reporte que se requiera */
+        public string conocimiento { get; set; }
     }
 }
