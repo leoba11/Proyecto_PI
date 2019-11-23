@@ -41,8 +41,7 @@
             <p>
                 Conocimiento
             </p>
-            //@Html.DropDownList("cedulaPK", new SelectList(TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>, "cedulaPK", "nombre"), "----------")
-            //@Html.EditorFor(model => model.conocimiento, (IEnumerable<SelectList>)TempData["conocimientos"], "Seleccione un conocimiento", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.conocimiento, (IEnumerable<SelectListItem>)TempData["conocimientos"], "Todos los conocimientos", new { @class = "form-control" })
         </div>
     </div>
     <input type="submit" value="Generar reporte" />
@@ -68,7 +67,7 @@
                 </th>
             </tr>
 
-            @foreach (var item in (TempData["reporteConocimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ReporteConocimientos_Result>))
+            @foreach (var item in (TempData["reporteConocimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.conocimientos_en_rango_Result>))
             {
                 <tr>
                     @*<td>@item.Conocimiento</td>

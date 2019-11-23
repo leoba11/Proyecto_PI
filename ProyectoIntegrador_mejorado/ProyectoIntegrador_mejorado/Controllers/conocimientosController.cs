@@ -122,9 +122,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
          * Requiere: NA
          * Modifica: NA
          */
-        public List<conocimientos> Pass()
+        public List<string> Pass()
         {
-            List<conocimientos> conocimientos = db.conocimientos.OrderBy(d => d.cedulaEmpleadoFK).GroupBy(d => d.conocimientoPK).SelectMany(g => g).ToList();
+            List<string> conocimientos = (from d in db.conocimientos
+                            where d.cedulaEmpleadoFK != "000000000"
+                            select d.conocimientoPK).Distinct().ToList();
             return conocimientos;
         }
     }
