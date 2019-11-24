@@ -198,5 +198,16 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             return resp;
         }
+
+        /*
+         * Efecto: Retorna lista de roles en los que aparece el empleado
+         * Requiere: cedula del empleado
+         * Modifica: NA
+         */
+        public List<roles> getEmployeeRoles(string cedula)
+        {
+            List<roles> historyRoles = db.roles.Where(r => r.cedulaFK == cedula).ToList();
+            return historyRoles;
+        }
     }
 }

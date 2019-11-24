@@ -297,5 +297,16 @@ namespace ProyectoIntegrador_mejorado.Controllers
                              select d).ToList();
             return proyectos;
         }
+
+        /*
+         * Efecto: devuelve nombre de proyecto
+         * Requiere: código del proyecto
+         * Modifica: NA
+         */
+        public string getProjectName(int code)
+        {
+            string name = db.proyectos.Where(p => p.codigoPK == code).Select(p => p.nombre).Single();
+            return name;
+        }
     }
 }

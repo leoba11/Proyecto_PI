@@ -375,6 +375,18 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return listaReq;
         }
 
+        /*
+         * Efecto: retorna lista de requerimientos de cierto empleado en cierto proyecto
+         * Requiere: cédula de empleado y código de proyecto
+         * Modifica: NA
+         */
+        public int? GetRequirementsDays(int codigo, string cedula)
+        {
+            int? requirementsDays = (from r in db.requerimientos
+                                     where r.codigoProyectoFK == codigo && r.cedulaEmpleadoFK == cedula
+                                     select r.duracionDias).Sum();
+            return requirementsDays;
+        }
 
         public List<ProyectTimesModel> GetTotalTimes(string cedula)
         {

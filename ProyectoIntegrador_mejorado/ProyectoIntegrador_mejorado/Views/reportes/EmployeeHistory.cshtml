@@ -1,0 +1,62 @@
+﻿@model ProyectoIntegrador_mejorado.Models.empleados
+
+@{
+    ViewBag.Title = "Historial de desarrollador";
+}
+
+<h2>
+    Historial de participación de desarrollador en diferentes proyectos
+</h2>
+
+@using (Html.BeginForm("EmployeeHistory", "reportes", FormMethod.Post))
+{
+    /* dropdown-list para seleccionar empleado */
+    <div class="modal-body row">
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Desarrollador
+            </p>
+            @Html.DropDownListFor(model => model.cedulaPK, (IEnumerable<SelectListItem>)TempData["employees"], "Seleccione un desarrollador", new { @class = "form-control" })
+        </div>
+    </div>
+    <input type="submit" value="Generar reporte" />
+}
+
+<br />
+<br />
+
+@* si el bucket de historial no es vacío se despliega table con los valores devueltos por el controlador *@
+@{
+    if (TempData["employeeHistory"] != null)
+    {
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Proyecto
+                </th>
+                <th>
+                    Rol ejecutado
+                </th>
+                <th>
+                    Cantidad de horas dedicadas
+                </th>
+            </tr>
+
+            @foreach (var item in (TempData["employeeHistory"] as IEnumerable<ProyectoIntegrador_mejorado.Models.EmployeeHistoryModel>))
+            {
+                <tr>
+                    <td>@item.projectName</td>
+                    <td>@item.executedRole</td>
+                    @if (@item.dedicatedHours == 0 && item.executedRole == "Líder")
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@item.dedicatedHours</td>
+                    }
+                </tr>
+            }
+        </table>
+    }
+}

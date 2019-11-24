@@ -43,6 +43,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
+                reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
 
@@ -62,6 +63,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
+                reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -74,6 +76,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
+                reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -109,6 +112,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("TotalTimes", "reportes");
             else if (reporte.Nombre == "Disponibilidad de desarrolladores")
                 return RedirectToAction("DisponibilidadEmpleados", "reportes");
+            else if (reporte.Nombre == "Historial de desarrollador")
+                return RedirectToAction("EmployeeHistory", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
@@ -406,8 +411,46 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return View();
         }
 
+        /*
+         * Efecto: Request GET de EmployeeHistory
+         * Requiere: NA
+         * Modifica: NA
+         */
+        public ActionResult EmployeeHistory()
+        {
+            List<empleados> employees = new empleadosController().Pass();
+            TempData["employees"] = new SelectList(employees, "cedulaPK", "nombre");
+            TempData.Keep();
+            return View();
+        }
 
-
+        /*
+         * Efecto: Request POST de EmployeeHistory
+         * Requiere: cédula de empleado
+         * Modifica: NA
+         */
+        [HttpPost]
+        public ActionResult EmployeeHistory(empleados employee)
+        {
+            if (employee.cedulaPK != null)
+            {
+                List<EmployeeHistoryModel> employeeHistory = new List<EmployeeHistoryModel>();
+                List<roles> employeeRoles = new rolesController().getEmployeeRoles(employee.cedulaPK);
+                foreach (roles rol in employeeRoles)
+                {
+                    EmployeeHistoryModel participation = new EmployeeHistoryModel();
+                    participation.projectName = new proyectosController().getProjectName(rol.codigoProyectoFK);
+                    participation.executedRole = rol.rol;
+                    int? requirementsDays = new requerimientosController().GetRequirementsDays(rol.codigoProyectoFK, rol.cedulaFK);
+                    if (requirementsDays != null && rol.rol == "Desarrollador")
+                        participation.dedicatedHours = (int) requirementsDays*8;
+                    employeeHistory.Add(participation);
+                }
+                TempData["employeeHistory"] = employeeHistory;
+            }
+            TempData.Keep();
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {

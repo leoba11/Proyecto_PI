@@ -4,34 +4,9 @@
     ViewBag.Title = "Conocimientos requeridos";
 }
 
-<script src="~/Scripts/jquery-3.3.1.js"></script>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-
 <h2>
     Cantidad de desarrolladores con conocimientos específicos y promedio de su antigüedad en la empresa
 </h2>
-
-<script>
-    $(document).ready(function () {
-        $("#Fecha1").datepicker({
-            dateFormat: 'dd/MM/yy',
-            changeMonth: true,
-            changeYear: true,
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $("#Fecha2").datepicker({
-            dateFormat: 'dd/MM/yy',
-            changeMonth: true,
-            changeYear: true,
-        });
-    });
-</script>
 
 @using (Html.BeginForm("KnowledgesReport", "reportes", FormMethod.Post))
 {
@@ -71,8 +46,8 @@
             {
                 <tr>
                     @*<td>@item.Conocimiento</td>
-                    <td>@item.CantidadDesarrolladores</td>
-                    <td>@item.PromedioAntiguedad</td>*@
+                        <td>@item.CantidadDesarrolladores</td>
+                        <td>@item.PromedioAntiguedad</td>*@
                 </tr>
             }
         </table>
