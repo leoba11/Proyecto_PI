@@ -388,6 +388,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return requirementsDays;
         }
 
+        public List<int> GetComplexities()
+        {
+            List<int> complexities = db.requerimientos.Select(d => d.complejidad).Distinct().ToList();
+            return complexities;
+        }
+
         public List<ProyectTimesModel> GetTotalTimes(string cedula)
         {
             if (cedula != null) //es un empleado
@@ -505,6 +511,41 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
 
+        }
+
+        public List<RequirementDurationsModel> GetRequirementDurationsInfo(int? complexity)
+        {
+            if (complexity != 0)
+            {
+                IEnumerable<RequirementDurationsModel> info =
+                    from r in db.requerimientos
+                    where r.complejidad == complexity
+                    group r by r.complejidad into g
+                    select new RequirementDurationsModel
+                    {
+                        complexity = g.Select(d => d.complejidad).FirstOrDefault(),
+                        requirementCount = g.Count(),
+                        minDiff = g.Min(d => Math.Abs((int)(d.duracionDias - DbFunctions.DiffDays(d.fechaInicio, d.duracionEstimada)))),
+                        maxDiff = g.Max(d => Math.Abs((int)(d.duracionDias - DbFunctions.DiffDays(d.fechaInicio, d.duracionEstimada)))),
+                        avgDuration = (int) g.Average(d => d.duracionDias)
+                    };
+                return info.ToList();
+            }
+            else
+            {
+                IEnumerable<RequirementDurationsModel> info =
+                    from r in db.requerimientos
+                    group r by r.complejidad into g
+                    select new RequirementDurationsModel
+                    {
+                        complexity = g.Select(d => d.complejidad).FirstOrDefault(),
+                        requirementCount = g.Count(),
+                        minDiff = g.Min(d => Math.Abs((int)(d.duracionDias - DbFunctions.DiffDays(d.fechaInicio, d.duracionEstimada)))),
+                        maxDiff = g.Max(d => Math.Abs((int)(d.duracionDias - DbFunctions.DiffDays(d.fechaInicio, d.duracionEstimada)))),
+                        avgDuration = (int)g.Average(d => d.duracionDias)
+                    };
+                return info.ToList();
+            }
         }
     }
 }

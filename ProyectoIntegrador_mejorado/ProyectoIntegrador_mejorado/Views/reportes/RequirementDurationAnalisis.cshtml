@@ -1,0 +1,63 @@
+﻿@model ProyectoIntegrador_mejorado.Models.requerimientos
+
+@{
+    ViewBag.Title = "Análisis de duraciones de requerimientos";
+}
+
+<h2>
+    Comparación de duración estimada y real de desarrollo para requerimientos de igual complejidad
+</h2>
+
+@using (Html.BeginForm("RequirementDurationAnalisis", "reportes", FormMethod.Post))
+{
+    /* dropdown-list para seleccionar nivel de complejidad */
+    <div class="modal-body row">
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Nivel de complejidad
+            </p>
+            @Html.DropDownListFor(model => model.complejidad, (IEnumerable<SelectListItem>)TempData["complexities"], "Todos los niveles", new { @class = "form-control" })
+        </div>
+    </div>
+    <input type="submit" value="Generar reporte" />
+}
+
+<br />
+<br />
+
+@* si el bucket de información de duración de requerimientos no es vacío se despliega table con los valores devueltos por el controlador *@
+@{
+    if (TempData["requirementsDurationInfo"] != null)
+    {
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Complejidad
+                </th>
+                <th>
+                    Cantidad de requerimientos
+                </th>
+                <th>
+                    Diferencia mínima
+                </th>
+                <th>
+                    Diferencia máxima
+                </th>
+                <th>
+                    Duración promedio
+                </th>
+            </tr>
+
+            @foreach (var item in (TempData["requirementsDurationInfo"] as IEnumerable<ProyectoIntegrador_mejorado.Models.RequirementDurationsModel>))
+            {
+                <tr>
+                    <td>@item.complexity</td>
+                    <td>@item.requirementCount</td>
+                    <td>@item.minDiff</td>
+                    <td>@item.maxDiff</td>
+                    <td>@item.avgDuration</td>
+                </tr>
+            }
+        </table>
+    }
+}

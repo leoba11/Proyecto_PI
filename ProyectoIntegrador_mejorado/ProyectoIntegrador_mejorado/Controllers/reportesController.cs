@@ -43,7 +43,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
-                reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
 
@@ -63,7 +62,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
-                reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -77,6 +75,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
+                reportes.Add(new StringModel { Nombre = "Análisis de duraciones en requerimientos" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -114,6 +113,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("DisponibilidadEmpleados", "reportes");
             else if (reporte.Nombre == "Historial de desarrollador")
                 return RedirectToAction("EmployeeHistory", "reportes");
+            else if (reporte.Nombre == "Análisis de duraciones en requerimientos")
+                return RedirectToAction("RequirementDurationAnalisis", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
@@ -434,6 +435,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             if (employee.cedulaPK != null)
             {
+                TempData.Keep();
                 List<EmployeeHistoryModel> employeeHistory = new List<EmployeeHistoryModel>();
                 List<roles> employeeRoles = new rolesController().getEmployeeRoles(employee.cedulaPK);
                 foreach (roles rol in employeeRoles)
@@ -448,7 +450,33 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 }
                 TempData["employeeHistory"] = employeeHistory;
             }
+            return View();
+        }
+
+        /*
+         * Efecto: Request GET de RequirementDurationAnalisis
+         * Requiere: NA
+         * Modifica: NA
+         */
+        public ActionResult RequirementDurationAnalisis()
+        {
+            List<int> complexities = new requerimientosController().GetComplexities();
+            TempData["complexities"] = new SelectList(complexities);
             TempData.Keep();
+            return View();
+        }
+
+        /*
+         * Efecto: Request POST de RequirementDurationAnalisis
+         * Requiere: complejidad de requerimiento
+         * Modifica: NA
+         */
+        [HttpPost]
+        public ActionResult RequirementDurationAnalisis(requerimientos complexity)
+        {
+            TempData.Keep();
+            List<RequirementDurationsModel> requirementDurationsInfo = new requerimientosController().GetRequirementDurationsInfo(complexity.complejidad);
+            TempData["requirementsDurationInfo"] = requirementDurationsInfo;
             return View();
         }
 
