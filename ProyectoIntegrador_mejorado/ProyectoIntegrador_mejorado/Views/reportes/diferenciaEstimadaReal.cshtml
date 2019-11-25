@@ -1,0 +1,61 @@
+﻿@model ProyectoIntegrador_mejorado.Models.DiferenciaEstimadaFinal
+
+@{
+    ViewBag.Title = "diferenciaEstimadaReal";
+}
+
+<h2>
+    Consultar la diferencia entre la fecha estimada y la real de un desarrollador
+</h2>
+<br />
+
+@* Form con valores para utilizar el sp *@
+@using (Html.BeginForm("diferenciaEstimadaReal", "reportes", FormMethod.Post))
+{
+    <div class="modal-body ">
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Seleccionar Empleado
+            </p>
+
+            @Html.DropDownListFor(model => model.cedulaEmp, (IEnumerable<SelectListItem>)TempData["empleados"], "Seleccione un empleado", new { @class = "form-control" })
+        </div>
+
+        <br />
+        <input type="submit" value="Generar reporte" />
+    </div>
+}
+
+
+@{
+    if (TempData["req"] != null)
+    {
+
+
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Nombre de Empleado
+                </th>
+
+                <th>
+                    Cantidad requerimientos asignados
+                </th>
+
+            </tr>
+
+            @foreach (var item in (TempData["req"] as IEnumerable<ProyectoIntegrador_mejorado.Models.empleados>))
+            {
+
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.cantidadRequerimientos</td>
+
+                </tr>
+
+            }
+
+        </table>
+
+    }
+}

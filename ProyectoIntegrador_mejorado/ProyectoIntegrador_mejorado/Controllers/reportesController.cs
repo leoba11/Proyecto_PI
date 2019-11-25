@@ -76,6 +76,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Análisis de duraciones en requerimientos" });
+                reportes.Add(new StringModel { Nombre = "Diferencia entre fecha estimada y real" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -115,6 +116,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("EmployeeHistory", "reportes");
             else if (reporte.Nombre == "Análisis de duraciones en requerimientos")
                 return RedirectToAction("RequirementDurationAnalisis", "reportes");
+            else if (reporte.Nombre == "Diferencia entre fecha estimada y real")
+                return RedirectToAction("diferenciaEstimadaReal", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
@@ -159,6 +162,42 @@ namespace ProyectoIntegrador_mejorado.Controllers
             TempData["req"] = new empleadosController().GetEmployeeByProyect(modelo.codigoProy);
             return View(); // Regresar a la vista
         }
+
+
+
+
+
+        /*
+        * Efecto: Request GET de requerimientosDesarrollador
+        * Requiere: NA
+        * Modifica: NA
+        */
+        public ActionResult diferenciaEstimadaReal()
+        {
+            List<empleados> empleados = new empleadosController().Pass();
+            TempData["empleados"] = new SelectList(empleados, "cedulaPK", "nombre");
+            TempData.Keep();
+            return View();
+        }
+
+        /*
+         * Efecto: Request POST de requerimientosDesarrollador
+         * Requiere: código de proyecto y cédula de empleado
+         * Modifica: NA
+         */
+        [HttpPost]
+        public ActionResult diferenciaEstimadaReal(DiferenciaEstimadaFinal modelo)
+        {
+            TempData.Keep(); // Para mantener los datos
+            //TempData["proyectosD"] = db.procAlmacenado;
+            return View(); // Regresar a la vista
+        }
+
+
+
+
+
+
 
         public ActionResult GetEmpList(int codigoProyecto)
         {
