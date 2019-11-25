@@ -41,7 +41,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Información sobre conocimientos" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
-                reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
@@ -60,7 +59,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Información sobre conocimientos" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
-                reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
@@ -388,11 +386,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
                     var proyecto = new proyectosController().ProjectByCode(item.codigoProy);
                     if (proyecto.fechaFinal != null)
                     {
-                        item.terminado = false;
+                        item.terminado = true;
                     }
                     else
                     {
-                        item.terminado = true;
+                        item.terminado = false;
                     }
                     item.nombreProyecto = proyecto.nombre;
                 }
@@ -409,11 +407,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
                     var lider = new empleadosController().GetEmployee(liderId);
                     if (proyecto.fechaFinal != null)
                     {
-                        item.terminado = false;
+                        item.terminado = true;
                     }
                     else
                     {
-                        item.terminado = true;
+                        item.terminado = false;
                     }
                     item.nombreProyecto = proyecto.nombre;
                     if (lider != null)

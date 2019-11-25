@@ -35,7 +35,7 @@
 
     using (Html.BeginForm("EmployeeRequirements", "reportes", FormMethod.Post))
     {
-        <p>Seleccione un empleado</p>
+        <p>O seleccione un empleado</p>
         if (TempData["empleados"] != null)
         {
             @Html.DropDownList("cedulaPK", new SelectList(TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>, "cedulaPK", "nombre"), "----------")
