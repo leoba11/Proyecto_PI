@@ -205,9 +205,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="conocimientos_en_rango" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="fechaInicio" Type="date" Mode="In" />
-          <Parameter Name="fechaFinal" Type="date" Mode="In" />
+        <Function Name="DiasDisponiblesPorEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fecha1" Type="date" Mode="In" />
+          <Parameter Name="fecha2" Type="date" Mode="In" />
         </Function>
         <Function Name="EmpleadosDesocupados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fecha1" Type="date" Mode="In" />
@@ -591,6 +591,14 @@
             <Parameter Name="idProy" Mode="In" Type="Int32" />
             <Parameter Name="cedulaEmp" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="DiasDisponiblesPorEmpleado" ReturnType="Collection(Gr02Proy1Model.DiasDisponiblesPorEmpleado_Result)">
+            <Parameter Name="fecha1" Mode="In" Type="DateTime" />
+            <Parameter Name="fecha2" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="DiasDisponiblesEmpleado" ReturnType="Collection(Gr02Proy1Model.DiasDisponiblesEmpleado_Result)">
+            <Parameter Name="fecha1" Mode="In" Type="DateTime" />
+            <Parameter Name="fecha2" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="conocimientos_en_rango_Result">
           <Property Type="Int32" Name="Cantidad" Nullable="true" />
@@ -659,6 +667,20 @@
           <Property Type="String" Name="direccionDetallada" Nullable="true" />
           <Property Type="Boolean" Name="disponibilidad" Nullable="false" />
           <Property Type="Int32" Name="cantidadRequerimientos" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DiasDisponiblesPorEmpleado_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido2" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="totalDays" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DiasDisponiblesEmpleado_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido2" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="totalDays" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -775,14 +797,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="conocimientos_en_rango" FunctionName="Gr02Proy1Model.Store.conocimientos_en_rango">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr02Proy1Model.conocimientos_en_rango_Result">
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="Conocimiento" ColumnName="Conocimiento" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="EmpleadosDesocupados" FunctionName="Gr02Proy1Model.Store.EmpleadosDesocupados">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Gr02Proy1Model.EmpleadosDesocupados_Result">
@@ -870,6 +884,28 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="cantidadReq" FunctionName="Gr02Proy1Model.Store.ObtenerRequerimientos" />
+          <FunctionImportMapping FunctionImportName="DiasDisponiblesPorEmpleado" FunctionName="Gr02Proy1Model.Store.DiasDisponiblesPorEmpleado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr02Proy1Model.DiasDisponiblesPorEmpleado_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="totalDays" ColumnName="totalDays" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DiasDisponiblesEmpleado" FunctionName="Gr02Proy1Model.Store.DiasDisponiblesPorEmpleado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr02Proy1Model.DiasDisponiblesEmpleado_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="totalDays" ColumnName="totalDays" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
