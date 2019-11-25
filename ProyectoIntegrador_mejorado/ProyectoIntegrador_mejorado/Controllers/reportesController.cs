@@ -39,7 +39,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 List<StringModel> reportes = new List<StringModel>();
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Información sobre conocimientos" });
-                reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
+                reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
@@ -59,7 +59,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 List<StringModel> reportes = new List<StringModel>();
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Información sobre conocimientos" });
-                reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
+                reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
@@ -72,7 +72,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 List<StringModel> reportes = new List<StringModel>();
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Información sobre conocimientos" });
-                reportes.Add(new StringModel { Nombre = "Empleados disponibles entre fechas" });
+                reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
@@ -104,7 +104,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("requerimientosDesarrollador", "reportes");
             else if (reporte.Nombre == "Información sobre conocimientos")
                 return RedirectToAction("KnowledgesReport", "reportes");
-            else if (reporte.Nombre == "Empleados disponibles entre fechas")
+            else if (reporte.Nombre == "Disponibilidad de empleados entre fechas")
                 return RedirectToAction("EmployeesDates", "reportes");
             else if (reporte.Nombre == "Estado requerimientos de desarrollador")
                 return RedirectToAction("EmployeeRequirements", "reportes");
@@ -123,6 +123,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //MOD: NA
         public ActionResult EmployeesDates()
         {
+            TempData["empl"] = null;
             TempData.Keep();
             return View();
             //return RedirectToAction("SelectReport", "reportes");
@@ -183,7 +184,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 
                 TempData.Keep();
-                TempData["empl"] = db.EmpleadosParaReporteFechas(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
+                TempData["empl"] = db.DiasDisponiblesEmpleado(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
                 TempData["fechas"] = fechas;
                 return View();
             }

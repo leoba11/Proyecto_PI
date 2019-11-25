@@ -229,5 +229,31 @@ namespace ProyectoIntegrador_mejorado.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<requerimientos>("cantidadReq", mergeOption, idProyParameter, cedulaEmpParameter);
         }
+    
+        public virtual ObjectResult<DiasDisponiblesPorEmpleado_Result> DiasDisponiblesPorEmpleado(Nullable<System.DateTime> fecha1, Nullable<System.DateTime> fecha2)
+        {
+            var fecha1Parameter = fecha1.HasValue ?
+                new ObjectParameter("fecha1", fecha1) :
+                new ObjectParameter("fecha1", typeof(System.DateTime));
+    
+            var fecha2Parameter = fecha2.HasValue ?
+                new ObjectParameter("fecha2", fecha2) :
+                new ObjectParameter("fecha2", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiasDisponiblesPorEmpleado_Result>("DiasDisponiblesPorEmpleado", fecha1Parameter, fecha2Parameter);
+        }
+    
+        public virtual ObjectResult<DiasDisponiblesEmpleado_Result> DiasDisponiblesEmpleado(Nullable<System.DateTime> fecha1, Nullable<System.DateTime> fecha2)
+        {
+            var fecha1Parameter = fecha1.HasValue ?
+                new ObjectParameter("fecha1", fecha1) :
+                new ObjectParameter("fecha1", typeof(System.DateTime));
+    
+            var fecha2Parameter = fecha2.HasValue ?
+                new ObjectParameter("fecha2", fecha2) :
+                new ObjectParameter("fecha2", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiasDisponiblesEmpleado_Result>("DiasDisponiblesEmpleado", fecha1Parameter, fecha2Parameter);
+        }
     }
 }
