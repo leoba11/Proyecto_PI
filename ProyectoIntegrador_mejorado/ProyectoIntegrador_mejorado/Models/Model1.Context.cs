@@ -255,5 +255,53 @@ namespace ProyectoIntegrador_mejorado.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiasDisponiblesEmpleado_Result>("DiasDisponiblesEmpleado", fecha1Parameter, fecha2Parameter);
         }
+    
+        public virtual ObjectResult<ComparacionFechasInicioEst_Result> ComparacionFechasInicioEst(string desarrollador, Nullable<int> proyecto)
+        {
+            var desarrolladorParameter = desarrollador != null ?
+                new ObjectParameter("desarrollador", desarrollador) :
+                new ObjectParameter("desarrollador", typeof(string));
+    
+            var proyectoParameter = proyecto.HasValue ?
+                new ObjectParameter("proyecto", proyecto) :
+                new ObjectParameter("proyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ComparacionFechasInicioEst_Result>("ComparacionFechasInicioEst", desarrolladorParameter, proyectoParameter);
+        }
+    
+        public virtual ObjectResult<ReporteConocimientos_Result> ReporteConocimientos(string conocimiento)
+        {
+            var conocimientoParameter = conocimiento != null ?
+                new ObjectParameter("conocimiento", conocimiento) :
+                new ObjectParameter("conocimiento", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReporteConocimientos_Result>("ReporteConocimientos", conocimientoParameter);
+        }
+    
+        public virtual ObjectResult<requerimientosDeUnProyecto_Result> requerimientosDeUnProyecto(Nullable<int> idCliente, Nullable<int> idProyecto)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("idCliente", idCliente) :
+                new ObjectParameter("idCliente", typeof(int));
+    
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<requerimientosDeUnProyecto_Result>("requerimientosDeUnProyecto", idClienteParameter, idProyectoParameter);
+        }
+    
+        public virtual ObjectResult<requerimientosFinalizadosEncurso_Result> requerimientosFinalizadosEncurso(Nullable<int> idCliente, Nullable<int> idProyecto)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("idCliente", idCliente) :
+                new ObjectParameter("idCliente", typeof(int));
+    
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<requerimientosFinalizadosEncurso_Result>("requerimientosFinalizadosEncurso", idClienteParameter, idProyectoParameter);
+        }
     }
 }

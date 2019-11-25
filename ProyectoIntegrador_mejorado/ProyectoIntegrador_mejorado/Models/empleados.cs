@@ -86,7 +86,7 @@ namespace ProyectoIntegrador_mejorado.Models
         public Nullable<int> cantidadRequerimientos { get; set; }
 
         [Display(Name = "Fecha de Contratación")]
-        [Required(ErrorMessage = "Este campo es requerido")]
+        //[Required(ErrorMessage = "Este campo es requerido")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] // para que la fecha en editar muestre el valor
         public Nullable<DateTime> fechaContratacion { get; set; }
     

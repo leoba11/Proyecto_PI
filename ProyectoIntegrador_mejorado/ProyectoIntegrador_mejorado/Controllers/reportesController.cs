@@ -41,7 +41,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Información sobre conocimientos" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
-                reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
@@ -60,7 +59,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Información sobre conocimientos" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
-                reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
@@ -76,6 +74,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Análisis de duraciones en requerimientos" });
+                reportes.Add(new StringModel { Nombre = "Diferencia entre fecha estimada y real" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -115,6 +114,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("EmployeeHistory", "reportes");
             else if (reporte.Nombre == "Análisis de duraciones en requerimientos")
                 return RedirectToAction("RequirementDurationAnalisis", "reportes");
+            else if (reporte.Nombre == "Diferencia entre fecha estimada y real")
+                return RedirectToAction("diferenciaEstimadaReal", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
@@ -159,6 +160,44 @@ namespace ProyectoIntegrador_mejorado.Controllers
             TempData["req"] = new empleadosController().GetEmployeeByProyect(modelo.codigoProy);
             return View(); // Regresar a la vista
         }
+
+
+
+
+
+        /*
+        * Efecto: Request GET de diferenciaEstimadaReal
+        * Requiere: NA
+        * Modifica: NA
+        */
+        public ActionResult diferenciaEstimadaReal()
+        {
+            List<empleados> empleados = new empleadosController().Pass();
+            List<proyectos> proyectos = new proyectosController().Pass();
+            TempData["empleados"] = new SelectList(empleados, "cedulaPK", "nombre");
+            TempData["pro"] = new SelectList(proyectos, "codigoPK", "nombre");
+            TempData.Keep();
+            return View();
+        }
+
+        /*
+         * Efecto: Request POST de diferenciaEstimadaReal
+         * Requiere: código de proyecto y cédula de empleado
+         * Modifica: NA
+         */
+        [HttpPost]
+        public ActionResult diferenciaEstimadaReal(DiferenciaEstimadaFinal modelo)
+        {
+            TempData.Keep(); // Para mantener los datos
+            TempData["proyectosD"] = db.ComparacionFechasInicioEst(modelo.cedulaEmp, modelo.codigoProy);
+            return View(); // Regresar a la vista
+        }
+
+
+
+
+
+
 
         public ActionResult GetEmpList(int codigoProyecto)
         {
@@ -280,6 +319,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpPost]
         public ActionResult EmployeeRequirements(empleados empleado)
         {
+            TempData["liderDeProyecto"] = null;
             if (empleado.cedulaPK != null)
             {
                 TempData["empSelect"] = new empleadosController().GetEmployee(empleado.cedulaPK);
@@ -303,16 +343,23 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpPost]
         public ActionResult EmployeeRequirements2(proyectos proyecto)
         {
+            TempData["empSelect"] = null;
             if (proyecto.codigoPK != 0)
             {
                 TempData["proyectoSeleccionado"] = proyecto;
+                var lider = new rolesController().getLiderId(proyecto.codigoPK);
+                TempData["liderDeProyecto"] = new empleadosController().GetEmployee(lider);
                 TempData["requerimientos"] = new requerimientosController().GetRequirementsByProyect(proyecto.codigoPK);
+                foreach (var item in TempData["requerimientos"] as List<ProyectoIntegrador_mejorado.Models.requerimientos>)
+                {
+                    var empleado = new empleadosController().GetEmployee(item.cedulaEmpleadoFK);
+                    item.descripcion = empleado.nombre + " " + empleado.apellido1 + " " + empleado.apellido2;
+                }
                 TempData.Keep();
-                return RedirectToAction("EmployeeRequirements", "reportes");
+                return View();
             }
             else
             {
-
                 TempData.Keep();
                 return RedirectToAction("EmployeeRequirements", "reportes");
             }
@@ -339,11 +386,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
                     var proyecto = new proyectosController().ProjectByCode(item.codigoProy);
                     if (proyecto.fechaFinal != null)
                     {
-                        item.terminado = false;
+                        item.terminado = true;
                     }
                     else
                     {
-                        item.terminado = true;
+                        item.terminado = false;
                     }
                     item.nombreProyecto = proyecto.nombre;
                 }
@@ -360,11 +407,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
                     var lider = new empleadosController().GetEmployee(liderId);
                     if (proyecto.fechaFinal != null)
                     {
-                        item.terminado = false;
+                        item.terminado = true;
                     }
                     else
                     {
-                        item.terminado = true;
+                        item.terminado = false;
                     }
                     item.nombreProyecto = proyecto.nombre;
                     if (lider != null)
