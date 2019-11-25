@@ -461,8 +461,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
          */
         public ActionResult RequirementDurationAnalisis()
         {
-            List<int> complexities = new requerimientosController().GetComplexities();
-            TempData["complexities"] = new SelectList(complexities);
+            List<ComplexityModel> complexities = new requerimientosController().GetComplexities();
+            TempData["complexities"] = new SelectList(complexities, "complexity", "strComplexity");
             TempData.Keep();
             return View();
         }
@@ -473,10 +473,10 @@ namespace ProyectoIntegrador_mejorado.Controllers
          * Modifica: NA
          */
         [HttpPost]
-        public ActionResult RequirementDurationAnalisis(requerimientos complexity)
+        public ActionResult RequirementDurationAnalisis(ComplexityModel complexity)
         {
             TempData.Keep();
-            List<RequirementDurationsModel> requirementDurationsInfo = new requerimientosController().GetRequirementDurationsInfo(complexity.complejidad);
+            List<RequirementDurationsModel> requirementDurationsInfo = new requerimientosController().GetRequirementDurationsInfo(complexity.complexity);
             TempData["requirementsDurationInfo"] = requirementDurationsInfo;
             return View();
         }

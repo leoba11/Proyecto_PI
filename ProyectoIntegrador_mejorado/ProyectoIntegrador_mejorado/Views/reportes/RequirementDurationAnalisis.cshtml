@@ -1,4 +1,4 @@
-﻿@model ProyectoIntegrador_mejorado.Models.requerimientos
+﻿@model ProyectoIntegrador_mejorado.Models.ComplexityModel
 
 @{
     ViewBag.Title = "Análisis de duraciones de requerimientos";
@@ -16,7 +16,7 @@
             <p>
                 Nivel de complejidad
             </p>
-            @Html.DropDownListFor(model => model.complejidad, (IEnumerable<SelectListItem>)TempData["complexities"], "Todos los niveles", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.complexity, (IEnumerable<SelectListItem>)TempData["complexities"], "Todos los niveles", new { @class = "form-control" })
         </div>
     </div>
     <input type="submit" value="Generar reporte" />
@@ -51,7 +51,24 @@
             @foreach (var item in (TempData["requirementsDurationInfo"] as IEnumerable<ProyectoIntegrador_mejorado.Models.RequirementDurationsModel>))
             {
                 <tr>
-                    <td>@item.complexity</td>
+                    @switch (@item.complexity)
+                    {
+                        case 1:
+                            <td>Simple</td>
+                            break;
+                        case 2:
+                            <td>Mediano</td>
+                            break;
+                        case 3:
+                            <td>Complejo</td>
+                            break;
+                        case 4:
+                            <td>Muy complejo</td>
+                            break;
+                        default:
+                            <td>Dificultad inválida</td>
+                            break;
+                    }
                     <td>@item.requirementCount</td>
                     <td>@item.minDiff</td>
                     <td>@item.maxDiff</td>

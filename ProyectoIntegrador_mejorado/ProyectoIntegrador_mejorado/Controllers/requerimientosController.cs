@@ -388,9 +388,28 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return requirementsDays;
         }
 
-        public List<int> GetComplexities()
+        public List<string> GetStrComplexities()
         {
-            List<int> complexities = db.requerimientos.Select(d => d.complejidad).Distinct().ToList();
+            return new List<string>
+            {
+                "Simple",
+                "Mediano",
+                "Complejo",
+                "Muy complejo",
+            };
+        }
+
+        public List<ComplexityModel> GetComplexities()
+        {
+            List<string> complexName = GetStrComplexities();
+            List<ComplexityModel> complexities = new List<ComplexityModel>();
+            for (int i = 1; i < 5; ++i)
+            {
+                ComplexityModel model = new ComplexityModel();
+                model.complexity = i;
+                model.strComplexity = complexName[i-1];
+                complexities.Add(model);
+            }
             return complexities;
         }
 
@@ -513,9 +532,14 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
         }
 
+        /*
+         * Efecto: devuelve lista de instancias de modelo RequirementDurationsModel para reporte de análisis de duración de requerimientos
+         * Requiere: complejidad de requerimiento
+         * Modifica: NA
+         */
         public List<RequirementDurationsModel> GetRequirementDurationsInfo(int? complexity)
         {
-            if (complexity != 0)
+            if (complexity != 0 || complexity != null)
             {
                 IEnumerable<RequirementDurationsModel> info =
                     from r in db.requerimientos
