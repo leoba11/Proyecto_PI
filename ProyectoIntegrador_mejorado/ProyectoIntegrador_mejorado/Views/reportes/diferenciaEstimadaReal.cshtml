@@ -12,46 +12,77 @@
 @* Form con valores para utilizar el sp *@
 @using (Html.BeginForm("diferenciaEstimadaReal", "reportes", FormMethod.Post))
 {
-    <div class="modal-body ">
-        <div class=".col-6 .col-sm-4">
-            <p>
-                Seleccionar Empleado
-            </p>
+<div class="modal-body ">
+    <div class=".col-6 .col-sm-4">
+        <p>
+            Seleccionar Empleado
+        </p>
 
-            @Html.DropDownListFor(model => model.cedulaEmp, (IEnumerable<SelectListItem>)TempData["empleados"], "Seleccione un empleado", new { @class = "form-control" })
-        </div>
-
-        <br />
-        <input type="submit" value="Generar reporte" />
+        @Html.DropDownListFor(model => model.cedulaEmp, (IEnumerable<SelectListItem>)TempData["empleados"], "Seleccione un empleado", new { @class = "form-control" })
     </div>
+
+    <br />
+
+    <div class=".col-6 .col-sm-4">
+        <p>
+            Seleccionar Empleado
+        </p>
+
+        @Html.DropDownListFor(model => model.codigoProy, (IEnumerable<SelectListItem>)TempData["pro"], "Seleccione un proyecto", new { @class = "form-control" })
+    </div>
+
+    <br />
+
+    <input type="submit" value="Generar reporte" />
+</div>
 }
 
 
 @{
-    if (TempData["req"] != null)
+    if (TempData["proyectosD"] != null)
     {
 
 
         <table class="table table-responsive-md">
             <tr>
                 <th>
-                    Nombre de Empleado
+                    Nombre del Proyecto
                 </th>
 
                 <th>
-                    Cantidad requerimientos asignados
+                    Nombre del Requerimiento
+                </th>
+
+                <th>
+                    Complejidad
+                </th>
+
+                <th>
+                    Duración Estimada
+                </th>
+
+                <th>
+                    Duración Real
+                </th>
+
+                <th>
+                    Diferencia entre Estimada y Real
                 </th>
 
             </tr>
 
-            @foreach (var item in (TempData["req"] as IEnumerable<ProyectoIntegrador_mejorado.Models.empleados>))
+            @foreach (var item in (TempData["proyectosD"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ComparacionFechasInicioEst_Result>))
             {
 
-                <tr>
-                    <td>@item.nombre</td>
-                    <td>@item.cantidadRequerimientos</td>
+            <tr>
+                <td>@item.Nombre_Proyecto</td>
+                <td>@item.Nombre_Requerimiento</td>
+                <td>@item.complejidad</td>
+                <td>@item.Duracion_Estimada</td>
+                <td>@item.Duracion_Real</td>
+                <td>@item.Diferencia</td>
 
-                </tr>
+            </tr>
 
             }
 

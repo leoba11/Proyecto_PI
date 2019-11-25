@@ -205,6 +205,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CantEmpleadosDisp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="ComparacionFechasInicioEst" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="desarrollador" Type="varchar" Mode="In" />
+          <Parameter Name="proyecto" Type="int" Mode="In" />
+        </Function>
         <Function Name="DiasDisponiblesPorEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fecha1" Type="date" Mode="In" />
           <Parameter Name="fecha2" Type="date" Mode="In" />
@@ -217,6 +222,17 @@
         <Function Name="ObtenerRequerimientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProy" Type="int" Mode="In" />
           <Parameter Name="cedulaEmp" Type="char" Mode="In" />
+        </Function>
+        <Function Name="ReporteConocimientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="conocimiento" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="requerimientosDeUnProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCliente" Type="int" Mode="In" />
+          <Parameter Name="idProyecto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="requerimientosFinalizadosEncurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCliente" Type="int" Mode="In" />
+          <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -599,6 +615,21 @@
             <Parameter Name="fecha1" Mode="In" Type="DateTime" />
             <Parameter Name="fecha2" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="ComparacionFechasInicioEst" ReturnType="Collection(Gr02Proy1Model.ComparacionFechasInicioEst_Result)">
+            <Parameter Name="desarrollador" Mode="In" Type="String" />
+            <Parameter Name="proyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ReporteConocimientos" ReturnType="Collection(Gr02Proy1Model.ReporteConocimientos_Result)">
+          <Parameter Name="conocimiento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="requerimientosDeUnProyecto" ReturnType="Collection(Gr02Proy1Model.requerimientosDeUnProyecto_Result)">
+            <Parameter Name="idCliente" Mode="In" Type="Int32" />
+            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="requerimientosFinalizadosEncurso" ReturnType="Collection(Gr02Proy1Model.requerimientosFinalizadosEncurso_Result)">
+            <Parameter Name="idCliente" Mode="In" Type="Int32" />
+            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="conocimientos_en_rango_Result">
           <Property Type="Int32" Name="Cantidad" Nullable="true" />
@@ -681,6 +712,34 @@
           <Property Type="String" Name="apellido1" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="apellido2" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="totalDays" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ComparacionFechasInicioEst_Result">
+          <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Nombre_Requerimiento" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="complejidad" Nullable="false" />
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="9" />
+          <Property Type="Int32" Name="Duracion_Estimada" Nullable="true" />
+          <Property Type="Int32" Name="Duracion_Real" Nullable="true" />
+          <Property Type="Int32" Name="Diferencia" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ReporteConocimientos_Result">
+          <Property Type="String" Name="Conocimiento" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Cantidad_de_desarrolladores" Nullable="true" />
+          <Property Type="Int32" Name="Promedio_de_antiguedad" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="requerimientosDeUnProyecto_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nombre1" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nombre2" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nombre3" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="requerimientosFinalizadosEncurso_Result">
+          <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="terminados" Nullable="true" />
+          <Property Type="Int32" Name="en_curso" Nullable="true" />
+          <Property Type="DateTime" Name="Fecha_final" Nullable="false" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -903,6 +962,50 @@
                 <ScalarProperty Name="apellido1" ColumnName="apellido1" />
                 <ScalarProperty Name="apellido2" ColumnName="apellido2" />
                 <ScalarProperty Name="totalDays" ColumnName="totalDays" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ComparacionFechasInicioEst" FunctionName="Gr02Proy1Model.Store.ComparacionFechasInicioEst">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr02Proy1Model.ComparacionFechasInicioEst_Result">
+                <ScalarProperty Name="Nombre_Proyecto" ColumnName="Nombre Proyecto" />
+                <ScalarProperty Name="Nombre_Requerimiento" ColumnName="Nombre Requerimiento" />
+                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="Duracion_Estimada" ColumnName="Duracion Estimada" />
+                <ScalarProperty Name="Duracion_Real" ColumnName="Duracion Real" />
+                <ScalarProperty Name="Diferencia" ColumnName="Diferencia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReporteConocimientos" FunctionName="Gr02Proy1Model.Store.ReporteConocimientos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr02Proy1Model.ReporteConocimientos_Result">
+                <ScalarProperty Name="Conocimiento" ColumnName="Conocimiento" />
+                <ScalarProperty Name="Cantidad_de_desarrolladores" ColumnName="Cantidad de desarrolladores" />
+                <ScalarProperty Name="Promedio_de_antiguedad" ColumnName="Promedio de antiguedad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="requerimientosDeUnProyecto" FunctionName="Gr02Proy1Model.Store.requerimientosDeUnProyecto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr02Proy1Model.requerimientosDeUnProyecto_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombre1" ColumnName="nombre1" />
+                <ScalarProperty Name="nombre2" ColumnName="nombre2" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nombre3" ColumnName="nombre3" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="requerimientosFinalizadosEncurso" FunctionName="Gr02Proy1Model.Store.requerimientosFinalizadosEncurso">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr02Proy1Model.requerimientosFinalizadosEncurso_Result">
+                <ScalarProperty Name="Nombre_Proyecto" ColumnName="Nombre Proyecto" />
+                <ScalarProperty Name="terminados" ColumnName="terminados" />
+                <ScalarProperty Name="en_curso" ColumnName="en curso" />
+                <ScalarProperty Name="Fecha_final" ColumnName="Fecha final" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

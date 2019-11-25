@@ -168,20 +168,22 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
         /*
-        * Efecto: Request GET de requerimientosDesarrollador
+        * Efecto: Request GET de diferenciaEstimadaReal
         * Requiere: NA
         * Modifica: NA
         */
         public ActionResult diferenciaEstimadaReal()
         {
             List<empleados> empleados = new empleadosController().Pass();
+            List<proyectos> proyectos = new proyectosController().Pass();
             TempData["empleados"] = new SelectList(empleados, "cedulaPK", "nombre");
+            TempData["pro"] = new SelectList(proyectos, "codigoPK", "nombre");
             TempData.Keep();
             return View();
         }
 
         /*
-         * Efecto: Request POST de requerimientosDesarrollador
+         * Efecto: Request POST de diferenciaEstimadaReal
          * Requiere: código de proyecto y cédula de empleado
          * Modifica: NA
          */
@@ -189,7 +191,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult diferenciaEstimadaReal(DiferenciaEstimadaFinal modelo)
         {
             TempData.Keep(); // Para mantener los datos
-            //TempData["proyectosD"] = db.procAlmacenado;
+            TempData["proyectosD"] = db.ComparacionFechasInicioEst(modelo.cedulaEmp, modelo.codigoProy);
             return View(); // Regresar a la vista
         }
 
