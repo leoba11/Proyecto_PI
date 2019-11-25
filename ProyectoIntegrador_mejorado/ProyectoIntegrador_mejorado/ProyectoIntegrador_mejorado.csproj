@@ -475,6 +475,7 @@
     <Content Include="Views\reportes\RequirementDurationAnalisis.cshtml" />
     <Content Include="Views\reportes\KnowledgesReport.cshtml" />
     <Content Include="Views\reportes\diferenciaEstimadaReal.cshtml" />
+    <Content Include="Views\reportes\EmployeeRequirements2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

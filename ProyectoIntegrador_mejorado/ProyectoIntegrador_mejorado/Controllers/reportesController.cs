@@ -319,6 +319,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpPost]
         public ActionResult EmployeeRequirements(empleados empleado)
         {
+            TempData["liderDeProyecto"] = null;
             if (empleado.cedulaPK != null)
             {
                 TempData["empSelect"] = new empleadosController().GetEmployee(empleado.cedulaPK);
@@ -342,16 +343,23 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpPost]
         public ActionResult EmployeeRequirements2(proyectos proyecto)
         {
+            TempData["empSelect"] = null;
             if (proyecto.codigoPK != 0)
             {
                 TempData["proyectoSeleccionado"] = proyecto;
+                var lider = new rolesController().getLiderId(proyecto.codigoPK);
+                TempData["liderDeProyecto"] = new empleadosController().GetEmployee(lider);
                 TempData["requerimientos"] = new requerimientosController().GetRequirementsByProyect(proyecto.codigoPK);
+                foreach (var item in TempData["requerimientos"] as List<ProyectoIntegrador_mejorado.Models.requerimientos>)
+                {
+                    var empleado = new empleadosController().GetEmployee(item.cedulaEmpleadoFK);
+                    item.descripcion = empleado.nombre + " " + empleado.apellido1 + " " + empleado.apellido2;
+                }
                 TempData.Keep();
-                return RedirectToAction("EmployeeRequirements", "reportes");
+                return View();
             }
             else
             {
-
                 TempData.Keep();
                 return RedirectToAction("EmployeeRequirements", "reportes");
             }

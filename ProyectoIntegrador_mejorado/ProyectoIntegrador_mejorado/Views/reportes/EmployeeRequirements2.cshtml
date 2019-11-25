@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "Estado del desarrollo de requerimientos asignados a un desarrollador";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+<h2>Estado del desarrollo de requerimientos asignados a un desarrollador</h2>
+<br />
+
+
+
+
+@if (TempData["rol"] as string == "boss")
+{
+
+
+    @*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
+    using (Html.BeginForm("EmployeeRequirements2", "reportes", FormMethod.Post))
+    {
+        <p>Seleccione un proyecto</p>
+        if (TempData["proyectos"] != null)
+        {
+            @Html.DropDownList("codigoPK", new SelectList(TempData["proyectos"] as List<ProyectoIntegrador_mejorado.Models.proyectos>, "codigoPK", "nombre"), "----------")
+        }
+        @*boton para aceptar el proyecto seleccionado y continuar*@
+        <input type="submit" value="Seleccionar" />
+    }
+
+
+
+
+
+    using (Html.BeginForm("EmployeeRequirements", "reportes", FormMethod.Post))
+    {
+        <p>O seleccione un empleado</p>
+        if (TempData["empleados"] != null)
+        {
+            @Html.DropDownList("cedulaPK", new SelectList(TempData["empleados"] as List<ProyectoIntegrador_mejorado.Models.empleados>, "cedulaPK", "nombre"), "----------")
+        }
+        @*boton para aceptar el proyecto seleccionado y continuar*@
+        <input type="submit" value="Seleccionar" />
+    }
+
+
+    <br />
+    <br />
+    if (TempData["empSelect"] != null)
+    {
+        <p>
+            Empleado:
+            @((TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
+
+        </p>
+    }
+
+
+    if (TempData["liderDeProyecto"] != null)
+    {
+        <p>
+            Lider del proyecto:
+            @((TempData["liderDeProyecto"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["liderDeProyecto"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["liderDeProyecto"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
+
+        </p>
+    }
+
+
+    @*si ya se tiene la lista de empleados se despliega en pantalla*@
+    if (TempData["requerimientos"] != null)
+    {
+
+
+
+
+
+
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Fecha de inicio
+                </th>
+                <th>
+                    Fecha final estimada
+                </th>
+                <th>
+                    Fecha de finalización
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Responsable
+                </th>
+
+            </tr>
+
+            @foreach (var item in (TempData["requerimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
+            {
+
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.fechaInicio.Day/@item.fechaInicio.Month/@item.fechaInicio.Year </td>
+                    <td>@item.duracionEstimada.Day/@item.duracionEstimada.Month/@item.duracionEstimada.Year </td>
+                    <td>@item.fechaFin</td>
+                    <td>@item.estado</td>
+                    <td>@item.descripcion</td>
+
+                </tr>
+
+            }
+
+        </table>
+
+    }
+}
+else if (TempData["rol"] as string == "lider")
+{
+
+
+
+
+
+}
+else if (TempData["rol"] as string == "desarrollador")
+{
+
+}
+
+
+
+
