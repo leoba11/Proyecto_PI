@@ -417,6 +417,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             if (cedula != null) //es un empleado
             {
+                //se obtiene primero el codigo del proyecto donde es lider actualmente
+
+
                 IEnumerable<ProyectTimesModel> lista =
                 from a in db.requerimientos
                 join r in db.roles

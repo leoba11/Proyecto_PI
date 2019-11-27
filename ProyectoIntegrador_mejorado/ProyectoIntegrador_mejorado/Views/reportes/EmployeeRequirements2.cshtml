@@ -12,11 +12,6 @@
 
 
 
-
-@if (TempData["rol"] as string == "boss")
-{
-
-
     @*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
     using (Html.BeginForm("EmployeeRequirements2", "reportes", FormMethod.Post))
     {
@@ -70,12 +65,6 @@
     @*si ya se tiene la lista de empleados se despliega en pantalla*@
     if (TempData["requerimientos"] != null)
     {
-
-
-
-
-
-
         <table class="table table-responsive-md">
             <tr>
                 <th>
@@ -117,20 +106,4 @@
         </table>
 
     }
-}
-else if (TempData["rol"] as string == "lider")
-{
-
-
-
-
-
-}
-else if (TempData["rol"] as string == "desarrollador")
-{
-
-}
-
-
-
 

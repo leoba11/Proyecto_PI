@@ -290,23 +290,47 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //MOD: NA
         public ActionResult EmployeeRequirements()
         {
-            /*si el usuario es empleado y no lider, mostrar de una vez su vista*/
-            TempData["rol"] = "desarrollador";
 
-
-            /*si el usuario es empleado y lider, mostrar de una vez su vista*/
-            TempData["rol"] = "lider";
-
-
-            /*si es jefe de desarrollo o soporte*/
-            TempData["rol"] = "boss";
-            TempData["empleados"] = new empleadosController().Pass();
             TempData["requerimientos"] = null;
             TempData["empSelect"] = null;
-            List<proyectos> proyectos = new proyectosController().Pass();
-            TempData["proyectos"] = proyectos;
-            TempData.Keep();
-            return View();
+
+            var user = User.Identity.GetUserName();
+            var emple = new empleadosController().ExistEmail(user);
+            if (emple.Count() > 0)
+            {
+                bool liderNow = new rolesController().idLiderNow(emple[0].cedulaPK);
+                if(liderNow == true)
+                {
+                    /*si el usuario es empleado y lider, mostrar de una vez su vista*/
+                    TempData["rol"] = "lider";
+                    var actualProyect = new rolesController().ProyectoLiderNow(emple[0].cedulaPK);
+                    TempData["requerimientos"] = new requerimientosController().GetRequirementsByProyect(actualProyect.codigoPK);
+                    foreach (var item in TempData["requerimientos"] as List<ProyectoIntegrador_mejorado.Models.requerimientos>)
+                    {
+                        var empleado = new empleadosController().GetEmployee(item.cedulaEmpleadoFK);
+                        item.descripcion = empleado.nombre + " " + empleado.apellido1 + " " + empleado.apellido2;
+                    }
+                }
+                else
+                {
+                    /*si el usuario es empleado y no lider, mostrar de una vez su vista*/
+                    TempData["rol"] = "desarrollador";
+                    TempData["requerimientos"] = new requerimientosController().GetRequirementsByEmployee(emple[0].cedulaPK);
+                }
+                TempData.Keep();
+                return View();
+            }
+            else
+            {
+                /*si es jefe de desarrollo o soporte*/
+                TempData["rol"] = "boss";
+                TempData["empleados"] = new empleadosController().Pass();
+                List<proyectos> proyectos = new proyectosController().Pass();
+                TempData["proyectos"] = proyectos;
+                TempData.Keep();
+                return View();
+            }
+
             //return RedirectToAction("SelectReport", "reportes");
         }
 

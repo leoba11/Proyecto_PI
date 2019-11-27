@@ -182,6 +182,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return rol.cedulaFK;
         }
 
+        /*
+         * Devuelve true si el empleado es lider en un proyecto activo
+         */
         public bool idLiderNow(string cedula)
         {
             bool resp = false;
@@ -198,6 +201,22 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             return resp;
         }
+
+        /*
+         * Devuelve el proyecto donde el empleado es lider actualmente
+         */
+        public proyectos ProyectoLiderNow(string cedula)
+        {
+            List<proyectos> lista = (from r in db.roles
+                                 join p in db.proyectos
+                                 on r.codigoProyectoFK equals p.codigoPK
+                                 where (r.cedulaFK == cedula && r.rol == "Líder" && p.fechaFinal == null)
+                                 select p
+                                 ).ToList();
+
+            return lista[0];
+        }
+
 
         /*
          * Efecto: Retorna lista de roles en los que aparece el empleado

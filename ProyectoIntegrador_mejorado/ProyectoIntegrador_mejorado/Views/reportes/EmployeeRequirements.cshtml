@@ -57,7 +57,7 @@
     }
 
 
-    @*si ya se tiene la lista de empleados se despliega en pantalla*@
+    @*si ya se tiene la lista de requerimientos se despliega en pantalla*@
     if (TempData["requerimientos"] != null)
     {
 
@@ -87,8 +87,8 @@
 
                 <tr>
                     <td>@item.nombre</td>
-                    <td>@item.fechaInicio</td>
-                    <td>@item.duracionEstimada</td>
+                    <td>@item.fechaInicio.Day/@item.fechaInicio.Month/@item.fechaInicio.Year</td>
+                    <td>@item.duracionEstimada.Day/@item.duracionEstimada.Month/@item.duracionEstimada.Year</td>
                     <td>@item.fechaFin</td>
                     <td>@item.estado</td>
 
@@ -103,14 +103,98 @@
 else if (TempData["rol"] as string == "lider")
 {
 
+    @*si ya se tiene la lista de requerimientos se despliega en pantalla*@
+    if (TempData["requerimientos"] != null)
+    {
 
 
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Fecha de inicio
+                </th>
+                <th>
+                    Fecha final estimada
+                </th>
+                <th>
+                    Fecha de finalización
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Responsable
+                </th>
 
+            </tr>
 
+            @foreach (var item in (TempData["requerimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
+            {
+
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.fechaInicio.Day/@item.fechaInicio.Month/@item.fechaInicio.Year</td>
+                    <td>@item.duracionEstimada.Day/@item.duracionEstimada.Month/@item.duracionEstimada.Year</td>
+                    <td>@item.fechaFin</td>
+                    <td>@item.estado</td>
+                    <td>@item.descripcion</td>
+
+                </tr>
+
+            }
+
+        </table>
+
+    }
 }
 else if (TempData["rol"] as string == "desarrollador")
 {
 
+    @*si ya se tiene la lista de requerimientos se despliega en pantalla*@
+    if (TempData["requerimientos"] != null)
+    {
+
+
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Fecha de inicio
+                </th>
+                <th>
+                    Fecha final estimada
+                </th>
+                <th>
+                    Fecha de finalización
+                </th>
+                <th>
+                    Estado
+                </th>
+
+            </tr>
+
+            @foreach (var item in (TempData["requerimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientos>))
+            {
+
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.fechaInicio.Day/@item.fechaInicio.Month/@item.fechaInicio.Year</td>
+                    <td>@item.duracionEstimada.Day/@item.duracionEstimada.Month/@item.duracionEstimada.Year</td>
+                    <td>@item.fechaFin</td>
+                    <td>@item.estado</td>
+
+                </tr>
+
+            }
+
+        </table>
+
+    }
 }
 
 
