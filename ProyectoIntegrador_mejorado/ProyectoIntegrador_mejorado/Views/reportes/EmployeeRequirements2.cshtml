@@ -13,7 +13,7 @@
 
 
     @*se muestra una lista desplegable de los proyectos actuales en la base de datos*@
-    using (Html.BeginForm("EmployeeRequirements2", "reportes", FormMethod.Post))
+    @using (Html.BeginForm("EmployeeRequirements2", "reportes", FormMethod.Post))
     {
         <p>Seleccione un proyecto</p>
         if (TempData["proyectos"] != null)
@@ -28,7 +28,7 @@
 
 
 
-    using (Html.BeginForm("EmployeeRequirements", "reportes", FormMethod.Post))
+    @using (Html.BeginForm("EmployeeRequirements", "reportes", FormMethod.Post))
     {
         <p>O seleccione un empleado</p>
         if (TempData["empleados"] != null)
@@ -42,17 +42,9 @@
 
     <br />
     <br />
-    if (TempData["empSelect"] != null)
-    {
-        <p>
-            Empleado:
-            @((TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).nombre + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido1 + " " + (TempData["empSelect"] as ProyectoIntegrador_mejorado.Models.empleados).apellido2)
-
-        </p>
-    }
 
 
-    if (TempData["liderDeProyecto"] != null)
+    @if (TempData["liderDeProyecto"] != null)
     {
         <p>
             Lider del proyecto:
@@ -63,7 +55,7 @@
 
 
     @*si ya se tiene la lista de empleados se despliega en pantalla*@
-    if (TempData["requerimientos"] != null)
+    @if (TempData["requerimientos"] != null)
     {
         <table class="table table-responsive-md">
             <tr>
