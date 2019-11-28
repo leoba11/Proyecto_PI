@@ -388,6 +388,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return requirementsDays;
         }
 
+        /*
+         * Efecto: retorna lista de complejidades como string
+         * Requiere: NA
+         * Modifica: NA
+         */
         public List<string> GetStrComplexities()
         {
             return new List<string>
@@ -399,6 +404,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
             };
         }
 
+        /*
+         * Efecto: retorna lista de modelos ComplexityModel necesario para reporte de
+         * duraciones de requerimientos por complejidad
+         * Requiere: NA
+         * Modifica: NA
+         */
         public List<ComplexityModel> GetComplexities()
         {
             List<string> complexName = GetStrComplexities();
@@ -542,7 +553,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
          */
         public List<RequirementDurationsModel> GetRequirementDurationsInfo(int? complexity)
         {
-            if (complexity != 0 || complexity != null)
+            if (complexity != null)
             {
                 IEnumerable<RequirementDurationsModel> info =
                     from r in db.requerimientos

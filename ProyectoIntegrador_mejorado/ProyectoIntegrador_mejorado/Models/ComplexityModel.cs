@@ -13,5 +13,4 @@ namespace ProyectoIntegrador_mejorado.Models
         /* Atributo de modelo para manejar nombre de la complejidad del requerimiento */
         public string strComplexity { get; set; }
     }
-}
- 
+} 

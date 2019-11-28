@@ -42,12 +42,12 @@
                 </th>
             </tr>
 
-            @foreach (var item in (TempData["reporteConocimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.conocimientos_en_rango_Result>))
+            @foreach (var item in (TempData["reporteConocimientos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ReporteConocimientos_Result>))
             {
                 <tr>
-                    @*<td>@item.Conocimiento</td>
-                        <td>@item.CantidadDesarrolladores</td>
-                        <td>@item.PromedioAntiguedad</td>*@
+                    <td>@item.Conocimiento</td>
+                    <td>@item.Cantidad_de_desarrolladores</td>
+                    <td>@item.Promedio_de_antiguedad</td>
                 </tr>
             }
         </table>

@@ -38,7 +38,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
                 List<StringModel> reportes = new List<StringModel>();
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
-                reportes.Add(new StringModel { Nombre = "Información sobre conocimientos" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
@@ -56,7 +55,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 List<StringModel> reportes = new List<StringModel>();
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
-                reportes.Add(new StringModel { Nombre = "Información sobre conocimientos" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
@@ -248,42 +246,16 @@ namespace ProyectoIntegrador_mejorado.Controllers
         //Método POST de la vista de reporte de conocimientos
         /*
          * Efecto: Request POST de KnowledgesReport
-         * Requiere: fecha inicial y final
+         * Requiere: conocimiento
          * Modifica: NA
          */
         [HttpPost]
         public ActionResult KnowledgesReport(FechasModel fechas)
         {
             TempData.Keep();
-            //TempData["reporteConocimientos"] = db.ReporteConocimientos(fechas.conocimiento).ToList();
-            TempData["reporteConocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).ToList();
+            TempData["reporteConocimientos"] = db.ReporteConocimientos(fechas.conocimiento).ToList();
             return View();
-            //if (fechas.Fecha1 != null && fechas.Fecha2 != null)
-            //{
-            //    ViewBag.alert = false;
-            //    if (fechas.Fecha1 <= fechas.Fecha2)
-            //    {
-            //        TempData.Keep();
-            //        TempData["reporteConocimientos"] = db.conocimientos_en_rango(fechas.Fecha1, fechas.Fecha2).ToList();
-            //        TempData["fechas"] = fechas;
-            //        return View();
-            //    }
-            //    else
-            //    {
-            //        ViewBag.alert = true;
-            //        ViewBag.alertMessage = "La fecha inicial debe ser menor a la fecha final.";
-            //        return View();
-            //    }
-            //}
-            //else
-            //{
-            //    TempData["conocimientos"] = null;
-            //    return View();
-            //}
         }
-
-
-
 
         //EFE: redirige a la vista del reporte de estado de requerimientos para un desarrollador
         //REQ: NA
@@ -505,9 +477,9 @@ namespace ProyectoIntegrador_mejorado.Controllers
         [HttpPost]
         public ActionResult EmployeeHistory(empleados employee)
         {
+            TempData.Keep();
             if (employee.cedulaPK != null)
             {
-                TempData.Keep();
                 List<EmployeeHistoryModel> employeeHistory = new List<EmployeeHistoryModel>();
                 List<roles> employeeRoles = new rolesController().getEmployeeRoles(employee.cedulaPK);
                 foreach (roles rol in employeeRoles)
@@ -517,7 +489,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                     participation.executedRole = rol.rol;
                     int? requirementsDays = new requerimientosController().GetRequirementsDays(rol.codigoProyectoFK, rol.cedulaFK);
                     if (requirementsDays != null && rol.rol == "Desarrollador")
-                        participation.dedicatedHours = (int) requirementsDays*8;
+                        participation.dedicatedHours = (int)requirementsDays * 8;
                     employeeHistory.Add(participation);
                 }
                 TempData["employeeHistory"] = employeeHistory;
@@ -544,10 +516,10 @@ namespace ProyectoIntegrador_mejorado.Controllers
          * Modifica: NA
          */
         [HttpPost]
-        public ActionResult RequirementDurationAnalisis(ComplexityModel complexity)
+        public ActionResult RequirementDurationAnalisis(ComplexityModel complejidad)
         {
             TempData.Keep();
-            List<RequirementDurationsModel> requirementDurationsInfo = new requerimientosController().GetRequirementDurationsInfo(complexity.complexity);
+            List<RequirementDurationsModel> requirementDurationsInfo = new requerimientosController().GetRequirementDurationsInfo(complejidad.complexity);
             TempData["requirementsDurationInfo"] = requirementDurationsInfo;
             return View();
         }
