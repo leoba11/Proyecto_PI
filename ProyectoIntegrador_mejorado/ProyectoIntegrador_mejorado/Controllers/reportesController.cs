@@ -421,38 +421,39 @@ namespace ProyectoIntegrador_mejorado.Controllers
         }
 
         //[Authorize(Roles = "Soporte, JefeDesarrollo,Lider")]
+        //método para obtener los empleados asignados y disponibles
         public ActionResult DisponibilidadEmpleados()
         {
 
-            //limpio los datos 
+            //limpio los datos  para asegurarme que no hayan datos que no correspondan
             TempData["empDisponibles"] = null;
             TempData["empOcupados"] = null;
             TempData["pryActual"] = null;
-            var user = User.Identity.GetUserName();
+            var user = User.Identity.GetUserName(); //obteniendo la identidad del empleado
             var emple = new empleadosController().ExistEmail(user);
-            //obteniendo la cedula del empleado
+           
             
             /*si el usuario es empleado, mostrar de una vez su vista*/
             if (emple.Count() > 0)   //es empleado
             {
                 var cedula = emple[0].cedulaPK;
                 bool esLider = new rolesController().idLiderNow(cedula);
-                if (esLider == true) {
-                    TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();
-                    var proy = new proyectosController().GetLiderProyectoActual(cedula);
-                    TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(cedula,proy[0].codigoPK);
+                if (esLider == true) { //si es líder de algun proyecto puedo mostrar lo que corresponde a su proyecto, de lo contrario vista en blanco
+                    TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();//empleados disponibles
+                    var proy = new proyectosController().GetLiderProyectoActual(cedula);//obtenego de cual proyecto soy lider
+                    TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(cedula,proy[0].codigoPK);//obtengo los empleados ocupados en mi proyecto
                     TempData.Keep();
                 }
                 
             }
             else
-            { //es jefe de desarrollo/soporte 
-                TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();
-                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(null, 0);
-                TempData.Keep();
+            { //es jefe de desarrollo/soporte , puedo mostrar todos los datos sin restricción
+                TempData["empDisponibles"] = new empleadosController().GetFreeEmployees();//obtengo los empleados libres
+                TempData["empOcupados"] = new empleadosController().GetEmployeeBusyProject(null, 0);//obtengo los empleados ocupados
+                TempData.Keep();//hago que conserve los datos
             }
 
-
+            //regreso la vista
             return View();
         }
 

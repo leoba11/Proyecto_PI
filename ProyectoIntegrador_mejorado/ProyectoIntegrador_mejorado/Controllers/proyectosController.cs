@@ -260,14 +260,15 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return proyectos;
         }
 
+        //Este método devulve el proyecto del cual se es líder.
         public List<proyectos> GetLiderProyectoActual(string cedula)
-        {
-            var proyectos = (from d in db.proyectos
+        {//recibo el numero de cedula
+            var proyectos = (from d in db.proyectos 
                              join f in db.roles
-                             on d.codigoPK equals f.codigoProyectoFK
-                             where(( f.cedulaFK == cedula && f.rol == "Líder" ) && d.fechaFinal == null)
-                             select d).ToList();
-            return proyectos;
+                             on d.codigoPK equals f.codigoProyectoFK//aquí reviso en cual poryecto es lider
+                             where (( f.cedulaFK == cedula && f.rol == "Líder" ) && d.fechaFinal == null) //si su rol es líder y está asociado con un proyecto que no ha terminado
+                             select d).ToList(); //devulva ese proyecto
+            return proyectos;//devulve el proyecto
         }
 
         /*

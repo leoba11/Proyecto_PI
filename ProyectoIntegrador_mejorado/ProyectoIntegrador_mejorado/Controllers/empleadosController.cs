@@ -218,12 +218,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
         //Devuelve los desarrolladores que están asignados actualmente a un proyecto
         public List<DisponibilidadEmpleadosModel> GetEmployeeBusyProject(string cedula, int proyecto)
-        {  //pongo cédula arriba
+        {  
             if (cedula != null) //es un empleado
             {
                 IEnumerable<DisponibilidadEmpleadosModel> lista1 = (from d in db.empleados
-                                                                    join f in db.roles
-                                                                    on d.cedulaPK equals f.cedulaFK
+                                                                    join f in db.roles //esto es para recorrer los caminos para ir obteniendo los datos de interes
+                                                                    on d.cedulaPK equals f.cedulaFK 
                                                                     join pr in db.proyectos
                                                                     on f.codigoProyectoFK equals pr.codigoPK
                                                                     where ((f.codigoProyectoFK == proyecto && f.rol != "Líder" && d.disponibilidad == false && pr.fechaFinal == null)) //aquí es para asegurarse que solo se devulven los desarrolladores y que sean de los proyectos que aún no han terminado
@@ -248,7 +248,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 IEnumerable<DisponibilidadEmpleadosModel> lista1 = (from d in db.empleados
                                                                     join f in db.roles
                                                                     on d.cedulaPK equals f.cedulaFK
-                                                                    join pr in db.proyectos
+                                                                    join pr in db.proyectos//esto es para recorrer los caminos para ir obteniendo los datos de interes
                                                                     on f.codigoProyectoFK equals pr.codigoPK
                                                                     where ((f.rol != "Líder" && d.disponibilidad == false && pr.fechaFinal == null)) //aquí es para asegurarse que solo se devulven los desarrolladores y que sean de los proyectos que aún no han terminado
                                                                     orderby pr.fechaFinalEstimada descending
@@ -262,37 +262,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
                                                                         fechaIniciopry = pr.fechaInicio,
                                                                         fechaEstimadapry = pr.fechaFinalEstimada
                                                                     });
-
+                //se regresa la lista obtenida de la consulta de arriba
                 return lista1.ToList();
 
             }
 
-
-            //en la variable lista, se guardan las tuplas que devulve la base de datos
-
-
-            //var lista = (from d in db.empleados
-            //             join f in db.roles
-            //             on d.cedulaPK equals f.cedulaFK
-            //             join pr in db.proyectos
-            //             on f.codigoProyectoFK equals pr.codigoPK
-            //             where ((f.rol != "Líder" && d.disponibilidad == false && pr.fechaFinal == null)) //aquí es para asegurarse que solo se devulven los desarrolladores y que sean de los proyectos que aún no han terminado
-            //             orderby pr.fechaFinalEstimada descending
-            //             select new DisponibilidadEmpleadosModel()
-            //             {
-            //                 codigoProy = pr.codigoPK,
-            //                 nombreProyecto = pr.nombre,
-            //                 nombreEmpleado = d.nombre,  //se guardan los valores específicos en el modelo
-            //                 apellido1Empleado = d.apellido1,
-            //                 apellido2Empleado = d.apellido2,
-            //                 fechaIniciopry = pr.fechaInicio,
-            //                 fechaEstimadapry = pr.fechaFinalEstimada
-            //             }).ToList();
-
-
-
-
-            //return lista;
         }
 
         public List<empleados> Pass()//dispone la lista de empleados para otros controladores
