@@ -11,13 +11,14 @@ namespace ProyectoIntegrador_mejorado.Models
 {
     using System;
     
-    public partial class DiasDisponiblesEmpleado_Result
+    public partial class PeriodosDeDisponibilidadPorEmpleado_Result
     {
         public string cedulaPK { get; set; }
         public string nombre { get; set; }
         public string apellido1 { get; set; }
         public string apellido2 { get; set; }
+        public Nullable<System.DateTime> Fecha1 { get; set; }
+        public Nullable<System.DateTime> Fecha2 { get; set; }
         public Nullable<int> totalDays { get; set; }
-        public DateTime[] fechas { get; set; }
     }
 }

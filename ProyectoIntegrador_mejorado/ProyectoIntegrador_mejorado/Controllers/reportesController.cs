@@ -124,6 +124,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult EmployeesDates()
         {
             TempData["empl"] = null;
+            TempData["empl2"] = null;
+            TempData["nulo"] = null;
             TempData.Keep();
             return View();
             //return RedirectToAction("SelectReport", "reportes");
@@ -222,7 +224,93 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 
                 TempData.Keep();
-                TempData["empl"] = db.DiasDisponiblesEmpleado(fechas.Fecha1, fechas.Fecha2).AsEnumerable();
+                var empl = db.DiasDisponiblesEmpleado(fechas.Fecha1, fechas.Fecha2).ToList(); //lista principal, sin fechas
+                int size = empl.Count();
+                var empl2 = db.PeriodosDeDisponibilidadEmpleado(fechas.Fecha1, fechas.Fecha2).ToList(); //lista con las fechas
+                int size2 = empl2.Count();
+
+                //variables temporales
+                //bool created = false;
+                bool done;
+                int counter = 0;
+                int counter2;
+                int counter3;
+                int cedulaAmount;
+                string cedula = "000000000";
+                bool diferent;
+                DateTime [] periodos;
+                periodos = new DateTime[size2]; //para maximo *2
+                TempData["nulo"] = periodos[0];
+
+                //primer ciclo, controla por cedula
+                while (counter < size2)
+                {
+                    if (empl2[counter].cedulaPK != cedula) //se guarda el periodo la primera vez que se ve la cedula
+                    {
+                        cedula = empl2[counter].cedulaPK;
+                        //se cuenta cuantas veces esta la misma cedula
+                        /*diferent = false;
+                        counter2 = counter + 1;
+                        cedulaAmount = 1;
+                        while (diferent == false && counter2 < size2)
+                        {
+                            if (empl2[counter2].cedulaPK == cedula)
+                            {
+                                cedulaAmount++;
+                            }
+                            else
+                            {
+                                diferent = true;
+                            }
+                            counter2++;
+                        }
+                        //periodos = new DateTime?[cedulaAmount * 2];  //arreglar
+                        */
+                        periodos[0] = empl2[counter].Fecha1.Value;
+                        periodos[1] = empl2[counter].Fecha2.Value;
+
+
+                    }
+                    else //
+                    {
+
+                    }
+
+
+
+                    if ((counter + 1) == size2 || empl2[counter + 1].cedulaPK != cedula) // es el ultimo valor para este empleado y se guarda
+                    {
+                        done = false;
+                        counter3 = 0;
+                        while (done == false && counter3 < size)
+                        {
+                            if (empl[counter3].cedulaPK == cedula)
+                            {
+                                empl[counter3].fechas = new DateTime[size2];
+                                periodos.CopyTo(empl[counter3].fechas, 0);
+                                done = true;
+                            }
+                            counter3++;
+                        }
+
+                    }
+                    counter++;
+                }
+                //se guarda el ultimo array, si existe
+
+
+                /*
+                TempData.Keep();
+                TempData["empl"] = db.DiasDisponiblesEmpleado(fechas.Fecha1, fechas.Fecha2).ToList(); //lista principal, sin fechas
+                int size = (TempData["empl"] as List<DiasDisponiblesEmpleado_Result>).Count();
+                TempData["empl2"] = db.PeriodosDeDisponibilidadEmpleado(fechas.Fecha1, fechas.Fecha2).ToList(); //lista con las fechas
+                int size2 = (TempData["empl2"] as List<PeriodosDeDisponibilidadPorEmpleado_Result1>).Count();
+                */
+
+                TempData["empl"] = empl;
+
+
+
                 TempData["fechas"] = fechas;
                 return View();
             }
