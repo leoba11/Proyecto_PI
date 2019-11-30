@@ -38,8 +38,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
                 List<StringModel> reportes = new List<StringModel>();
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
-                reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
+                reportes.Add(new StringModel { Nombre = "Tiempos totales por proyecto" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
@@ -55,7 +55,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 List<StringModel> reportes = new List<StringModel>();
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
-                reportes.Add(new StringModel { Nombre = "Disponibilidad de empleados entre fechas" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 TempData["reportes"] = reportes;
