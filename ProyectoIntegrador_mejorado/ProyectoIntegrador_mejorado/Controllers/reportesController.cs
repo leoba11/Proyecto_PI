@@ -240,7 +240,14 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 string cedula = "000000000";
                 bool diferent;
                 DateTime [] periodos;
-                periodos = new DateTime[size2*2]; //para maximo *2
+                if (size2 > 0)
+                {
+                    periodos = new DateTime[size2 * 2]; //para maximo *2
+                }
+                else
+                {
+                    periodos = new DateTime[2]; //para maximo *2
+                }
                 TempData["nulo"] = periodos[0];
 
                 //primer ciclo, controla por cedula
