@@ -240,7 +240,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 string cedula = "000000000";
                 bool diferent;
                 DateTime [] periodos;
-                periodos = new DateTime[(size2 - size)*2]; //para maximo *2
+                periodos = new DateTime[size2*2]; //para maximo *2
                 TempData["nulo"] = periodos[0];
 
                 //primer ciclo, controla por cedula
@@ -302,7 +302,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                         {
                             if (empl[counter3].cedulaPK == cedula)
                             {
-                                empl[counter3].fechas = new DateTime[(size2 - size) * 2];
+                                empl[counter3].fechas = new DateTime[size2* 2];
                                 periodos.CopyTo(empl[counter3].fechas, 0);
                                 done = true;
                             }
@@ -311,7 +311,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                         //se limpia el array periodos
                         for (int i =0; i < times; i++)
                         {
-                            periodos[i] = periodos[(size2 - size) * 2 - 1];
+                            periodos[i] = periodos[size2* 2 - 1];
                         }
                     }
                     counter++;
