@@ -126,7 +126,8 @@
                             int i = 0;
                             while (i < count && item.fechas[i+1] != (TempData["nulo"] as DateTime?))
                             {
-                                @(item.fechas[i].Day + "/" + item.fechas[i].Month + "/" + item.fechas[i].Year + " - " + item.fechas[i+1].Day + "/" + item.fechas[i+1].Month + "/" + item.fechas[i+1].Year +", ")
+                                @(item.fechas[i].Day + "/" + item.fechas[i].Month + "/" + item.fechas[i].Year + " - " + item.fechas[i+1].Day + "/" + item.fechas[i+1].Month + "/" + item.fechas[i+1].Year + " " +
+                                    "número de días: " + (item.fechas[i+1] - item.fechas[i]).Days + " ")<br />
 
                                 i += 2;
                             }
