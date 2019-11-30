@@ -235,11 +235,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 int counter = 0;
                 int counter2;
                 int counter3;
-                int cedulaAmount;
+                int times = 0;
+                int counter4;
                 string cedula = "000000000";
                 bool diferent;
                 DateTime [] periodos;
-                periodos = new DateTime[size2]; //para maximo *2
+                periodos = new DateTime[(size2 - size)*2]; //para maximo *2
                 TempData["nulo"] = periodos[0];
 
                 //primer ciclo, controla por cedula
@@ -248,32 +249,47 @@ namespace ProyectoIntegrador_mejorado.Controllers
                     if (empl2[counter].cedulaPK != cedula) //se guarda el periodo la primera vez que se ve la cedula
                     {
                         cedula = empl2[counter].cedulaPK;
-                        //se cuenta cuantas veces esta la misma cedula
-                        /*diferent = false;
-                        counter2 = counter + 1;
-                        cedulaAmount = 1;
-                        while (diferent == false && counter2 < size2)
-                        {
-                            if (empl2[counter2].cedulaPK == cedula)
-                            {
-                                cedulaAmount++;
-                            }
-                            else
-                            {
-                                diferent = true;
-                            }
-                            counter2++;
-                        }
-                        //periodos = new DateTime?[cedulaAmount * 2];  //arreglar
-                        */
                         periodos[0] = empl2[counter].Fecha1.Value;
                         periodos[1] = empl2[counter].Fecha2.Value;
-
-
+                        times = 2;
                     }
                     else //
                     {
-
+                        counter2 = 0;
+                        while (counter2 < times)    //se recorre por cada par de fechas actualmente en periodos
+                        {
+                            if (empl2[counter].Fecha1.Value > periodos[counter2] && empl2[counter].Fecha2.Value < periodos[counter2 + 1])//inicia y termina durante
+                            {
+                                counter4 = times;
+                                while (counter4 > counter2) //movemos todos los valores dos lugares a la derecha
+                                {
+                                    periodos[counter4 + 2] = periodos[counter4];
+                                    counter4--;
+                                }
+                                periodos[counter2 + 1] = empl2[counter].Fecha1.Value;
+                                periodos[counter2 + 2] = empl2[counter].Fecha2.Value;
+                                times += 2;
+                            }
+                            else if (empl2[counter].Fecha1.Value <= periodos[counter2] && empl2[counter].Fecha2.Value > periodos[counter2] && empl2[counter].Fecha2.Value < periodos[counter2 + 1]) //inicia antes, termina durante
+                            {
+                                periodos[counter2] = empl2[counter].Fecha2.Value;
+                            }
+                            else if (empl2[counter].Fecha1.Value <= periodos[counter2] &&  empl2[counter].Fecha2.Value >= periodos[counter2 + 1]) //inicia antes, termina despues
+                            {
+                                counter4 = counter2;
+                                while (counter4 < times) //movemos todos los valores dos a la izquierda
+                                {
+                                    periodos[counter4] = periodos[counter4 + 2];
+                                    counter4++;
+                                }
+                                times -= 2;
+                            }
+                            else if (empl2[counter].Fecha1.Value > periodos[counter2] && empl2[counter].Fecha1.Value < periodos[counter2+1] && empl2[counter].Fecha2.Value >= periodos[counter2 + 1]) //inicia durante, termina despues
+                            {
+                                periodos[counter2+1] = empl2[counter].Fecha1.Value;
+                            }
+                            counter2 += 2;
+                        }
                     }
 
 
@@ -286,13 +302,17 @@ namespace ProyectoIntegrador_mejorado.Controllers
                         {
                             if (empl[counter3].cedulaPK == cedula)
                             {
-                                empl[counter3].fechas = new DateTime[size2];
+                                empl[counter3].fechas = new DateTime[(size2 - size) * 2];
                                 periodos.CopyTo(empl[counter3].fechas, 0);
                                 done = true;
                             }
                             counter3++;
                         }
-
+                        //se limpia el array periodos
+                        for (int i =0; i < times; i++)
+                        {
+                            periodos[i] = periodos[(size2 - size) * 2 - 1];
+                        }
                     }
                     counter++;
                 }

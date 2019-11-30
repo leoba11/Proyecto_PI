@@ -2,14 +2,14 @@
 @model ProyectoIntegrador_mejorado.Models.FechasModel
 
 @{
-    ViewBag.Title = "Empleados disponibles en un rango de fechas";
+    ViewBag.Title = "Periodos de desocupación de los empleados en un rango de fechas";
 }
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
-<h2>Disponibilidad de empleados en un rango de fechas</h2>
+<h2>Periodos de desocupación de los empleados en un rango de fechas</h2>
 <br />
 
 
@@ -124,12 +124,11 @@
                         @{
                             int count = item.fechas.Count();
                             int i = 0;
-                            while (i < count && item.fechas[i] != (TempData["nulo"] as DateTime?))
+                            while (i < count && item.fechas[i+1] != (TempData["nulo"] as DateTime?))
                             {
-                                @(item.fechas[i].Day + "/" + item.fechas[i].Month + "/" + item.fechas[i].Year + " - " + item.fechas[i+1].Day + "/" + item.fechas[i+1].Month + "/" + item.fechas[i+1].Year)
+                                @(item.fechas[i].Day + "/" + item.fechas[i].Month + "/" + item.fechas[i].Year + " - " + item.fechas[i+1].Day + "/" + item.fechas[i+1].Month + "/" + item.fechas[i+1].Year +", ")
 
-                                i++;
-                                i++;
+                                i += 2;
                             }
                         }
                     </td>
