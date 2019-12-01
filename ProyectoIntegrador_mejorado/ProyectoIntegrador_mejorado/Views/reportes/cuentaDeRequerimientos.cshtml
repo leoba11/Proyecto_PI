@@ -1,0 +1,60 @@
+﻿@model ProyectoIntegrador_mejorado.Models.FechasModel
+
+@{
+    ViewBag.Title = "Cuenta de requerimientos Finalizados y En curso";
+}
+
+<h2>
+    Cuenta de requerimientos Finalizados y En curso
+</h2>
+
+@using (Html.BeginForm("cuentaDeRequerimientos", "reportes", FormMethod.Post))
+{
+    /* dropdown-list para seleccionar proyecto */
+    <div class="modal-body row">
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Proyecto
+            </p>
+            @Html.DropDownListFor(model => model.codigoProy, (IEnumerable<SelectListItem>)TempData["projects"], "Todos los proyectos", new { @class = "form-control" })
+        </div>
+    </div>
+    <input type="submit" value="Generar reporte" />
+}
+
+<br />
+<br />
+
+@* Listado de requerimientos correspondientes al SP *@
+@{
+    if (TempData["requirementsData"] != null)
+    {
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Nombre del Proyecto
+                </th>
+                <th>
+                    Requerimientos Finalizados
+                </th>
+                <th>
+                    Requerimientos En curso
+                </th>
+                <th>
+                    Fecha Final Estimada
+                </th>
+            </tr>
+
+            @foreach (var item in (TempData["requirementsData"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientosFinalizadosEncurso_Result>))
+            {
+                <tr>
+                    <td>@item.Nombre_Proyecto</td>
+                    <td>@item.terminados</td>
+                    <td>@item.en_curso</td>
+                    <td>@item.Fecha_final</td>
+                </tr>
+            }
+        </table>
+    }
+}
+

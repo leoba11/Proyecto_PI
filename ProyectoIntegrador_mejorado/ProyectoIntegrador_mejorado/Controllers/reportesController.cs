@@ -57,6 +57,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 reportes.Add(new StringModel { Nombre = "Estado y responsable de requerimientos de proyecto" });
+                reportes.Add(new StringModel { Nombre = "Cuenta de Requerimientos Finalizados y En Curso" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -72,7 +73,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Análisis de duraciones en requerimientos" });
                 reportes.Add(new StringModel { Nombre = "Diferencia entre fecha estimada y real" });
-                reportes.Add(new StringModel { Nombre = "Estado y responsable de requerimientos de proyecto" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -116,6 +116,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("diferenciaEstimadaReal", "reportes");
             else if (reporte.Nombre == "Estado y responsable de requerimientos de proyecto")
                 return RedirectToAction("ProjectRequirementsState", "reportes");
+            else if (reporte.Nombre == "Cuenta de Requerimientos Finalizados y En Curso")
+                return RedirectToAction("cuentaDeRequerimientos", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
@@ -629,6 +631,11 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return View();
         }
 
+        /*
+        * Efecto: Request GET de ProjectRequirementsState
+        * Requiere: NA
+        * Modifica: NA
+        */
         public ActionResult ProjectRequirementsState()
         {
             var user = User.Identity.GetUserName();
@@ -636,13 +643,18 @@ namespace ProyectoIntegrador_mejorado.Controllers
             if ( client.Count() > 0 )
             {
                 TempData["clientId"] = client[0].cedulaPK;
-                List<proyectos> proyectos = new proyectosController().Pass();
+                List<proyectos> proyectos = new proyectosController().ProyectsByClient(client[0].cedulaPK);
                 TempData["projects"] = new SelectList(proyectos, "codigoPK", "nombre");
                 TempData.Keep();
             }
             return View();
         }
 
+        /*
+        * Efecto: Request POST de ProjectRequirementsState
+        * Requiere: ID proyecto
+        * Modifica: NA
+        */
         [HttpPost]
         public ActionResult ProjectRequirementsState(FechasModel proyecto)
         {
@@ -653,6 +665,43 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 TempData["requirementsInfo"] = db.requerimientosDeUnProyecto(cedula, null).ToList();
             else
                 TempData["requirementsInfo"] = db.requerimientosDeUnProyecto(cedula, proyecto.codigoProy).ToList();
+            return View();
+        }
+
+        /*
+         * Efecto: Request GET de cuentaDeRequerimientos
+         * Requiere: NA
+         * Modifica: NA
+         */
+        public ActionResult cuentaDeRequerimientos()
+        {
+            var user = User.Identity.GetUserName();
+            var client = new clientesController().ExistEmail(user);
+            if (client.Count() > 0)
+            {
+                TempData["clientId"] = client[0].cedulaPK;
+                List<proyectos> proyectos = new proyectosController().ProyectsByClient(client[0].cedulaPK);
+                TempData["projects"] = new SelectList(proyectos, "codigoPK", "nombre");
+                TempData.Keep();
+            }
+            return View();
+        }
+
+        /*
+       * Efecto: Request POST de ProjectRequirementsState
+       * Requiere: ID proyecto
+       * Modifica: NA
+       */
+        [HttpPost]
+        public ActionResult cuentaDeRequerimientos(FechasModel proyecto)
+        {
+            TempData.Keep();
+            string cedCliente = TempData["clientId"] as string;
+            int? cedula = Convert.ToInt32(cedCliente);
+            if (proyecto.codigoProy == 0)
+                TempData["requirementsData"] = db.requerimientosFinalizadosEncurso(cedula, null).ToList();
+            else
+                TempData["requirementsData"] = db.requerimientosFinalizadosEncurso(cedula, proyecto.codigoProy).ToList();
             return View();
         }
 
