@@ -465,6 +465,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult TotalTimes()
         {
             TempData["usuarioEsJefe"] = null;
+            TempData["proyectos"] = null;
             var user = User.Identity.GetUserName();
             var emple = new empleadosController().ExistEmail(user);
             /*si el usuario es empleado, mostrar de una vez su vista*/
