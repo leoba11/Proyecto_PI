@@ -102,6 +102,13 @@
 }
 else if (TempData["rol"] as string == "lider")
 {
+    if (TempData["proyecto"] as ProyectoIntegrador_mejorado.Models.proyectos != null)
+    {
+        <h3>Proyecto actual: @((TempData["proyecto"] as ProyectoIntegrador_mejorado.Models.proyectos).nombre)</h3>
+        <br />
+
+    }
+
 
     @*si ya se tiene la lista de requerimientos se despliega en pantalla*@
     if (TempData["requerimientos"] != null)
@@ -152,6 +159,12 @@ else if (TempData["rol"] as string == "lider")
 }
 else if (TempData["rol"] as string == "desarrollador")
 {
+    if (TempData["proyecto"] as string != null)
+    {
+        <h3>Proyecto actual: @(TempData["proyecto"] as string)</h3>
+        <br />
+
+    }
 
     @*si ya se tiene la lista de requerimientos se despliega en pantalla*@
     if (TempData["requerimientos"] != null)

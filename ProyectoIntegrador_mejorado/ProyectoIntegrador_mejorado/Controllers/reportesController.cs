@@ -366,6 +366,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
             TempData["requerimientos"] = null;
             TempData["empSelect"] = null;
+            TempData["proyecto"] = null;
 
             var user = User.Identity.GetUserName();
             var emple = new empleadosController().ExistEmail(user);
@@ -377,6 +378,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                     /*si el usuario es empleado y lider, mostrar de una vez su vista*/
                     TempData["rol"] = "lider";
                     var actualProyect = new rolesController().ProyectoLiderNow(emple[0].cedulaPK);
+                    TempData["proyecto"] = actualProyect;
                     TempData["requerimientos"] = new requerimientosController().GetRequirementsByProyect(actualProyect.codigoPK);
                     foreach (var item in TempData["requerimientos"] as List<ProyectoIntegrador_mejorado.Models.requerimientos>)
                     {
@@ -388,7 +390,13 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 {
                     /*si el usuario es empleado y no lider, mostrar de una vez su vista*/
                     TempData["rol"] = "desarrollador";
-                    TempData["requerimientos"] = new requerimientosController().GetRequirementsByEmployee(emple[0].cedulaPK);
+                    var requirementList = new requerimientosController().GetRequirementsByEmployee(emple[0].cedulaPK);
+                    if (requirementList != null)
+                    {
+                        var actualProyect = new proyectosController().getProjectName(requirementList[0].codigoProyectoFK);
+                        TempData["proyecto"] = actualProyect;
+                    }
+                    TempData["requerimientos"] = requirementList;
                 }
                 TempData.Keep();
                 return View();
