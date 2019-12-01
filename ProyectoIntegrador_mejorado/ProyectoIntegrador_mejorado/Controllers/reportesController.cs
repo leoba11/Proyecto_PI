@@ -57,6 +57,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
+                reportes.Add(new StringModel { Nombre = "Estado y responsable de requerimientos de proyecto" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -72,6 +73,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 reportes.Add(new StringModel { Nombre = "Historial de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Análisis de duraciones en requerimientos" });
                 reportes.Add(new StringModel { Nombre = "Diferencia entre fecha estimada y real" });
+                reportes.Add(new StringModel { Nombre = "Estado y responsable de requerimientos de proyecto" });
                 TempData["reportes"] = reportes;
                 TempData.Keep();
             }
@@ -113,6 +115,8 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 return RedirectToAction("RequirementDurationAnalisis", "reportes");
             else if (reporte.Nombre == "Diferencia entre fecha estimada y real")
                 return RedirectToAction("diferenciaEstimadaReal", "reportes");
+            else if (reporte.Nombre == "Estado y responsable de requerimientos de proyecto")
+                return RedirectToAction("ProjectRequirementsState", "reportes");
             else
                 return RedirectToAction("SelectReport", "reportes");
         }
@@ -636,6 +640,33 @@ namespace ProyectoIntegrador_mejorado.Controllers
             TempData.Keep();
             List<RequirementDurationsModel> requirementDurationsInfo = new requerimientosController().GetRequirementDurationsInfo(complejidad.complexity);
             TempData["requirementsDurationInfo"] = requirementDurationsInfo;
+            return View();
+        }
+
+        public ActionResult ProjectRequirementsState()
+        {
+            var user = User.Identity.GetUserName();
+            var client = new clientesController().ExistEmail(user);
+            if ( client.Count() > 0 )
+            {
+                TempData["clientId"] = client[0].cedulaPK;
+                List<proyectos> proyectos = new proyectosController().Pass();
+                TempData["projects"] = new SelectList(proyectos, "codigoPK", "nombre");
+                TempData.Keep();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ProjectRequirementsState(FechasModel proyecto)
+        {
+            TempData.Keep();
+            string cedCliente = TempData["clientId"] as string;
+            int? cedula = Convert.ToInt32(cedCliente);
+            if ( proyecto.codigoProy == 0 )
+                TempData["requirementsInfo"] = db.requerimientosDeUnProyecto(cedula, null).ToList();
+            else
+                TempData["requirementsInfo"] = db.requerimientosDeUnProyecto(cedula, proyecto.codigoProy).ToList();
             return View();
         }
 

@@ -1,0 +1,67 @@
+﻿@model ProyectoIntegrador_mejorado.Models.FechasModel
+
+@{
+    ViewBag.Title = "Estado de requerimientos y responsable";
+}
+
+<h2>
+    Estado y responsables de requerimientos de un proyecto
+</h2>
+
+@using (Html.BeginForm("ProjectRequirementsState", "reportes", FormMethod.Post))
+{
+    /* dropdown-list para seleccionar proyecto */
+    <div class="modal-body row">
+        <div class=".col-6 .col-sm-4">
+            <p>
+                Proyecto
+            </p>
+            @Html.DropDownListFor(model => model.codigoProy, (IEnumerable<SelectListItem>)TempData["projects"], "Todos los proyectos", new { @class = "form-control" })
+        </div>
+    </div>
+    <input type="submit" value="Generar reporte" />
+}
+
+<br />
+<br />
+
+@* si el bucket de info de requermientos no es vacío se despliega table con los valores devueltos por el procedimiento almacenado *@
+@{
+    if (TempData["reporteConocimientos"] != null)
+    {
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Proyecto
+                </th>
+                <th>
+                    Requerimiento
+                </th>
+                <th>
+                    Descripción de requerimiento
+                </th>
+                <th>
+                    Estado de requerimiento
+                </th>
+                <th>
+                    Responsable de requerimiento
+                </th>
+            </tr>
+
+            @foreach (var item in (TempData["requirementsInfo"] as IEnumerable<ProyectoIntegrador_mejorado.Models.requerimientosDeUnProyecto_Result>))
+            {
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.nombre1</td>
+                    <td>@item.nombre2</td>
+                    <td>@item.descripcion</td>
+                    <td>@item.estado</td>
+                    <td>@item.nombre3</td>
+                </tr>
+            }
+        </table>
+    }
+}

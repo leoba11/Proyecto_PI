@@ -495,6 +495,7 @@
     <Content Include="Views\reportes\KnowledgesReport.cshtml" />
     <Content Include="Views\reportes\diferenciaEstimadaReal.cshtml" />
     <Content Include="Views\reportes\EmployeeRequirements2.cshtml" />
+    <Content Include="Views\reportes\ProjectRequirementsState.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
