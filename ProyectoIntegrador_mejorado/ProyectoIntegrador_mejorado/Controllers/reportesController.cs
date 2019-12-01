@@ -55,7 +55,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 List<StringModel> reportes = new List<StringModel>();
                 reportes.Add(new StringModel { Nombre = "Requerimientos de desarrollador" });
-                reportes.Add(new StringModel { Nombre = "Estado requerimientos de desarrollador" });
                 reportes.Add(new StringModel { Nombre = "Disponibilidad de desarrolladores" });
                 reportes.Add(new StringModel { Nombre = "Estado y responsable de requerimientos de proyecto" });
                 TempData["reportes"] = reportes;
@@ -409,7 +408,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
         /*
          * Efecto: Request POST de EmployeeRequirements
-         * Requiere: fecha inicial y final
+         * Requiere: empleado seleccionado (cedula)
          * Modifica: NA
          */
         [HttpPost]
@@ -433,7 +432,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
         /*
          * Efecto: Request POST de EmployeeRequirements
-         * Requiere: fecha inicial y final
+         * Requiere: proyecto seleccionado (codigo)
          * Modifica: NA
          */
         [HttpPost]
