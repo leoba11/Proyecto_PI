@@ -237,7 +237,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
                 int times = 0;
                 int counter4;
                 string cedula = "000000000";
-                bool diferent;
                 DateTime [] periodos;
                 if (size2 > 0)
                 {
@@ -297,9 +296,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
                             counter2 += 2;
                         }
                     }
-
-
-
                     if ((counter + 1) == size2 || empl2[counter + 1].cedulaPK != cedula) // es el ultimo valor para este empleado y se guarda
                     {
                         done = false;
@@ -322,21 +318,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
                     }
                     counter++;
                 }
-                //se guarda el ultimo array, si existe
-
-
-                /*
-                TempData.Keep();
-                TempData["empl"] = db.DiasDisponiblesEmpleado(fechas.Fecha1, fechas.Fecha2).ToList(); //lista principal, sin fechas
-                int size = (TempData["empl"] as List<DiasDisponiblesEmpleado_Result>).Count();
-                TempData["empl2"] = db.PeriodosDeDisponibilidadEmpleado(fechas.Fecha1, fechas.Fecha2).ToList(); //lista con las fechas
-                int size2 = (TempData["empl2"] as List<PeriodosDeDisponibilidadPorEmpleado_Result1>).Count();
-                */
-
                 TempData["empl"] = empl;
-
-
-
                 TempData["fechas"] = fechas;
                 return View();
             }
@@ -490,21 +472,25 @@ namespace ProyectoIntegrador_mejorado.Controllers
             {
                 //obteniendo la cedula del empleado
                 var cedula = emple[0].cedulaPK;
-                TempData["proyectos"] = new requerimientosController().GetTotalTimes(cedula);
-                foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
+                bool liderNow = new rolesController().idLiderNow(cedula);
+                if (liderNow == true)
                 {
-                    var proyecto = new proyectosController().ProjectByCode(item.codigoProy);
-                    if (proyecto.fechaFinal != null)
+                    TempData["proyectos"] = new requerimientosController().GetTotalTimes(cedula);
+                    foreach (var item in (TempData["proyectos"] as IEnumerable<ProyectoIntegrador_mejorado.Models.ProyectTimesModel>))
                     {
-                        item.terminado = true;
+                        var proyecto = new proyectosController().ProjectByCode(item.codigoProy);
+                        if (proyecto.fechaFinal != null)
+                        {
+                            item.terminado = true;
+                        }
+                        else
+                        {
+                            item.terminado = false;
+                        }
+                        item.nombreProyecto = proyecto.nombre;
                     }
-                    else
-                    {
-                        item.terminado = false;
-                    }
-                    item.nombreProyecto = proyecto.nombre;
+                    TempData.Keep();
                 }
-                TempData.Keep();
             }
             else   // es de soporte o el jefe de desarrollo
             {
