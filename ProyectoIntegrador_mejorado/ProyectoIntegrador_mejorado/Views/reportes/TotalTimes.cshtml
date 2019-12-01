@@ -48,7 +48,7 @@
                     @if (TempData["usuarioEsJefe"] != null)
                     {
                         <th>
-                            Lider
+                            Líder
                         </th>
                     }
                 </tr>
@@ -86,6 +86,10 @@
         </table>
 
 
+    }
+    else if(TempData["usuarioEsJefe"] == null)
+    {
+        <h3>Actualmente usted no es líder de ningún proyecto</h3>
     }
 }
 
