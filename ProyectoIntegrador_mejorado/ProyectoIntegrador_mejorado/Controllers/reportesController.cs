@@ -177,12 +177,12 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult diferenciaEstimadaReal()
         {
             List<empleados> empleados = new empleadosController().Pass();
-            List<proyectos> proyectos = new proyectosController().Pass();
+            ViewBag.EmpleadosList = new SelectList(empleados, "cedulaPK", "nombre");
             TempData["empleados"] = new SelectList(empleados, "cedulaPK", "nombre");
-            TempData["pro"] = new SelectList(proyectos, "codigoPK", "nombre");
             TempData.Keep();
             return View();
         }
+
 
         /*
          * Efecto: Request POST de diferenciaEstimadaReal
@@ -199,7 +199,16 @@ namespace ProyectoIntegrador_mejorado.Controllers
 
 
 
+        //Este método es utilizado en el dropdown en cascada de selección de proyecto y módulo
+        public ActionResult GetProyList(string ced)
+        {
+            List<proyectos> proy = new proyectosController().ProyectsByEmployee(ced);//se comunica con el controlador de módulos para que pase el listado de módulos de acuerdo al proyecto
+            ViewBag.Projects = new SelectList(proy, "codigoPK", "nombre"); //ese listado se guarda en esta "vista"
 
+            //TempData.Keep(); //se le solicita mantener los datos nuevamente
+            //return View();
+            return PartialView("ProjectsPartial");
+        }
 
 
 

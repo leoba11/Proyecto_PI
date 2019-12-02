@@ -299,6 +299,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             return proyectos;
         }
 
+
         /*
          * Efecto: devuelve nombre de proyecto
          * Requiere: código del proyecto
