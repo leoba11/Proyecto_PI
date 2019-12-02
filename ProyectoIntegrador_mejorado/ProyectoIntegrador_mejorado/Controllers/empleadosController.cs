@@ -95,12 +95,6 @@ namespace ProyectoIntegrador_mejorado.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Validacion de la cedula para no repetirla
-                if (db.empleados.Any(x => x.cedulaPK == empleados.cedulaPK))
-                {
-                    ModelState.AddModelError("cedulaPK", "No se pueden agregar empleados con la misma cedula");
-                    return View(empleados);
-                }
                 db.Entry(empleados).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

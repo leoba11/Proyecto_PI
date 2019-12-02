@@ -176,10 +176,10 @@ namespace ProyectoIntegrador_mejorado.Controllers
         */
         public ActionResult diferenciaEstimadaReal()
         {
-            List<empleados> empleados = new empleadosController().Pass();
+            List<empleados> empleados = new empleadosController().Pass();    //Lista de empleados para dropdown
             ViewBag.EmpleadosList = new SelectList(empleados, "cedulaPK", "nombre");
             TempData["empleados"] = new SelectList(empleados, "cedulaPK", "nombre");
-            TempData.Keep();
+            TempData.Keep();            // Para mantener los datos
             return View();
         }
 
