@@ -33,10 +33,10 @@
 
         <div class=".col-6 .col-sm-4">
             <p>
-                Seleccionar Empleado
+                Seleccionar Proyecto
             </p>
             @*Dropdown de selección de modulo vinculado con el proyecto previamente seleccionado*@
-            @Html.DropDownListFor(model => model.codigoProy, new SelectList(""), "----------", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.codigoProy, new SelectList(""), "Todos los proyectos", new { @class = "form-control" })
         </div>
 
         <br />
