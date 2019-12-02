@@ -193,7 +193,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
         public ActionResult diferenciaEstimadaReal(DiferenciaEstimadaFinal modelo)
         {
             TempData.Keep(); // Para mantener los datos
-            TempData["proyectosD"] = db.ComparacionFechasInicioEst(modelo.cedulaEmp, modelo.codigoProy);
+            TempData["proyectosD"] = db.ComparacionFechasInicioEst(modelo.cedulaEmp, modelo.codigoProy).ToList();
             return View(); // Regresar a la vista
         }
 

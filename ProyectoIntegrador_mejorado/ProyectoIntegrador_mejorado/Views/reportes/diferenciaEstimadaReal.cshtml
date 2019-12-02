@@ -25,7 +25,7 @@
             </p>
 
             @*Dropdown de selección de proyecto*@
-            @Html.DropDownListFor(model => model.cedulaEmp, ViewBag.EmpleadosList as SelectList, "----------", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.cedulaEmp, (IEnumerable<SelectListItem>)TempData["empleados"], "----------", new { @class = "form-control" })
 
         </div>
 
