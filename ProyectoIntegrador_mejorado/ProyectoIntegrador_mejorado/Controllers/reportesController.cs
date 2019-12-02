@@ -205,7 +205,7 @@ namespace ProyectoIntegrador_mejorado.Controllers
             List<proyectos> proy = new proyectosController().ProyectsByEmployee(ced);//se comunica con el controlador de módulos para que pase el listado de módulos de acuerdo al proyecto
             ViewBag.Projects = new SelectList(proy, "codigoPK", "nombre"); //ese listado se guarda en esta "vista"
 
-            //TempData.Keep(); //se le solicita mantener los datos nuevamente
+            TempData.Keep(); //se le solicita mantener los datos nuevamente
             //return View();
             return PartialView("ProjectsPartial");
         }
